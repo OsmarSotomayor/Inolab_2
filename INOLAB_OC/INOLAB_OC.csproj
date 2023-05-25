@@ -142,6 +142,7 @@
     <Content Include="Sesion.aspx" />
     <Content Include="SubiendoArchivos.aspx" />
     <Content Include="SubirArchivos.aspx" />
+    <Content Include="test.aspx" />
     <Content Include="upload.html" />
     <Content Include="uploadify-master\change-log.txt" />
     <Content Include="uploadify-master\check-exists.php" />
@@ -405,6 +406,13 @@
     <Compile Include="SubirArchivos.aspx.designer.cs">
       <DependentUpon>SubirArchivos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Upload1.ashx.cs">
       <DependentUpon>Upload1.ashx</DependentUpon>
     </Compile>
@@ -449,8 +457,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Adjuntos\" />
+    <Folder Include="Controlador\" />
     <Folder Include="Folio\" />
+    <Folder Include="Modelo\" />
     <Folder Include="uploads\" />
+    <Folder Include="Vista\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
