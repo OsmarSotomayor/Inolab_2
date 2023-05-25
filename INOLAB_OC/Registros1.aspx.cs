@@ -23,7 +23,8 @@ namespace INOLAB_OC
             //    lblrol.Text = Request.Params["idr"];
             //}
             //testgit
-            //
+            //cambio
+
             if (Session["valor"] == null)
             {
                 Response.Redirect("./Sesion.aspx");
