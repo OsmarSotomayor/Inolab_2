@@ -6,7 +6,7 @@ namespace INOLAB_OC
 {
     public partial class anexos : System.Web.UI.Page
     {
-        //test
+        //tester
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
