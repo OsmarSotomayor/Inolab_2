@@ -1,0 +1,121 @@
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\INOLAB_OC.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\INOLAB_OC.pdb
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.pdb
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\INOLAB_OC.dll.config
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\Microsoft.ReportViewer.WebForms.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\Microsoft.SqlServer.Types.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\de\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\es\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\fr\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\it\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\ja\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\ko\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\pt\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\ru\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\zh-CHS\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\zh-CHT\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\es\Microsoft.SqlServer.Types.resources.dll
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.csprojAssemblyReference.cache
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CoreCompileInputs.cache
+D:\Documentos de Trabajo\Administración de Sistemas\Desarrollo\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CopyComplete
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CoreCompileInputs.cache
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\INOLAB_OC.dll.config
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\INOLAB_OC.dll
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\INOLAB_OC.pdb
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CopyComplete
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.dll
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.pdb
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\bin\Microsoft.SqlServer.Types.dll
+C:\Users\Carlos Juarez\Desktop\Web OC INOLAB\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.csprojAssemblyReference.cache
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll.config
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.pdb
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.SqlServer.Types.dll
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csprojAssemblyReference.cache
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CoreCompileInputs.cache
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CopyComplete
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.dll
+C:\Users\Carlos Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.pdb
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll.config
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.pdb
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.SqlServer.Types.dll
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csprojAssemblyReference.cache
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CoreCompileInputs.cache
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CopyComplete
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.dll
+C:\Users\Francisco Juarez\Documents\Paquita Cabeza\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.pdb
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll.config
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.pdb
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.SqlServer.Types.dll
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\es\Microsoft.SqlServer.Types.resources.dll
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csprojAssemblyReference.cache
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\RdlCompile.cache
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\RdlCompile.compiled
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CoreCompileInputs.cache
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CopyComplete
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.dll
+C:\Users\Carlos\Desktop\Francisco Juarez\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.pdb
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll.config
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.pdb
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.SqlServer.Types.dll
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\es\Microsoft.SqlServer.Types.resources.dll
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csprojAssemblyReference.cache
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\RdlCompile.cache
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\RdlCompile.compiled
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CoreCompileInputs.cache
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CopyComplete
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.dll
+C:\Users\Carlos\Desktop\Proyecto WEB INOLAB 2022\Web OC INOLAB\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.pdb
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll.config
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.dll
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\INOLAB_OC.pdb
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.Common.dll
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\bin\Microsoft.ReportViewer.WebForms.DLL
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CoreCompileInputs.cache
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CopyComplete
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.dll
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.pdb
+\\Inolabserver02\Proyectos\Web OC INOLAB\INOLAB_OC_VER3\INOLAB_OC\obj\Debug\INOLAB_OC.csprojAssemblyReference.cache
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\INOLAB_OC.dll.config
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\INOLAB_OC.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\INOLAB_OC.pdb
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\DocumentFormat.OpenXml.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\ExcelDataReader.DataSet.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\ExcelDataReader.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\ICSharpCode.SharpZipLib.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\SpreadsheetLight.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\Microsoft.SqlServer.Types.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\ExcelDataReader.pdb
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\ExcelDataReader.xml
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\ExcelDataReader.DataSet.pdb
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\ExcelDataReader.DataSet.xml
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\SpreadsheetLight.xml
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\bin\es\Microsoft.SqlServer.Types.resources.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.AssemblyReference.cache
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CoreCompileInputs.cache
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CopyComplete
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\obj\Debug\INOLAB_OC.dll
+C:\Users\Omar Sotomayor\Desktop\Proyecto\INOLAB_OC\obj\Debug\INOLAB_OC.pdb
