@@ -28,7 +28,7 @@ namespace INOLAB_OC
             }
             else
             {
-                //En caso de que sean los jefes de area de los ingenieros tendran acceso al boton de seguimiento por el area a la que representan
+                //En caso de que sean los jefes de area de los ingenieros tendran acceso al boton de seguimiento por el area a la que representan _
                 lbluser.Text = Session["nameUsuario"].ToString();
 
                 if (Session["idUsuario"].ToString() == "54") //Gustavo
