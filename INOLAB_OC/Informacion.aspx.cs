@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace INOLAB_OC
 {
-    //test
+    //test informacion
     public partial class Informacion : System.Web.UI.Page
     {
         string area;
