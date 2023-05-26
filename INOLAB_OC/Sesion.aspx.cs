@@ -1,14 +1,17 @@
-﻿    using System;
+﻿using System;
 using System.Data.SqlClient;
 using System.Data;
-
+using INOLAB_OC.Modelo;
 
 namespace INOLAB_OC
 {
     public partial class Sesion : System.Web.UI.Page
     {
         //Conexion a la base de datos (para hacer prebas acceder a BrowserPruebas)
-        SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
+        SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=BrowserPruebas;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
+       
+       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             string IP = Request.ServerVariables["REMOTE_ADDR"];

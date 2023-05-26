@@ -6,6 +6,10 @@ using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 using System.Diagnostics;
+using System.IO.Packaging;
+using System.Data;
+using System.Drawing;
+using System.Web.Services.Description;
 
 namespace INOLAB_OC.Modelo
 {
@@ -20,6 +24,7 @@ namespace INOLAB_OC.Modelo
         private bool databaseProduction = false;
         private static bool databaseTest = true;
 
+       
         public static void initDatabase()
         {
             if (databaseTest)
@@ -35,13 +40,15 @@ namespace INOLAB_OC.Modelo
                 user = "ventas";
                 password = "V3ntas_17";
             }
-            string conexionString = @"Data Source=" + source + ";Initial Catalog=" + catalog + ";Persist Security Info=True;User ID=" + user + ";Password=" + password;
+            string conexionString = @"Data Source=" + source + ";Initial Catalog=" + catalog + ";Persist Security Info=True;User ID=" + user + ";Password= " + password + "";
             conexion = new SqlConnection(conexionString);
         }
 
         public static bool executeQuery(string query)
         {
-            try{
+            initDatabase();
+            try
+            {
                 SqlCommand comand = new SqlCommand(query, conexion);
                 conexion.Open();
                 comand.ExecuteNonQuery();
@@ -59,6 +66,7 @@ namespace INOLAB_OC.Modelo
 
         public static int getScalar(string query)
         {
+            initDatabase();
             try
             {
                 SqlCommand comand = new SqlCommand(query,conexion);
@@ -76,7 +84,98 @@ namespace INOLAB_OC.Modelo
             }
            
         }
-        
+
+        public static string getText(string query)
+        {
+            initDatabase();
+            try
+            {
+                DataSet table = new DataSet();
+                conexion.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conexion);
+                adapter.Fill(table);
+                conexion.Close();
+                Trace.WriteLine("PASS SUCES");
+                return table.Tables[0].Rows[0][0].ToString();
+
+            }catch (SqlException ex)
+            {
+                Trace.WriteLine("PASS FAILED");
+                conexion.Close();
+                return null;
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("PASS: FAILED ( " + ex.Message + " )");
+                return "FUERA_DE_RANGO";
+            }
+
+        }
+
+        public static bool isThereSomeInformation(string query)
+        {
+            initDatabase();
+            try
+            {
+                DataSet table = new DataSet();
+                conexion.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conexion);
+                adapter.Fill(table);
+                conexion.Close();
+                Trace.WriteLine("PAAS SUCCES");
+                return table.Tables[0].Rows.Count > 0 ? true : false;
+            }catch (SqlException ex)
+            {
+                Trace.WriteLine("PAS FAILED",ex.Message);
+                conexion.Close();
+                return false;
+            }
+        }
+
+        public static DataTable getDataTable(string query)
+        {
+            initDatabase();
+            try
+            {
+                DataSet table = new DataSet();
+                conexion.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(query,conexion);
+                adapter.Fill(table);
+                conexion.Close();
+                Trace.WriteLine("PASS SUCCES");
+                return table.Tables[0];
+
+            }catch (SqlException ex)
+            {
+                Trace.WriteLine("PASS FAILED", ex.Message);
+                conexion.Close();
+                return null;
+            }
+        }
+
+        public static DataRow getDataRow(string query)
+        {
+            initDatabase();
+            try
+            {
+      
+                DataSet tabla = new DataSet();
+                conexion.Open();
+                SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion); //SqlDataAdapter, actúa como un puente entre un DataSet y SQL Server para recuperar y guardar datos.
+                adaptador.Fill(tabla);
+                conexion.Close();
+                Trace.WriteLine("PASS: SUCESS");
+                return tabla.Tables[0].Rows[0];
+            }
+            catch (SqlException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("PASS: FAILED ( " + ex.Message + " )");
+                return null;
+            }
+        }
+
 
     }
 }
