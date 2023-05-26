@@ -18,7 +18,7 @@ namespace INOLAB_OC
 {
     public partial class CRM_3 : System.Web.UI.Page
     {
-        
+        //comentario test
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["idUsuario"] == null)
