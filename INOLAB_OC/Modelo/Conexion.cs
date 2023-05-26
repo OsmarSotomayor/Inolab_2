@@ -10,6 +10,7 @@ using System.IO.Packaging;
 using System.Data;
 using System.Drawing;
 using System.Web.Services.Description;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace INOLAB_OC.Modelo
 {
@@ -174,6 +175,22 @@ namespace INOLAB_OC.Modelo
                 Trace.WriteLine("PASS: FAILED ( " + ex.Message + " )");
                 return null;
             }
+        }
+
+        public static void executeStoreProcedureLogWeb(string usuario, string ip)
+        {
+            initDatabase();
+            SqlCommand comando = new SqlCommand("LogWeb", conexion);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@usuario", SqlDbType.VarChar);
+            comando.Parameters.Add("@ip", SqlDbType.VarChar);
+
+            comando.Parameters["@usuario"].Value = usuario;
+            comando.Parameters["@ip"].Value = ip;
+
+            conexion.Open();
+            comando.ExecuteNonQuery();
+            conexion.Close();
         }
 
 

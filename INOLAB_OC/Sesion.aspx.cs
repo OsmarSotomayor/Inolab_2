@@ -19,16 +19,7 @@ namespace INOLAB_OC
       
         public void Log()
         {
-            SqlCommand cmd1 = new SqlCommand("LogWeb", con);
-            cmd1.CommandType = CommandType.StoredProcedure;
-            cmd1.Parameters.Add("@usuario", SqlDbType.VarChar);
-            cmd1.Parameters.Add("@ip", SqlDbType.VarChar);
-
-            cmd1.Parameters["@usuario"].Value = txtUsuario.Text;
-            cmd1.Parameters["@ip"].Value = lblip.Text;
-
-            con.Open();
-            cmd1.ExecuteNonQuery();
+            Conexion.executeStoreProcedureLogWeb(txtUsuario.Text, lblip.Text);
         }
         public void Ingresar()
         {
@@ -39,8 +30,8 @@ namespace INOLAB_OC
                 Session["fecha2"] = "";
 
                 Log();
-                DataRow dataUser;
-                dataUser = Conexion.getDataRow("select  Usuario, Password_,Nombre, Apellidos,idarea,idrol,IdUsuario from Usuarios where usuario='" + txtUsuario.Text + "' and password_='" + txtPass.Text + "'");
+                
+                DataRow dataUser = Conexion.getDataRow("select  Usuario, Password_,Nombre, Apellidos,idarea,idrol,IdUsuario from Usuarios where usuario='" + txtUsuario.Text + "' and password_='" + txtPass.Text + "'");
                 
                 if ((txtUsuario.Text == dataUser["Usuario"].ToString()) || (txtPass.Text == dataUser["Password_"].ToString()))
                 {
