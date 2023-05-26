@@ -342,6 +342,7 @@
     <Compile Include="Informacion.aspx.designer.cs">
       <DependentUpon>Informacion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modelo\Conexion.cs" />
     <Compile Include="Principal.aspx.cs">
       <DependentUpon>Principal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -459,7 +460,6 @@
     <Folder Include="Adjuntos\" />
     <Folder Include="Controlador\" />
     <Folder Include="Folio\" />
-    <Folder Include="Modelo\" />
     <Folder Include="uploads\" />
     <Folder Include="Vista\" />
   </ItemGroup>
