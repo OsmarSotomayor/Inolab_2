@@ -7,9 +7,7 @@ namespace INOLAB_OC
 {
     public partial class Sesion : System.Web.UI.Page
     {
-        //Conexion a la base de datos (para hacer prebas acceder a BrowserPruebas)
-        SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=BrowserPruebas;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             string IP = Request.ServerVariables["REMOTE_ADDR"];
@@ -84,9 +82,8 @@ namespace INOLAB_OC
             }
         }
 
-        protected void btnSesion_Click(object sender, EventArgs e)
+        protected void Btn_Init_Sesion_Click(object sender, EventArgs e)
         {
-            //Al presionar el boton de ingresar
             Ingresar();
         }
 
