@@ -40,7 +40,6 @@ namespace INOLAB_OC
                 Session["valor"] = valor;
                 Session["idar"] = idar;
                 Session["idr"] = idr;
-                Session["test"] = "test";
                 Session["Usuario"] = dataUser["Usuario"].ToString();
 
 
