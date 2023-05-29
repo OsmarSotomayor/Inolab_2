@@ -36,7 +36,7 @@ namespace INOLAB_OC
                     Response.Write("<script>alert('Ingreso de " + dataUser["Nombre"].ToString() + " " + dataUser["Apellidos"].ToString() + "');</script>");
                 }
                 string valor = dataUser["Nombre"].ToString(), idar = dataUser["IdArea"].ToString(), idr = dataUser["IdRol"].ToString();
-                //Asignacion de variables globales que s epueden utilizar en otr spaginas dentro de una misma sesion
+                //Asignacion de variables globales 
                 Session["valor"] = valor;
                 Session["idar"] = idar;
                 Session["idr"] = idr;
