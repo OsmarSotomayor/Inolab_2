@@ -2,12 +2,10 @@
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
-<!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head id="Head1" runat="server">
-    <title></title>
+    <title>Servicios Asignados</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/EstiloVista.css" />
@@ -22,9 +20,9 @@
     
     <script type="text/javascript">
         function redireccionar() {
-            window.locationf="FSR.aspx";
-            } 
-        setTimeout ("redireccionar()", 5000); //tiempo expresado en milisegundos
+            window.locationf = "FSR.aspx";
+        }
+        setTimeout("redireccionar()", 5000); //tiempo expresado en milisegundos
     </script>
 
     <style type="text/css">
@@ -42,37 +40,46 @@
         }
         </style>
 
-    </head>
-<body>
+ </head>
+
+    <body>
       <form id="form1" runat="server">
             <header class="header2">
-                <div class="wrapper">
-                    <div class="logo"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
-                    <asp:Label ID="label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White" class="logo" Width="65px"></asp:Label>
-                    <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
-                    <nav>
-                        <div class="dropdown">
-                            <asp:Button ID="btninformacion" runat="server" Text="Seguimiento de Servicios" class="dropbtn" UseSubmitBehavior="False" OnClick="btninformacion_Click"  />
-                        </div>
-                        <div class="dropdown">
-                             <asp:Button ID="cg" runat="server" Text="C G" class="dropbtn" Width="70px" UseSubmitBehavior="False" OnClick="btnCalendario1_Click"/>
-                        </div>
-                        <div class="dropdown">
-                             <asp:Button ID="manual" runat="server" Text="M U" class="dropbtn" Width="70px" UseSubmitBehavior="False" OnClick="manual_Click"/>
-                        </div>
                         
-                        <div class="dropdown">
+                <asp:Image ID="Image1" runat="server" Height="59px" Width="190px" src="Imagenes/LOGO_Blanco_Lineas.png"/>
+                <asp:Label ID="label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White" ></asp:Label>
+                <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" ></asp:Label>
+                <input type="checkbox" id="check" />
+                <label for="check" class="mostrar-menu">
+                    &#8801
+                </label>
+                <nap class="menu"> <!--Aqui se indica la navegacion de nuestra wep-->
+                        
+                       
+                       <asp:Button ID="btninformacion" runat="server" Text="Seguimiento de Servicios" class="dropbtn" UseSubmitBehavior="False" OnClick="btninformacion_Click"  /> 
+                      
+                    
+                             <asp:Button ID="cg" runat="server" Text="C G" class="dropbtn" Width="70px" UseSubmitBehavior="False" OnClick="btnCalendario1_Click"/>
+                    
+                    
+                             <asp:Button ID="manual" runat="server" Text="M U" class="dropbtn" Width="70px" UseSubmitBehavior="False" OnClick="manual_Click"/>
+                    
+                    
                              <asp:Button ID="btnCalendario" runat="server" Text="Descargar Calendario" class="dropbtn" UseSubmitBehavior="False" OnClick="btnCalendario_Click" />
-                        </div>
-                        <div class="dropdown">
+                    
+                    
                             <asp:Button ID="btndescargafolio" runat="server" Text="Descargar Folio" class="dropbtn" UseSubmitBehavior="False" OnClick="btndescargafolio_Click" />
-                        </div>
-                        <div class="dropdown">
+                   
+                    
                             <asp:Button ID="Button1" runat="server" Text="Salir" class="dropbtn"  UseSubmitBehavior="False" OnClick="Button1_Click" />
-                        </div>
-                    </nav>                
-                </div>
+                    
+
+                    <label for="check" class="esconder-menu">
+                        &#215
+                    </label>
+                </nap>
             </header>
+          
 
             <section class="contenido3" id="sectionreport" runat="server" style="display:none;">
                 <div id="reportdiv" runat="server" class="reportclass">

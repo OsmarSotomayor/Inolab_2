@@ -52,7 +52,7 @@ namespace INOLAB_OC
                 }
                 else
                 {
-                    //cam
+                    
                     //Para el caso de que sea Liz la que ingrese, se le mostraran los calendarios de servicios que hay de todos los ingenieros correspondiendo a su area
                     Session["idUsuario"] = dataUser["idUsuario"].ToString();
                     Session["nameUsuario"] = dataUser["Nombre"].ToString();

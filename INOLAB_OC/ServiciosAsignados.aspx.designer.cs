@@ -9,8 +9,9 @@
 
 
 
-public partial class ServiciosAsignados {
-    
+public partial class ServiciosAsignados
+{
+
     /// <summary>
     /// Control Head1.
     /// </summary>
@@ -19,7 +20,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-    
+
     /// <summary>
     /// Control form1.
     /// </summary>
@@ -28,7 +29,16 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-    
+
+    /// <summary>
+    /// Control Image1.
+    /// </summary>
+    /// <remarks>
+    /// Campo generado automáticamente.
+    /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Image Image1;
+
     /// <summary>
     /// Control label1.
     /// </summary>
@@ -37,7 +47,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Label label1;
-    
+
     /// <summary>
     /// Control lbluser.
     /// </summary>
@@ -46,7 +56,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Label lbluser;
-    
+
     /// <summary>
     /// Control btninformacion.
     /// </summary>
@@ -55,7 +65,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Button btninformacion;
-    
+
     /// <summary>
     /// Control cg.
     /// </summary>
@@ -64,7 +74,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Button cg;
-    
+
     /// <summary>
     /// Control manual.
     /// </summary>
@@ -73,7 +83,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Button manual;
-    
+
     /// <summary>
     /// Control btnCalendario.
     /// </summary>
@@ -82,7 +92,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Button btnCalendario;
-    
+
     /// <summary>
     /// Control btndescargafolio.
     /// </summary>
@@ -91,7 +101,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Button btndescargafolio;
-    
+
     /// <summary>
     /// Control Button1.
     /// </summary>
@@ -100,7 +110,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Button Button1;
-    
+
     /// <summary>
     /// Control sectionreport.
     /// </summary>
@@ -109,7 +119,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.HtmlControls.HtmlGenericControl sectionreport;
-    
+
     /// <summary>
     /// Control reportdiv.
     /// </summary>
@@ -118,7 +128,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.HtmlControls.HtmlGenericControl reportdiv;
-    
+
     /// <summary>
     /// Control ReportViewer1.
     /// </summary>
@@ -127,7 +137,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewer1;
-    
+
     /// <summary>
     /// Control lblcontador.
     /// </summary>
@@ -136,7 +146,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Label lblcontador;
-    
+
     /// <summary>
     /// Control ddlfiltro.
     /// </summary>
@@ -145,7 +155,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.DropDownList ddlfiltro;
-    
+
     /// <summary>
     /// Control Label2.
     /// </summary>
@@ -154,7 +164,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Label Label2;
-    
+
     /// <summary>
     /// Control contador.
     /// </summary>
@@ -163,7 +173,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Label contador;
-    
+
     /// <summary>
     /// Control GridView1.
     /// </summary>
@@ -172,7 +182,7 @@ public partial class ServiciosAsignados {
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
     protected global::System.Web.UI.WebControls.GridView GridView1;
-    
+
     /// <summary>
     /// Control DSBrowser.
     /// </summary>

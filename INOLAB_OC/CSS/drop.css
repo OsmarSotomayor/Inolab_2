@@ -102,6 +102,10 @@ table2 {
 .dropdown {
     position: relative;
     display: inline-block;
+    top: -2147483648px;
+    left: -2147483648px;
+    width: 146px;
+    height: 252px;
 }
 
 .dropdown-content {
