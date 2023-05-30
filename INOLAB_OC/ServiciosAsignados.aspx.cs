@@ -12,6 +12,9 @@ using System.Web.UI;
 using System.Collections.Generic;
 using SpreadsheetLight;
 using System.Windows;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using INOLAB_OC;
+using INOLAB_OC.Modelo;
 
 public partial class ServiciosAsignados : System.Web.UI.Page
 {
@@ -133,20 +136,12 @@ public partial class ServiciosAsignados : System.Web.UI.Page
     private void cargardatos()
     {
         //Carga los folios del ingeniero
-        try
-        {
-            SqlCommand cmd = new SqlCommand("Select DISTINCT * from  v_fsr where idingeniero=" + Session["Idusuario"] + " order by folio desc", con);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            adapter.SelectCommand = cmd;
-            DataSet objdataset = new DataSet();
-            adapter.Fill(objdataset);
-
-            GridView1.DataSource = objdataset;
+        
+            string query = "Select DISTINCT* from  v_fsr where idingeniero = " + Session["Idusuario"] + " order by folio desc";
+            GridView1.DataSource = Conexion.getDataSet(query);
             GridView1.DataBind();
             contador.Text = GridView1.Rows.Count.ToString();
-        } catch (Exception e){
-             Response.Write(e.ToString());
-        }
+       
     }
 
     protected void GridView1_OnRowComand(object sender, GridViewCommandEventArgs e)
@@ -197,7 +192,7 @@ public partial class ServiciosAsignados : System.Web.UI.Page
                 if (tipo.Equals("Asignado"))
                 {
                     SLDocument sl = new SLDocument();
-                    DataTable dt = new DataTable();
+                    System.Data.DataTable dt = new System.Data.DataTable();
 
                     //Columnas (Claves)
                     dt.Columns.Add("IdFSR", typeof(string));
