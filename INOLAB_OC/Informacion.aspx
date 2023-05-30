@@ -45,7 +45,7 @@
       <form id="form1" runat="server">
             <header class="header2">
                 <div class="wrapper">
-                    <div class="logo"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
+                    <asp:Image ID="logotipoServicio" runat="server" Height="46px" Width="163px" src="Imagenes/LOGO_Blanco_Lineas.png"/>
                     <asp:Label ID="label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White" class="logo" Width="65px"></asp:Label>
                     <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
                     <nav>

@@ -7,11 +7,13 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace INOLAB_OC {
-    
-    
-    public partial class Informacion {
-        
+namespace INOLAB_OC
+{
+
+
+    public partial class Informacion
+    {
+
         /// <summary>
         /// Control Head1.
         /// </summary>
@@ -20,7 +22,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-        
+
         /// <summary>
         /// Control form1.
         /// </summary>
@@ -29,7 +31,16 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
+        /// <summary>
+        /// Control logotipoServicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image logotipoServicio;
+
         /// <summary>
         /// Control label1.
         /// </summary>
@@ -38,7 +49,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label label1;
-        
+
         /// <summary>
         /// Control lbluser.
         /// </summary>
@@ -47,7 +58,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbluser;
-        
+
         /// <summary>
         /// Control sectionreport.
         /// </summary>
@@ -56,7 +67,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl sectionreport;
-        
+
         /// <summary>
         /// Control reportdiv.
         /// </summary>
@@ -65,7 +76,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl reportdiv;
-        
+
         /// <summary>
         /// Control lblcontador.
         /// </summary>
@@ -74,7 +85,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblcontador;
-        
+
         /// <summary>
         /// Control ddlfiltro.
         /// </summary>
@@ -83,7 +94,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlfiltro;
-        
+
         /// <summary>
         /// Control Label2.
         /// </summary>
@@ -92,7 +103,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label2;
-        
+
         /// <summary>
         /// Control contador.
         /// </summary>
@@ -101,7 +112,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label contador;
-        
+
         /// <summary>
         /// Control GridView1.
         /// </summary>
@@ -110,7 +121,7 @@ namespace INOLAB_OC {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView1;
-        
+
         /// <summary>
         /// Control DSBrowser.
         /// </summary>

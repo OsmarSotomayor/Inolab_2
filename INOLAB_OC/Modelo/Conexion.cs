@@ -179,6 +179,7 @@ namespace INOLAB_OC.Modelo
 
         public static DataSet getDataSet(string query)
         {
+            initDatabase();
             try
             {
                 conexion.Open();

@@ -1,5 +1,5 @@
 ﻿* {
-    margin: 14px 0 0 0px;
+    margin: 7px 0 0 0px;
     padding: 0;
 }
 
@@ -32,9 +32,11 @@ header {
 }
 
 header .logo {
-    width: 155px;
+    width: 152px;
     padding-top: 3px;
-    float: left;
+    float:left;
+    z-index:100;
+    top:20px;
 }
 
 header .logo1 {
@@ -83,7 +85,8 @@ header nav {
     .header2 .logo {
         line-height: 115px;
         position: center;
-    }
+    height: 53px;
+}
 
     .header2 .logo1 {
         line-height: 115px;
@@ -308,3 +311,14 @@ header {
     }
 }
 
+header .logo {
+    width: 181px;
+    padding-top: 3px;
+    float: left;
+    z-index: 100;
+    top: 5px;
+}
+
+#logotipoServicio {
+    float:left;
+}
