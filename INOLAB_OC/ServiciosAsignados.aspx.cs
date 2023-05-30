@@ -580,15 +580,7 @@ public partial class ServiciosAsignados : System.Web.UI.Page
     public void sentencia()
     {
         //Proceso de llenado del datagridview 
-        SqlCommand cmd = new SqlCommand(coman, con);
-        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-        adapter.SelectCommand = cmd;
-        con.Open();
-        DataSet objdataset = new DataSet();
-        adapter.Fill(objdataset);
-        con.Close();
-
-        GridView1.DataSource = objdataset;
+        GridView1.DataSource = Conexion.getDataSet(coman);
         GridView1.DataBind();
         contador.Text = GridView1.Rows.Count.ToString();
     }
