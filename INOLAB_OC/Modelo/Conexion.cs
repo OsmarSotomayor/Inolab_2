@@ -177,6 +177,31 @@ namespace INOLAB_OC.Modelo
             }
         }
 
+        public static DataSet getDataSet(string query)
+        {
+            try
+            {
+                conexion.Open();
+                SqlCommand cmd = new SqlCommand(query, conexion);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                adapter.SelectCommand = cmd;
+                DataSet dataSet = new DataSet();
+                adapter.Fill(dataSet);
+                conexion.Close();
+                Trace.WriteLine("PASS SUCCES");
+
+                return dataSet;
+
+            }
+            catch(SqlException ex) 
+            {
+                conexion.Close();
+                Trace.WriteLine("CONEXION FAILED " + ex.Message);
+                return null;
+            }
+        }
+
+
         public static void executeStoreProcedureLogWeb(string usuario, string ip)
         {
             initDatabase();
@@ -192,6 +217,9 @@ namespace INOLAB_OC.Modelo
             comando.ExecuteNonQuery();
             conexion.Close();
         }
+
+        
+
 
 
     }

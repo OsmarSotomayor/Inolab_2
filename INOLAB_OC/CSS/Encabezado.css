@@ -273,3 +273,38 @@ header {
     }
 
 }
+
+@media only screen and (max-width: 600px) {
+    .mostrar-menu, .esconder-menu {
+        display: block;
+    }
+
+    .menu {
+        position: fixed;
+        width: 100%;
+        height: 100vh; /*Aqui ya mete todos lo botones al menu*/
+        background: #0264d6;
+        right: -100%;
+        top: 0;
+        text-align: center;
+        padding: 100px 0px;
+        z-index: 100;
+        transition: 0.8s;
+    }
+
+    .dropbtn {
+        display: block;
+        padding: 20px;
+    }
+
+    .esconder-menu {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+    }
+
+    #check:checked ~ .menu {
+        right: 0;
+    }
+}
+
