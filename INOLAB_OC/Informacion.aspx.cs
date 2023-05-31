@@ -12,7 +12,7 @@ using System.Web.UI;
 using System.Collections.Generic;
 using SpreadsheetLight;
 using System.Windows;
-
+using INOLAB_OC.Modelo;
 
 namespace INOLAB_OC
 {
@@ -49,10 +49,6 @@ namespace INOLAB_OC
                 }
             }
         }
-        //Conexion a la base de datos (para hacer prebas acceder a BrowserPruebas)
-        SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
-
-
         public void CargaDatos()
         {
             if (Session["idUsuario"].ToString() == "54")
@@ -72,73 +68,32 @@ namespace INOLAB_OC
         // VALIDACION DE AREA PARA MOSTRAR FSR
         public void D_Analitica()
         {
-            //Carga los folios del ingeniero
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select DISTINCT * from  v_fsr where areaservicio='Analitica' AND estatus='" + ddlfiltro.Text + "' order by folio desc", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-
-                GridView1.DataSource = objdataset;
+                //Carga los folios del ingeniero
+                string query = "Select DISTINCT * from  v_fsr where areaservicio='Analitica' AND estatus='" + ddlfiltro.Text + "' order by folio desc";
+                GridView1.DataSource = Conexion.getDataSet(query);
+               
                 GridView1.DataBind();
                 contador.Text = GridView1.Rows.Count.ToString();
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
-
-
+           
         }
         public void D_Temperatura()
         {
-
-
-            //Carga los folios del ingeniero
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select DISTINCT * from  v_fsr where areaservicio='Temperatura' order by folio desc", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-
-                GridView1.DataSource = objdataset;
+                //Carga los folios del ingeniero
+                string query = "Select DISTINCT * from  v_fsr where areaservicio='Temperatura' order by folio desc";
+                GridView1.DataSource = Conexion.getDataSet(query);
+                
                 GridView1.DataBind();
                 contador.Text = GridView1.Rows.Count.ToString();
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
-
-
         }
         public void D_Fisicoquimicos()
         {
-
-
-            //Carga los folios del ingeniero
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select DISTINCT * from  v_fsr where areaservicio='Fisicoquimico' order by folio desc", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-
-                GridView1.DataSource = objdataset;
+                //Carga los folios del ingeniero
+                string query = "Select DISTINCT * from  v_fsr where areaservicio='Fisicoquimico' order by folio desc";
+                GridView1.DataSource = Conexion.getDataSet(query);
+                
                 GridView1.DataBind();
                 contador.Text = GridView1.Rows.Count.ToString();
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
-
-
+           
         }
 
         protected void ddlfiltro_SelectedIndexChanged(object sender, EventArgs e)
@@ -175,16 +130,8 @@ namespace INOLAB_OC
         }
         public void sentencia()
         {
-            //Proceso de llenado del datagridview 
-            SqlCommand cmd = new SqlCommand(comando, con);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            adapter.SelectCommand = cmd;
-            con.Open();
-            DataSet objdataset = new DataSet();
-            adapter.Fill(objdataset);
-            con.Close();
-
-            GridView1.DataSource = objdataset;
+            //Proceso de llenado del datagridview
+            GridView1.DataSource = Conexion.getDataSet(comando);
             GridView1.DataBind();
             contador.Text = GridView1.Rows.Count.ToString();
         }
