@@ -7,6 +7,7 @@ using System.Net;
 using System.Security.Principal;
 using System.Configuration;
 using System.Web.UI;
+using INOLAB_OC.Modelo;
 
 namespace INOLAB_OC
 {
@@ -24,8 +25,6 @@ namespace INOLAB_OC
             }
             cargardatos();
         }
-
-        SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -118,22 +117,12 @@ namespace INOLAB_OC
         }
 
         private void cargardatos()
-        {//Carga los folios del ingeniero
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select *from  v_fsr where idingeniero=" + Session["Idusuario"] + " and estatusid=3 order by folio desc", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-
-                GridView1.DataSource = objdataset;
+        {      
+                //Carga los folios del ingeniero
+                string query = "Select *from  v_fsr where idingeniero=" + Session["Idusuario"] + " and estatusid=3 order by folio desc";
+                GridView1.DataSource = Conexion.getDataSet(query);
                 GridView1.DataBind();
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
+           
         }
 
         protected void GridView1_OnRowComand(object sender, GridViewCommandEventArgs e)
