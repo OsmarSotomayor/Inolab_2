@@ -6,6 +6,8 @@ using System.Security.Principal;
 using System.Configuration;
 using System.Web.UI;
 using System.Globalization;
+using INOLAB_OC.Modelo;
+using System.Diagnostics;
 
 public partial class Calendario : Page
 {
@@ -24,8 +26,6 @@ public partial class Calendario : Page
             ReportViewer1.Visible = true;
         }
     }
-    //Conexion a base de datos (Para la base de datos de pruebas cambiar a BrowserPruebas)
-    SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
 
     protected void Page_Init(object sender, EventArgs e)
     {
@@ -49,11 +49,12 @@ public partial class Calendario : Page
                 Session["fecha1"] = fecha1;
                 Session["fecha2"] = fecha2;
             }
-            con.Open();
+
+            
             //Seleccion de el area al que pertenece el ingeniero insertado previamente en la creacion del mismo
-            SqlCommand ar = new SqlCommand("Select IngArea from usuarios where idUsuario = " + Session["idUsuario"].ToString(), con);
-            Area = Convert.ToString(ar.ExecuteScalar());
-            con.Close();
+            string query = "Select IngArea from usuarios where idUsuario = " + Session["idUsuario"].ToString();
+            Area = Conexion.getText(query);
+           
             ReportViewer1.ServerReport.ReportServerCredentials = new MyReportServerCredentials();
             // Set the processing mode for the ReportViewer to Remote
             ReportViewer1.ProcessingMode = ProcessingMode.Remote;
