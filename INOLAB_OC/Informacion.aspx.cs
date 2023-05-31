@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace INOLAB_OC
 {
-    //test
+   
     public partial class Informacion : System.Web.UI.Page
     {
         string area;
@@ -29,7 +29,7 @@ namespace INOLAB_OC
             }
             else
             {
-                //En caso de que sean los jefes de area de los ingenieros tendran acceso al boton de seguimiento por el area a la que representan _
+                //En caso de que sean los jefes de area de los ingenieros tendran acceso al boton de seguimiento por el area a la que representan
                 lbluser.Text = Session["nameUsuario"].ToString();
 
                 if (Session["idUsuario"].ToString() == "54") //Gustavo
@@ -71,11 +71,11 @@ namespace INOLAB_OC
 
         // VALIDACION DE AREA PARA MOSTRAR FSR
         public void D_Analitica()
-        {           
+        {
             //Carga los folios del ingeniero
             try
             {
-                SqlCommand cmd = new SqlCommand("Select DISTINCT * from  v_fsr where areaservicio='Analitica' AND estatus='"+ddlfiltro.Text+"' order by folio desc", con);
+                SqlCommand cmd = new SqlCommand("Select DISTINCT * from  v_fsr where areaservicio='Analitica' AND estatus='" + ddlfiltro.Text + "' order by folio desc", con);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 adapter.SelectCommand = cmd;
                 DataSet objdataset = new DataSet();
@@ -94,6 +94,8 @@ namespace INOLAB_OC
         }
         public void D_Temperatura()
         {
+
+
             //Carga los folios del ingeniero
             try
             {
@@ -168,7 +170,7 @@ namespace INOLAB_OC
             }
             if (ddlfiltro.Text == "Todos")
             {
-               // cargardatos();
+                // cargardatos();
             }
         }
         public void sentencia()
