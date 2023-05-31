@@ -148,7 +148,7 @@ header nav {
 }
 
 .contenido2 {
-    padding-top: 50px;
+    padding-top: 20px;
 }
 
 .contenido3 {
@@ -320,5 +320,9 @@ header .logo {
 }
 
 #logotipoServicio {
+    float:left;
+}
+
+#logoDescargaFolio{
     float:left;
 }

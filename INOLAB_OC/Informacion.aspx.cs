@@ -94,8 +94,6 @@ namespace INOLAB_OC
         }
         public void D_Temperatura()
         {
-
-
             //Carga los folios del ingeniero
             try
             {
