@@ -91,7 +91,6 @@
 
      <header class="header2">
         
-
         <div class="logo" style="height: 70px"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
            <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" Width="65px" Height="68px" ></asp:Label>
            <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo" Height="69px"></asp:Label>
@@ -103,42 +102,33 @@
                 </label>
 
             <nap class="menu">
+                <asp:Button ID="btnPlan" runat="server" Text="Plan de Trabajo" class="boton"  visible="True" OnClick="btnPlan_Click" width="200px" Height="25px"/> 
+                <asp:Button ID="btnRegistroFunnel" runat="server" Text="Registro Funnel" class="boton" visible="True"  Target="_blank" OnClick="btnInforme_A_Click" width="200px" Height="25px"/>     
+                <asp:Button ID="Button1" runat="server" Text="Cotizaciones" class="boton" OnClick="Button1_Click"  width="200px" Height="25px"/>
+                
+                <asp:Button ID="Btn_Salir" runat="server" Text="Salir" class="boton"   OnClick="Btn_Salir_Click" Height="25px"/>
 
-                <asp:Button ID="btnPlan" runat="server" Text="Plan de Trabajo" class="boton"  visible="True" OnClick="btnPlan_Click" width="250px" Height="30px"/> 
-                <asp:Button ID="btnRegistroFunnel" runat="server" Text="Registro Funnel" class="boton" visible="True"  Target="_blank" OnClick="btnInforme_A_Click" width="250px" Height="30px"/>     
-                <asp:Button ID="Button1" runat="server" Text="Cotizaciones" class="boton" OnClick="Button1_Click"  width="250px" Height="30px"/>
-            
                 <label for="check" class="esconder-menu">
                         &#215
                 </label>
             </nap>                
-
-        
-        
+       
     </header>
         <section class="contenido2" >           
-                <div class="form-style-2 " >
-                
-                <rsweb:ReportViewer ID="ReportViewer1" runat="server" class="auto-style3" ZoomMode="FullPage"  Width="100%" Height="600px">
-                                </rsweb:ReportViewer>
-                                <asp:ScriptManager ID="ScriptManager1" runat="server">
-                                </asp:ScriptManager>   
-                </div>
-
-     <%--       <script>
-                $('#<%=cmbEmpresa.ClientID%>').chosen();
-            </script>--%>
-            </section>
-        <%-- </ContentTemplate>
-                    </asp:UpdatePanel>--%>
+           <div class="form-style-2 " align="center" >
+             <center style="height: 56px; width: 1363px">
+                <!--Script manager control-->
+                <rsweb:ReportViewer ID="ReportViewer1" runat="server" class="auto-style3" ZoomMode="FullPage"  Width="100%" Height="100%"  SizeToReportContent="true" RightToCenter="YES" ></rsweb:ReportViewer >            
+                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager> 
+             </center>                   
+           </div>
+            
+       </section>
         
         <asp:Label ID="lblrol" runat="server" class="logo" Font-Bold="True" ForeColor="White" Text="rol" Visible="False"></asp:Label>
-            <asp:Label ID="lblidarea" runat="server" Text="area" Font-Bold="True" ForeColor="White" Visible="False" class="logo"></asp:Label>
+        <asp:Label ID="lblidarea" runat="server" Text="area" Font-Bold="True" ForeColor="White" Visible="False" class="logo"></asp:Label>
           
         
-   <div>
-        
-    </div>
         <p>
                 <asp:Button ID="btnFunnelAsesores" runat="server" Text="Funnel General" class="boton"  visible="False"/> 
                 </p>
