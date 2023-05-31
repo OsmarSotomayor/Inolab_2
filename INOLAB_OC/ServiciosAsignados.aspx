@@ -49,10 +49,12 @@
                 <asp:Image ID="Image1" runat="server" Height="59px" Width="190px" src="Imagenes/LOGO_Blanco_Lineas.png"/>
                 <asp:Label ID="label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White" ></asp:Label>
                 <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" ></asp:Label>
+                
                 <input type="checkbox" id="check" />
                 <label for="check" class="mostrar-menu">
                     &#8801
                 </label>
+
                 <nap class="menu"> <!--Aqui se indica la navegacion de nuestra wep-->
                         
                        
