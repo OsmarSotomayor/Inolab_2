@@ -397,16 +397,17 @@ namespace INOLAB_OC
             Response.Redirect("CRM_2.aspx");
         }
 
-        //REDIRECCIONA A GRAFICA FUNNEL
-        protected void btnInforme_A_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("CRM_1.aspx");
-        }
+       
 
         //REDIRECCIONA A DESCARGA DE COTIZACIONES
         protected void Button1_Click(object sender, EventArgs e)
         {
             Response.Redirect("http://inolabserver01/Reportes_Inolab/Pages/ReportViewer.aspx?%2fComercial%2fCOTIZACION-EQUIPO&rs:Command=Render");
+        }
+
+        protected void Btn_MenuPrincipal_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CRM_1.aspx");
         }
 
         //FILTRADO DE FECHA POR CLASIFICACION

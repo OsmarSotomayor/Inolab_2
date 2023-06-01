@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head id="Head1" runat="server">
-    <title></title>
+    <title>Registro Funnel</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/EstiloVista.css" />
@@ -108,8 +108,10 @@
             
             <nav>
                 <asp:Button ID="btnPlan" runat="server" Text="Plan de Trabajo" class="boton"  visible="True" OnClick="btnPlan_Click" /> 
-                <asp:Button ID="btnInforme_A" runat="server" Text="Estadisticas" class="boton" visible="True"  Target="_blank" OnClick="btnInforme_A_Click" />     
+                     
                 <asp:Button ID="Button1" runat="server" Text="Cotizaciones" class="boton" OnClick="Button1_Click"  />
+
+                <asp:Button ID="BtnMenuPrincipal" runat="server" Text="Menu Principal" class="boton" OnClick="Btn_MenuPrincipal_Click"  />
             </nav>                
 
         </div>
