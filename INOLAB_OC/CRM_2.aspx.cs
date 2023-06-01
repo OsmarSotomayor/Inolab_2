@@ -210,6 +210,11 @@ namespace INOLAB_OC
             Response.Redirect("http://inolabserver01/Reportes_Inolab/Pages/ReportViewer.aspx?%2fComercial%2fCOTIZACION-EQUIPO&rs:Command=Render");
         }
 
+        protected void Btn_MenuPrincipal(object sender, EventArgs e)
+        {
+            Response.Redirect("CRM_1.aspx");
+        }
+
         //VALIDACION DE FECHA PARA NO GUARDAR UN DIA ANTERIOR A HOY
         public void ValidaFecha()
         {
