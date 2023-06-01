@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Diagnostics;
+using System.Drawing;
+using DocumentFormat.OpenXml.Office.Word;
 
 namespace INOLAB_OC.Modelo
 {
@@ -193,6 +195,8 @@ namespace INOLAB_OC.Modelo
             {
                 SqlCommand comando = new SqlCommand("stp_update_plan", conexion);
                 comando.CommandType = CommandType.StoredProcedure;
+                conexion.Open();
+
                 comando.Parameters.Add("@registro", SqlDbType.Int);
                 comando.Parameters.Add("@fecha", SqlDbType.Date);
                 comando.Parameters.Add("@cliente", SqlDbType.VarChar);
@@ -207,7 +211,7 @@ namespace INOLAB_OC.Modelo
                 comando.Parameters["@tipo"].Value = ddlTipoRegistro;
                 comando.Parameters["@objetivo"].Value = textoObjetivo;
 
-                conexion.Open();
+                
                 comando.ExecuteNonQuery();
                 conexion.Close();
                 Trace.WriteLine("SUCCES STORE PROCEDURE");
@@ -219,6 +223,42 @@ namespace INOLAB_OC.Modelo
             }
         }
 
+        public static void executeStoreProcedureStrp_Save_Plan(string ddlTipoRegistro, string textoCliente, DateTime datePicker, string comentario,
+            string user,string textoObjetivo, string hora)
+        {
+            initDatabase();
+            try
+            {
+                SqlCommand comando = new SqlCommand("strp_save_plan", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                conexion.Open();
+
+                comando.Parameters.Add("@tiporegistro", SqlDbType.VarChar);
+                comando.Parameters.Add("@cliente", SqlDbType.VarChar);
+                comando.Parameters.Add("@fllamada", SqlDbType.Date);
+                comando.Parameters.Add("@comentario", SqlDbType.VarChar);
+                comando.Parameters.Add("@asesor", SqlDbType.VarChar);
+                comando.Parameters.Add("@objetivo", SqlDbType.VarChar);
+                comando.Parameters.Add("@hora", SqlDbType.VarChar);
+
+                comando.Parameters["@tiporegistro"].Value = ddlTipoRegistro;
+                comando.Parameters["@cliente"].Value = textoCliente;
+                comando.Parameters["@fllamada"].Value = datePicker;
+                comando.Parameters["@comentario"].Value = comentario;
+                comando.Parameters["@asesor"].Value = user;
+                comando.Parameters["@objetivo"].Value = textoObjetivo;
+                comando.Parameters["@hora"].Value = hora;
+
+                comando.ExecuteNonQuery();
+                conexion.Close();
+                Trace.WriteLine("SUCCES STORE PROCEDURE");
+            }
+            catch (SqlException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("STORE PROCEDURE FAILED " + ex.Message);
+            }
+        }
 
     }
 }

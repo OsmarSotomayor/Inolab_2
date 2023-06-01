@@ -168,32 +168,21 @@ namespace INOLAB_OC
                 Response.Write("<script>alert('El Campo Fecha Llamada/Visita no puede ser menor al día de Hoy.');</script>");
                 return;
             }
-            SqlCommand cmd = new SqlCommand("strp_save_plan", con);
-            cmd.CommandType = CommandType.StoredProcedure;
+          
 
-            cmd.Parameters.Add("@tiporegistro", SqlDbType.VarChar);
-            cmd.Parameters.Add("@cliente", SqlDbType.VarChar);
-            cmd.Parameters.Add("@fllamada", SqlDbType.Date);
-            cmd.Parameters.Add("@comentario", SqlDbType.VarChar);
-            cmd.Parameters.Add("@asesor", SqlDbType.VarChar);
-            cmd.Parameters.Add("@objetivo", SqlDbType.VarChar);
-            cmd.Parameters.Add("@hora", SqlDbType.VarChar);
-
-            cmd.Parameters["@tiporegistro"].Value = ddlTipoRegistro.Text;
-            cmd.Parameters["@cliente"].Value = txtcliente.Text;
-            cmd.Parameters["@fllamada"].Value = Convert.ToDateTime(datepicker.Text);
-            cmd.Parameters["@comentario"].Value = txtcomentario.Text;
-            cmd.Parameters["@asesor"].Value = lbluser.Text;
-            cmd.Parameters["@objetivo"].Value = txtobjetivo.Text;
-            cmd.Parameters["@hora"].Value = ddlhora.Text;
+            string TipoRegistro = ddlTipoRegistro.Text;
+            string textoCliente = txtcliente.Text;
+            DateTime date = Convert.ToDateTime(datepicker.Text);
+            string textoComentario = txtcomentario.Text;
+            string user = lbluser.Text;
+            string textoObjetivo = txtobjetivo.Text;
+            string hora = ddlhora.Text;
 
             Response.Write("<script language=javascript>if(confirm('Registro Guardado Exitosamente')==true){ location.href='CRM_2.aspx'} else {location.href='CRM_2.aspx'}</script>");
 
-
-            con.Open();
-            cmd.ExecuteNonQuery();
-
-            con.Close();
+            ConexionComercial.executeStoreProcedureStrp_Save_Plan(TipoRegistro, textoCliente, date, textoComentario,
+                user, textoObjetivo, hora);
+           
         }
 
         //REDIRECCIONA A REGISTRO DE FUNNEL
