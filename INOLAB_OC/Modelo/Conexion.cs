@@ -11,6 +11,7 @@ using System.Data;
 using System.Drawing;
 using System.Web.Services.Description;
 using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Office.Word;
 
 namespace INOLAB_OC.Modelo
 {
@@ -190,7 +191,6 @@ namespace INOLAB_OC.Modelo
                 adapter.Fill(dataSet);
                 conexion.Close();
                 Trace.WriteLine("PASS SUCCES");
-
                 return dataSet;
 
             }
@@ -219,6 +219,38 @@ namespace INOLAB_OC.Modelo
             conexion.Close();
         }
 
+        public static void executeStoreProcedureStp_Update_Plan(int registro,DateTime datePicker, string textoCliente, string textoComentario,string ddlTipoRegistro,string textoObjetivo)
+        {
+            initDatabase();
+            try
+            {
+                SqlCommand comando = new SqlCommand("stp_update_plan", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@registro", SqlDbType.Int);
+                comando.Parameters.Add("@fecha", SqlDbType.Date);
+                comando.Parameters.Add("@cliente", SqlDbType.VarChar);
+                comando.Parameters.Add("@comen", SqlDbType.VarChar);
+                comando.Parameters.Add("@tipo", SqlDbType.VarChar);
+                comando.Parameters.Add("@objetivo", SqlDbType.VarChar);
+
+                comando.Parameters["@registro"].Value = registro;
+                comando.Parameters["@fecha"].Value = datePicker;
+                comando.Parameters["@cliente"].Value = textoCliente;
+                comando.Parameters["@comen"].Value = textoComentario;
+                comando.Parameters["@tipo"].Value = ddlTipoRegistro;
+                comando.Parameters["@objetivo"].Value = textoObjetivo;
+
+                conexion.Open();
+                comando.ExecuteNonQuery();
+                conexion.Close();
+                Trace.WriteLine("SUCCES STORE PROCEDURE");
+            }
+            catch(SqlException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("STORE PROCEDURE FAILED " + ex.Message);
+            }
+        }
 
 
 

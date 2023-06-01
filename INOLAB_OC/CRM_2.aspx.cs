@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.IO;
+using INOLAB_OC.Modelo;
+
 namespace INOLAB_OC
 {
     public partial class CRM_2 : System.Web.UI.Page
@@ -231,23 +233,10 @@ namespace INOLAB_OC
         private void Datos()
         {
             //Carga los resgistros del ASESOR
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select* from  Llamada_Vista where asesor='" + lbluser.Text + "' and FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4)", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-                // lblcontador.Text = GridView1.Rows.Count.ToString();
-                GridView1.DataSource = objdataset;
-                GridView1.DataBind();
-
-
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
+               
+          string query = "Select* from  Llamada_Vista where asesor='" + lbluser.Text + "' and FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4)";
+          GridView1.DataSource = Conexion.getDataSet(query);
+          GridView1.DataBind();
         }
 
         int registro;
@@ -297,23 +286,10 @@ namespace INOLAB_OC
         private void cargardatos(string classs)
         {
             //Carga los resgistros del ingeniero
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select* from  Llamada_vista where FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4) and tipo ='" + ddlTipofiltro.Text + "' and asesor='" + lbluser.Text + "'", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-                // lblcontador.Text = GridView1.Rows.Count.ToString();
-                GridView1.DataSource = objdataset;
-                GridView1.DataBind();
-
-
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
+            string query = "Select* from  Llamada_vista where FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4) and tipo ='" + ddlTipofiltro.Text + "' and asesor='" + lbluser.Text + "'";
+            GridView1.DataSource = Conexion.getDataSet(query);
+            GridView1.DataBind();
+            
         }
         string clas;
         protected void ddlTipofiltro_SelectedIndexChanged(object sender, EventArgs e)
@@ -363,39 +339,24 @@ namespace INOLAB_OC
                 Response.Write("<script>alert('El Campo Fecha Llamada/Visita no puede ser menor al día de Hoy.');</script>");
                 return;
             }
-            SqlCommand cmd = new SqlCommand("stp_update_plan", con);
-            cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@registro", SqlDbType.Int);
-            cmd.Parameters.Add("@fecha", SqlDbType.Date);
-            cmd.Parameters.Add("@cliente", SqlDbType.VarChar);
-            cmd.Parameters.Add("@comen", SqlDbType.VarChar);
-            cmd.Parameters.Add("@tipo", SqlDbType.VarChar);
-            cmd.Parameters.Add("@objetivo", SqlDbType.VarChar);
+            Int32 registro = Convert.ToInt32(lblREGISTRO.Text);
+            DateTime fecha = Convert.ToDateTime(datepicker.Text);
+            string textoCliente= txtcliente.Text;
+            string textoComentario = txtcomentario.Text;
+            string ddlRegistro = ddlTipoRegistro.Text;
+            string textoObjetivo= txtobjetivo.Text;
 
-            cmd.Parameters["@registro"].Value = Convert.ToInt32(lblREGISTRO.Text);
-            cmd.Parameters["@fecha"].Value = Convert.ToDateTime(datepicker.Text);
-            cmd.Parameters["@cliente"].Value = txtcliente.Text;
-            cmd.Parameters["@comen"].Value = txtcomentario.Text;
-            cmd.Parameters["@tipo"].Value = ddlTipoRegistro.Text;
-            cmd.Parameters["@objetivo"].Value = txtobjetivo.Text;
-
+            Conexion.executeStoreProcedureStp_Update_Plan(registro, fecha, textoCliente,
+                textoComentario, ddlRegistro, textoObjetivo);
+            
             Response.Write("<script language=javascript>if(confirm('Registro Actualizado Exitosamente')==true){ location.href='CRM_2.aspx'} else {location.href='CRM_2.aspx'}</script>");
-
-
-            con.Open();
-            cmd.ExecuteNonQuery();
-
-            con.Close();
-
         }
 
         protected void btnClean_Click(object sender, EventArgs e)
         {
             btnUpdate.Visible = false;
             Clean();
-
-
         }
     }
 }
