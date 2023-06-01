@@ -103,6 +103,7 @@
     <Content Include="CSS\EncabezadoCalendario.css" />
     <Content Include="CSS\EncabezadoCRM_1.css" />
     <Content Include="CSS\EncabezadoCRM_2.css" />
+    <Content Include="CSS\EncabezadoCRM_3.css" />
     <Content Include="CSS\EncabezadoDescargaFolio.css" />
     <Content Include="CSS\EncabezadoInformacion.css" />
     <Content Include="CSS\EstiloVista.css" />

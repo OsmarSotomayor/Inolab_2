@@ -13,7 +13,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/Encabezado.css" />
+    <link rel="stylesheet" href="CSS/EncabezadoCRM_3.css" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
 
@@ -100,22 +100,26 @@
     <form id="form1" runat="server">
 
      <header class="header2">
-        <div class="auto-style2">
+        
         <div class="logo" style="height: 70px"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
             <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" Width="65px" Height="68px" ></asp:Label>
             <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo" Height="69px"></asp:Label>
             <asp:Label ID="lbliduser" runat="server" Text="id" Font-Bold="True" ForeColor="White" class="logo" Height="69px" Visible="false" ></asp:Label>
             
-            <nav>
-                <asp:Button ID="btnPlan" runat="server" Text="Plan de Trabajo" class="boton"  visible="True" OnClick="btnPlan_Click" /> 
-                     
+            <input type="checkbox" id="check" />
+            <label for="check" class="mostrar-menu">
+                    &#8801
+            </label >
+
+            <nav class="menu">
+                <asp:Button ID="btnPlan" runat="server" Text="Plan de Trabajo" class="boton"  visible="True" OnClick="btnPlan_Click" />      
                 <asp:Button ID="Button1" runat="server" Text="Cotizaciones" class="boton" OnClick="Button1_Click"  />
-
                 <asp:Button ID="BtnMenuPrincipal" runat="server" Text="Menu Principal" class="boton" OnClick="Btn_MenuPrincipal_Click"  />
-            </nav>                
 
-        </div>
-        
+                <label for="check" class="esconder-menu">
+                        &#215
+                </label>
+            </nav>          
 
     </header>
         <section class="contenido2" >           
