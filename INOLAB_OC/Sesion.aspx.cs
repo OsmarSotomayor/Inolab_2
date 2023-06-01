@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Data;
 using INOLAB_OC.Modelo;
+using System.Diagnostics;
 
 namespace INOLAB_OC
 {
@@ -12,6 +13,7 @@ namespace INOLAB_OC
         {
             string IP = Request.ServerVariables["REMOTE_ADDR"];
             lblip.Text = IP.ToString();
+            
         }
 
       

@@ -120,9 +120,6 @@ namespace INOLAB_OC
             }
         }
 
-
-        SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Comercial;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
-
         // definine la clasificacion para la consulta sql
 
         protected void ddlTipoRegistro_SelectedIndexChanged(object sender, EventArgs e)
@@ -232,25 +229,16 @@ namespace INOLAB_OC
         //consulta para traer los datos del grid a los textbox y editar
         // Pendiente de modificar
         public void leer()
-        {
+        {   
+            DataRow datosLLamada = ConexionComercial.getDataRow("select * from llamada_vista where idllamada = " + registro + " and asesor='" + lbluser.Text + "'");
 
-            SqlCommand cmd = new SqlCommand("select * from llamada_vista where idllamada = " + registro + " and asesor='" + lbluser.Text+"'", con);
-            con.Open();
-
-            SqlDataReader leer;
-            leer = cmd.ExecuteReader();
-            if (leer.Read())
-            {
-                txtcliente.Text = leer["Cliente"].ToString();
-                ddlTipoRegistro.Text = leer["Tipo"].ToString();
-                datepicker.Text = leer["Fechallamada"].ToString();
-                txtobjetivo.Text = leer["Objetivo"].ToString();
-                txtcomentario.Text = leer["Comentario"].ToString();
-                lblREGISTRO.Text=leer["IdLlamada"].ToString();
-            }
-            con.Close();
-
-
+            txtcliente.Text = datosLLamada["Cliente"].ToString();
+            ddlTipoRegistro.Text = datosLLamada["Tipo"].ToString();
+            datepicker.Text = datosLLamada["Fechallamada"].ToString();
+            txtobjetivo.Text = datosLLamada["Objetivo"].ToString();
+            txtcomentario.Text = datosLLamada["Comentario"].ToString();
+            lblREGISTRO.Text=datosLLamada["IdLlamada"].ToString();
+            
         }
         //LIMPIA LOS REGISTROS
         public void Clean()
