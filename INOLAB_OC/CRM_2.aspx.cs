@@ -241,6 +241,7 @@ namespace INOLAB_OC
 
         int registro;
         //consulta para traer los datos del grid a los textbox y editar
+        // Pendiente de modificar
         public void leer()
         {
 
