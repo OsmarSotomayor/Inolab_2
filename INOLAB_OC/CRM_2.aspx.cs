@@ -235,7 +235,7 @@ namespace INOLAB_OC
             //Carga los resgistros del ASESOR
                
           string query = "Select* from  Llamada_Vista where asesor='" + lbluser.Text + "' and FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4)";
-          GridView1.DataSource = Conexion.getDataSet(query);
+          GridView1.DataSource = ConexionComercial.getDataSet(query);
           GridView1.DataBind();
         }
 
@@ -288,7 +288,7 @@ namespace INOLAB_OC
         {
             //Carga los resgistros del ingeniero
             string query = "Select* from  Llamada_vista where FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4) and tipo ='" + ddlTipofiltro.Text + "' and asesor='" + lbluser.Text + "'";
-            GridView1.DataSource = Conexion.getDataSet(query);
+            GridView1.DataSource = ConexionComercial.getDataSet(query);
             GridView1.DataBind();
             
         }
@@ -348,7 +348,7 @@ namespace INOLAB_OC
             string ddlRegistro = ddlTipoRegistro.Text;
             string textoObjetivo= txtobjetivo.Text;
 
-            Conexion.executeStoreProcedureStp_Update_Plan(registro, fecha, textoCliente,
+            ConexionComercial.executeStoreProcedureStp_Update_Plan(registro, fecha, textoCliente,
                 textoComentario, ddlRegistro, textoObjetivo);
             
             Response.Write("<script language=javascript>if(confirm('Registro Actualizado Exitosamente')==true){ location.href='CRM_2.aspx'} else {location.href='CRM_2.aspx'}</script>");

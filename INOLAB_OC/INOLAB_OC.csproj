@@ -348,6 +348,7 @@
       <DependentUpon>Informacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modelo\Conexion.cs" />
+    <Compile Include="Modelo\ConexionComercial.cs" />
     <Compile Include="Principal.aspx.cs">
       <DependentUpon>Principal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
