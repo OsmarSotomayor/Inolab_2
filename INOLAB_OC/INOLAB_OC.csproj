@@ -101,6 +101,7 @@
     <Content Include="CSS\drop.css" />
     <Content Include="CSS\Encabezado.css" />
     <Content Include="CSS\EncabezadoCalendario.css" />
+    <Content Include="CSS\EncabezadoComun.css" />
     <Content Include="CSS\EncabezadoCRM_1.css" />
     <Content Include="CSS\EncabezadoCRM_2.css" />
     <Content Include="CSS\EncabezadoCRM_3.css" />

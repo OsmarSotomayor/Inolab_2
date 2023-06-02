@@ -39,8 +39,6 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         }
     }
 
-    //Conexion a la base de datos (para hacer prebas acceder a BrowserPruebas)
-    SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
 
     protected void Page_Init(object sender, EventArgs e)
     {
@@ -266,86 +264,86 @@ public partial class ServiciosAsignados : System.Web.UI.Page
 
                     //Registros (Valores)
                     List<string> Valores = new List<string>();
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand("select * from  v_fsr where Folio = " + Session["folio_p"], con);
+                   
+
+                    string query = "select * from  v_fsr where Folio = " + Session["folio_p"];
+                    DataRow informacionServicios = Conexion.getDataRow(query);
 
                     //Para quitar los espaciados anteriores y posteriores
                     char[] charsToTrim = {' '};
 
-                    SqlDataReader leer;
-                    leer = cmd.ExecuteReader();
-                    if (leer.Read())
-                    {
-                        Valores.Insert(0, leer["IdFSR"].ToString());
-                        Valores.Insert(1, leer["Folio"].ToString());
-                        Valores.Insert(2, leer["Cliente"].ToString());
-                        Valores.Insert(3, leer["Departamento"].ToString());
-                        Valores.Insert(4, leer["Direccion"].ToString());
-                        Valores.Insert(5, leer["Telefono"].ToString());
-                        Valores.Insert(6, leer["Localidad"].ToString());
-                        Valores.Insert(7, leer["N_Reportado"].ToString().Trim(charsToTrim));
-                        Valores.Insert(8, leer["N_Responsable"].ToString());
-                        Valores.Insert(9, leer["Mail"].ToString());
-                        Valores.Insert(10, leer["TipoContrato"].ToString());
-                        Valores.Insert(11, leer["TipoProblema"].ToString());
-                        Valores.Insert(12, leer["TipoServicio"].ToString());
-                        Valores.Insert(13, leer["servicio"].ToString());
-                        Valores.Insert(14, leer["Ingeniero"].ToString());
-                        Valores.Insert(15, leer["IdIngeniero"].ToString());
-                        Valores.Insert(16, leer["mailIng"].ToString());
-                        Valores.Insert(17, Convert.ToDateTime(leer["F_SolicitudServicio"].ToString()).ToString("yyyy-MM-dd HH:mm:ss.fff"));
-                        Valores.Insert(18, Convert.ToDateTime(leer["FechaServicio"].ToString()).ToString("yyyy-MM-dd"));
-                        Valores.Insert(19, leer["Equipo"].ToString().Trim(charsToTrim));
-                        Valores.Insert(20, leer["Marca"].ToString());
-                        Valores.Insert(21, leer["Modelo"].ToString());
-                        Valores.Insert(22, leer["NoSerie"].ToString());
-                        Valores.Insert(23, leer["IdEquipo_C"].ToString());
-                        Valores.Insert(24, leer["Estatusid"].ToString());
-                        Valores.Insert(25, leer["Estatus"].ToString());
-                        Valores.Insert(26, leer["Observaciones"].ToString());
-                        Valores.Insert(27, leer["NoLlamada"].ToString());
+                    
+                   
+                        Valores.Insert(0, informacionServicios["IdFSR"].ToString());
+                        Valores.Insert(1, informacionServicios["Folio"].ToString());
+                        Valores.Insert(2, informacionServicios["Cliente"].ToString());
+                        Valores.Insert(3, informacionServicios["Departamento"].ToString());
+                        Valores.Insert(4, informacionServicios["Direccion"].ToString());
+                        Valores.Insert(5, informacionServicios["Telefono"].ToString());
+                        Valores.Insert(6, informacionServicios["Localidad"].ToString());
+                        Valores.Insert(7, informacionServicios["N_Reportado"].ToString().Trim(charsToTrim));
+                        Valores.Insert(8, informacionServicios["N_Responsable"].ToString());
+                        Valores.Insert(9, informacionServicios["Mail"].ToString());
+                        Valores.Insert(10, informacionServicios["TipoContrato"].ToString());
+                        Valores.Insert(11, informacionServicios["TipoProblema"].ToString());
+                        Valores.Insert(12, informacionServicios["TipoServicio"].ToString());
+                        Valores.Insert(13, informacionServicios["servicio"].ToString());
+                        Valores.Insert(14, informacionServicios["Ingeniero"].ToString());
+                        Valores.Insert(15, informacionServicios["IdIngeniero"].ToString());
+                        Valores.Insert(16, informacionServicios["mailIng"].ToString());
+                        Valores.Insert(17, Convert.ToDateTime(informacionServicios["F_SolicitudServicio"].ToString()).ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                        Valores.Insert(18, Convert.ToDateTime(informacionServicios["FechaServicio"].ToString()).ToString("yyyy-MM-dd"));
+                        Valores.Insert(19, informacionServicios["Equipo"].ToString().Trim(charsToTrim));
+                        Valores.Insert(20, informacionServicios["Marca"].ToString());
+                        Valores.Insert(21, informacionServicios["Modelo"].ToString());
+                        Valores.Insert(22, informacionServicios["NoSerie"].ToString());
+                        Valores.Insert(23, informacionServicios["IdEquipo_C"].ToString());
+                        Valores.Insert(24, informacionServicios["Estatusid"].ToString());
+                        Valores.Insert(25, informacionServicios["Estatus"].ToString());
+                        Valores.Insert(26, informacionServicios["Observaciones"].ToString());
+                        Valores.Insert(27, informacionServicios["NoLlamada"].ToString());
                         Valores.Insert(28, "");
                         Valores.Insert(29, "");
-                        Valores.Insert(30, leer["Dia"].ToString());
-                        Valores.Insert(31, leer["FallaReportada"].ToString());
-                        Valores.Insert(32, leer["HoraServicio"].ToString());
-                        Valores.Insert(33, leer["Confirmacion"].ToString());
-                        Valores.Insert(34, leer["Propuesta"].ToString());
-                        Valores.Insert(35, leer["Actividad"].ToString());
-                        Valores.Insert(36, leer["S_Confirmacion"].ToString());
-                        Valores.Insert(37, leer["Asesor1"].ToString());
-                        Valores.Insert(38, leer["Correoasesor1"].ToString());
-                        Valores.Insert(39, leer["CooreoIng"].ToString());
+                        Valores.Insert(30, informacionServicios["Dia"].ToString());
+                        Valores.Insert(31, informacionServicios["FallaReportada"].ToString());
+                        Valores.Insert(32, informacionServicios["HoraServicio"].ToString());
+                        Valores.Insert(33, informacionServicios["Confirmacion"].ToString());
+                        Valores.Insert(34, informacionServicios["Propuesta"].ToString());
+                        Valores.Insert(35, informacionServicios["Actividad"].ToString());
+                        Valores.Insert(36, informacionServicios["S_Confirmacion"].ToString());
+                        Valores.Insert(37, informacionServicios["Asesor1"].ToString());
+                        Valores.Insert(38, informacionServicios["Correoasesor1"].ToString());
+                        Valores.Insert(39, informacionServicios["CooreoIng"].ToString());
                         Valores.Insert(40, "");
-                        Valores.Insert(41, leer["idcontrato"].ToString());
-                        Valores.Insert(42, leer["idservicio"].ToString());
-                        Valores.Insert(43, leer["idproblema"].ToString());
-                        Valores.Insert(44, leer["IdResp"].ToString());
-                        Valores.Insert(45, leer["Responsable"].ToString());
-                        Valores.Insert(46, leer["IdDocumenta"].ToString());
-                        Valores.Insert(47, leer["Documentador"].ToString());
-                        Valores.Insert(48, leer["Refaccion"].ToString());
-                        Valores.Insert(49, leer["Ingeniero_A1"].ToString());
-                        Valores.Insert(50, leer["IdIng_A1"].ToString());
-                        Valores.Insert(51, leer["mailIng_A1"].ToString());
-                        Valores.Insert(52, leer["Ingeniero_A2"].ToString());
-                        Valores.Insert(53, leer["IdIng_A2"].ToString());
-                        Valores.Insert(54, leer["mailIng_A2"].ToString());
-                        Valores.Insert(55, leer["F_InicioServicio"].ToString());
-                        Valores.Insert(56, leer["F_FinServicio"].ToString());
-                        Valores.Insert(57, leer["IdT_Servicio"].ToString());
-                        Valores.Insert(58, leer["OC"].ToString());
-                        Valores.Insert(59, leer["ArchivoAdjunto"].ToString());
-                        Valores.Insert(60, leer["DiaInicioServ"].ToString());
-                        Valores.Insert(61, leer["DiaFinServ"].ToString());
-                        Valores.Insert(62, leer["DiasServ"].ToString());
-                        Valores.Insert(63, leer["NotAsesor"].ToString());
-                        Valores.Insert(64, leer["Funcionando"].ToString());
-                        Valores.Insert(65, leer["FallaEncontrada"].ToString());
+                        Valores.Insert(41, informacionServicios["idcontrato"].ToString());
+                        Valores.Insert(42, informacionServicios["idservicio"].ToString());
+                        Valores.Insert(43, informacionServicios["idproblema"].ToString());
+                        Valores.Insert(44, informacionServicios["IdResp"].ToString());
+                        Valores.Insert(45, informacionServicios["Responsable"].ToString());
+                        Valores.Insert(46, informacionServicios["IdDocumenta"].ToString());
+                        Valores.Insert(47, informacionServicios["Documentador"].ToString());
+                        Valores.Insert(48, informacionServicios["Refaccion"].ToString());
+                        Valores.Insert(49, informacionServicios["Ingeniero_A1"].ToString());
+                        Valores.Insert(50, informacionServicios["IdIng_A1"].ToString());
+                        Valores.Insert(51, informacionServicios["mailIng_A1"].ToString());
+                        Valores.Insert(52, informacionServicios["Ingeniero_A2"].ToString());
+                        Valores.Insert(53, informacionServicios["IdIng_A2"].ToString());
+                        Valores.Insert(54, informacionServicios["mailIng_A2"].ToString());
+                        Valores.Insert(55, informacionServicios["F_InicioServicio"].ToString());
+                        Valores.Insert(56, informacionServicios["F_FinServicio"].ToString());
+                        Valores.Insert(57, informacionServicios["IdT_Servicio"].ToString());
+                        Valores.Insert(58, informacionServicios["OC"].ToString());
+                        Valores.Insert(59, informacionServicios["ArchivoAdjunto"].ToString());
+                        Valores.Insert(60, informacionServicios["DiaInicioServ"].ToString());
+                        Valores.Insert(61, informacionServicios["DiaFinServ"].ToString());
+                        Valores.Insert(62, informacionServicios["DiasServ"].ToString());
+                        Valores.Insert(63, informacionServicios["NotAsesor"].ToString());
+                        Valores.Insert(64, informacionServicios["Funcionando"].ToString());
+                        Valores.Insert(65, informacionServicios["FallaEncontrada"].ToString());
                         Valores.Insert(66, "");
-                        Valores.Insert(67, leer["NombreCliente"].ToString());
-                    }
-                    con.Close();
+                        Valores.Insert(67, informacionServicios["NombreCliente"].ToString());
+                    
+                    
 
                     dt.Rows.Add(
                         Valores[0],
