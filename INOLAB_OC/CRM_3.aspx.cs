@@ -12,7 +12,8 @@ using System.Web.UI;
 using System.Collections.Generic;
 using SpreadsheetLight;
 using System.Windows;
-
+using INOLAB_OC.Modelo;
+using System.IO.Packaging;
 
 namespace INOLAB_OC
 {
@@ -45,8 +46,7 @@ namespace INOLAB_OC
             }
         }
 
-        //Conexion a la base de datos (para hacer prebas acceder a BrowserPruebas)
-        SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Comercial;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
+        
 
         //variable para saber quien es su gerente
         string gte;
@@ -56,44 +56,17 @@ namespace INOLAB_OC
         private void cargardatos(string classs)
         {
             //Carga los resgistros del ingeniero
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select* from  funnel where clasificacion = '"+ddlClasificacion.Text+"' and asesor='"+lbluser.Text+"'", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-               // lblcontador.Text = GridView1.Rows.Count.ToString();
-                GridView1.DataSource = objdataset;
-                GridView1.DataBind();
-
-
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
+            string query = "Select* from  funnel where clasificacion = '" + ddlClasificacion.Text + "' and asesor='" + lbluser.Text + "'";
+            GridView1.DataSource = ConexionComercial.getDataSet(query);
+            GridView1.DataBind();
+           
         }
         private void Datos()
         {
-            //Carga los resgistros del asesor
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select* from  funnel where asesor='"+lbluser.Text+"' and fechacierre between '"+txtfecha1.Text+"' and '"+txtfecha2.Text+"'", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-                // lblcontador.Text = GridView1.Rows.Count.ToString();
-                GridView1.DataSource = objdataset;
-                GridView1.DataBind();
-
-
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
+           //Carga los resgistros del asesor    
+           string query = "Select* from  funnel where asesor='" + lbluser.Text + "' and fechacierre between '" + txtfecha1.Text + "' and '" + txtfecha2.Text + "'";
+           GridView1.DataSource = ConexionComercial.getDataSet(query);
+           GridView1.DataBind();
         }
 
         // definine la clasificacion para la consulta sql
@@ -211,46 +184,27 @@ namespace INOLAB_OC
                 return;
             }
 
-            SqlCommand cmd = new SqlCommand("stp_save_funnel", con);
-            cmd.CommandType = CommandType.StoredProcedure;
+            
 
-            cmd.Parameters.Add("@cliente", SqlDbType.VarChar);
-            cmd.Parameters.Add("@clasif", SqlDbType.VarChar);
-            cmd.Parameters.Add("@f_cierre", SqlDbType.Date);
-            cmd.Parameters.Add("@equipo", SqlDbType.VarChar);
-            cmd.Parameters.Add("@marca", SqlDbType.VarChar);
-            cmd.Parameters.Add("@modelo", SqlDbType.VarChar);
-            cmd.Parameters.Add("@valor", SqlDbType.Decimal);
-            cmd.Parameters.Add("@estatus", SqlDbType.VarChar);
-            cmd.Parameters.Add("@asesor", SqlDbType.VarChar);
-            cmd.Parameters.Add("@contacto", SqlDbType.VarChar);
-            cmd.Parameters.Add("@localidad", SqlDbType.VarChar);
-            cmd.Parameters.Add("@origen", SqlDbType.VarChar);
-            cmd.Parameters.Add("@tipo", SqlDbType.VarChar);
-            cmd.Parameters.Add("@gte", SqlDbType.VarChar);
+            string cliente = txtcliente.Text;
+            string clasifiacion = ddlClas_save.Text;
+            string fechaCierre = Convert.ToDateTime(datepicker.Text).ToString("dd/MM/yyyy");
+            string equipo = txtequipo.Text;
+            string marca = txtmarca.Text;
+            string modelo= txtmodelo.Text;
+            string valor = txtvalor.Text;
+            string estatus= txtestatus.Text;
+            string asesor= lbluser.Text;
+            string contacto = TXTcONTACTO.Text;
+            string localidad = ddLocalidad.Text;
+            string origen= ddOrigen.Text;
+            string tipo = ddTipoVenta.Text;
+            string get_ = gte;
 
-            cmd.Parameters["@cliente"].Value = txtcliente.Text;
-            cmd.Parameters["@clasif"].Value = ddlClas_save.Text;
-            cmd.Parameters["@f_cierre"].Value = Convert.ToDateTime(datepicker.Text).ToString("dd/MM/yyyy");
-            cmd.Parameters["@equipo"].Value = txtequipo.Text;
-            cmd.Parameters["@marca"].Value = txtmarca.Text;
-            cmd.Parameters["@modelo"].Value = txtmodelo.Text;
-            cmd.Parameters["@valor"].Value = txtvalor.Text;
-            cmd.Parameters["@estatus"].Value = txtestatus.Text;
-            cmd.Parameters["@asesor"].Value = lbluser.Text;
-            cmd.Parameters["@contacto"].Value = TXTcONTACTO.Text;
-            cmd.Parameters["@localidad"].Value = ddLocalidad.Text;
-            cmd.Parameters["@origen"].Value = ddOrigen.Text;
-            cmd.Parameters["@tipo"].Value = ddTipoVenta.Text;
-            cmd.Parameters["@gte"].Value = gte;
-
+            ConexionComercial.executeStp_Save_Funnel(cliente, clasifiacion, fechaCierre, equipo, marca, modelo, valor, estatus, asesor, contacto, localidad, origen,
+                tipo, gte);
+            
             Response.Write("<script language=javascript>if(confirm('Registro Guardado Exitosamente')==true){ location.href='CRM_3.aspx'} else {location.href='CRM_3.aspx'}</script>");
-
-
-            con.Open();
-            cmd.ExecuteNonQuery();
-
-            con.Close();
 
         }
         // parametro para la consulta en BD 
@@ -290,34 +244,23 @@ namespace INOLAB_OC
         }
         public void leer()
         {
-            //consulta para traer los datos del grid a los textbox y editar
-            SqlCommand cmd = new SqlCommand("select * from funnel where noregistro = " + registro+" and asesor='"+lbluser.Text+"'", con);
-            con.Open();
+            string query = "select * from funnel where noregistro = " + registro + " and asesor='" + lbluser.Text + "'";
+            DataRow datosFunel = ConexionComercial.getDataRow(query);
 
-            SqlDataReader leer;
-            leer = cmd.ExecuteReader();
-            if (leer.Read())
-            {
-                txtcliente.Text = leer["Cliente"].ToString();
-                ddlClas_save.Text = leer["Clasificacion"].ToString();
-                datepicker.Text= leer["FechaCierre"].ToString();
-                txtequipo.Text= leer["Equipo"].ToString();
-                txtmarca.Text= leer["Marca"].ToString();
-                txtmodelo.Text= leer["Modelo"].ToString();
-                txtvalor.Text= leer["Valor"].ToString();
-                txtestatus.Text= leer["Estatus"].ToString();
-                txtf_actualiza.Text = leer["FechaActualizacion"].ToString();
-                lblresistro.Text = leer["NoRegistro"].ToString();
-                TXTcONTACTO.Text = leer["Contacto"].ToString();
-                ddLocalidad.Text = leer["Localidad"].ToString();
-                ddOrigen.Text = leer["Origen"].ToString();
-                ddTipoVenta.Text = leer["TipoVenta"].ToString();
-
-
-            }
-            con.Close();
-
-
+            txtcliente.Text = datosFunel["Cliente"].ToString();
+            ddlClas_save.Text = datosFunel["Clasificacion"].ToString();
+            datepicker.Text = datosFunel["FechaCierre"].ToString();
+            txtequipo.Text = datosFunel["Equipo"].ToString();
+            txtmarca.Text = datosFunel["Marca"].ToString();
+            txtmodelo.Text = datosFunel["Modelo"].ToString();
+            txtvalor.Text = datosFunel["Valor"].ToString();
+            txtestatus.Text = datosFunel["Estatus"].ToString();
+            txtf_actualiza.Text = datosFunel["FechaActualizacion"].ToString();
+            lblresistro.Text = datosFunel["NoRegistro"].ToString();
+            TXTcONTACTO.Text = datosFunel["Contacto"].ToString();
+            ddLocalidad.Text = datosFunel["Localidad"].ToString();
+            ddOrigen.Text = datosFunel["Origen"].ToString();
+            ddTipoVenta.Text = datosFunel["TipoVenta"].ToString();
         }
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -344,47 +287,25 @@ namespace INOLAB_OC
                 Response.Write("<script>alert('Captura la Fecha de Cierre del registro.');</script>");
                 return;
             }
-            SqlCommand cmd = new SqlCommand("stp_update_funnel", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.Add("@registro", SqlDbType.Int);
-            cmd.Parameters.Add("@cliente", SqlDbType.VarChar);
-            cmd.Parameters.Add("@clasif", SqlDbType.VarChar);
-            cmd.Parameters.Add("@f_cierre", SqlDbType.Date);
-            cmd.Parameters.Add("@equipo", SqlDbType.VarChar);
-            cmd.Parameters.Add("@marca", SqlDbType.VarChar);
-            cmd.Parameters.Add("@modelo", SqlDbType.VarChar);
-            cmd.Parameters.Add("@valor", SqlDbType.Decimal);
-            cmd.Parameters.Add("@estatus", SqlDbType.VarChar);
-            cmd.Parameters.Add("@asesor", SqlDbType.VarChar);
-            cmd.Parameters.Add("@contacto", SqlDbType.VarChar);
-            cmd.Parameters.Add("@localidad", SqlDbType.VarChar);
-            cmd.Parameters.Add("@origen", SqlDbType.VarChar);
-            cmd.Parameters.Add("@tipo", SqlDbType.VarChar);
-            
-
 
             //cmd.Parameters["@registro"].Value = Convert.ToInt32(lbluser.Text);
-            cmd.Parameters["@registro"].Value =Convert.ToInt32(lblresistro.Text);
-            cmd.Parameters["@cliente"].Value = txtcliente.Text;
-            cmd.Parameters["@clasif"].Value = ddlClas_save.Text;
-            cmd.Parameters["@f_cierre"].Value = Convert.ToDateTime(datepicker.Text);
-            cmd.Parameters["@equipo"].Value = txtequipo.Text;
-            cmd.Parameters["@marca"].Value = txtmarca.Text;
-            cmd.Parameters["@modelo"].Value = txtmodelo.Text;
-            cmd.Parameters["@valor"].Value = txtvalor.Text;
-            cmd.Parameters["@estatus"].Value = txtestatus.Text;
-            cmd.Parameters["@asesor"].Value = lbluser.Text;
-            cmd.Parameters["@contacto"].Value = TXTcONTACTO.Text;
-            cmd.Parameters["@localidad"].Value = ddLocalidad.Text;
-            cmd.Parameters["@origen"].Value = ddOrigen.Text;
-            cmd.Parameters["@tipo"].Value = ddTipoVenta.Text;
+            int registro =Convert.ToInt32(lblresistro.Text);
+            string cliente = txtcliente.Text;
+            string clasificacion = ddlClas_save.Text;
+            DateTime date = Convert.ToDateTime(datepicker.Text);
+            string equipo = txtequipo.Text;
+            string marca = txtmarca.Text;
+            string modelo= txtmodelo.Text;
+            string valor= txtvalor.Text;
+            string status = txtestatus.Text;
+            string user = lbluser.Text;
+            string contacto = TXTcONTACTO.Text;
+            string localidad = ddLocalidad.Text;
+            string origen = ddOrigen.Text;
+            string tipoVenta = ddTipoVenta.Text;
 
-
-            con.Open();
-            cmd.ExecuteNonQuery();
-
-            con.Close();
+            ConexionComercial.executeStp_Update_Funnel(registro, cliente, clasificacion, date, equipo, marca, 
+                modelo, valor, status, user, contacto,localidad,origen,tipoVenta);
 
             Response.Write("<script language=javascript>if(confirm('Registro Actualizado Exitosamente')==true){ location.href='CRM_3.aspx'} else {location.href='CRM_3.aspx'}</script>");
             Limpiar();
@@ -414,45 +335,17 @@ namespace INOLAB_OC
         public void FiltroFecha(string fclas)
         {
             //Carga los resgistros del ingeniero
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select* from  funnel where asesor='" + lbluser.Text + "'and clasificacion='"+ddlClasificacion.Text+"' and fechacierre between '"+txtfecha1.Text+"' and '"+txtfecha2.Text+"'", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-                // lblcontador.Text = GridView1.Rows.Count.ToString();
-                GridView1.DataSource = objdataset;
-                GridView1.DataBind();
-
-
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
+            string query = "Select* from  funnel where asesor='" + lbluser.Text + "'and clasificacion='" + ddlClasificacion.Text + "' and fechacierre between '" + txtfecha1.Text + "' and '" + txtfecha2.Text + "'";
+            GridView1.DataSource = ConexionComercial.getDataSet(query);
+            GridView1.DataBind(); 
         }
 
         public void FiltroFechaT(string fclas)
         {
             //Carga los resgistros del ingeniero
-            try
-            {
-                SqlCommand cmd = new SqlCommand("Select* from  funnel where asesor='" + lbluser.Text + "'and fechacierre between '" + txtfecha1.Text + "' and '" + txtfecha2.Text + "'", con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.SelectCommand = cmd;
-                DataSet objdataset = new DataSet();
-                adapter.Fill(objdataset);
-                // lblcontador.Text = GridView1.Rows.Count.ToString();
-                GridView1.DataSource = objdataset;
-                GridView1.DataBind();
-
-
-            }
-            catch (Exception e)
-            {
-                Response.Write(e.ToString());
-            }
+            string query = "Select* from  funnel where asesor='" + lbluser.Text + "'and fechacierre between '" + txtfecha1.Text + "' and '" + txtfecha2.Text + "'";
+            GridView1.DataSource = ConexionComercial.getDataSet(query);
+            GridView1.DataBind();
         }
 
         protected void btnfiltrar_Click(object sender, EventArgs e)

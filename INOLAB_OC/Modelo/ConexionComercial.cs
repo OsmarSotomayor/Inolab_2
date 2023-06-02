@@ -260,5 +260,111 @@ namespace INOLAB_OC.Modelo
             }
         }
 
+        public static void executeStp_Update_Funnel(int registro,string cliente,string classSave,DateTime datepicker,string equipo,
+            string marca, string modelo, string valor, string status, string user,string contacto, string localidad, string origen, string tipoVenta)
+        {
+            initDatabase();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("stp_update_funnel", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@registro", SqlDbType.Int);
+                cmd.Parameters.Add("@cliente", SqlDbType.VarChar);
+                cmd.Parameters.Add("@clasif", SqlDbType.VarChar);
+                cmd.Parameters.Add("@f_cierre", SqlDbType.Date);
+                cmd.Parameters.Add("@equipo", SqlDbType.VarChar);
+                cmd.Parameters.Add("@marca", SqlDbType.VarChar);
+                cmd.Parameters.Add("@modelo", SqlDbType.VarChar);
+                cmd.Parameters.Add("@valor", SqlDbType.Decimal);
+                cmd.Parameters.Add("@estatus", SqlDbType.VarChar);
+                cmd.Parameters.Add("@asesor", SqlDbType.VarChar);
+                cmd.Parameters.Add("@contacto", SqlDbType.VarChar);
+                cmd.Parameters.Add("@localidad", SqlDbType.VarChar);
+                cmd.Parameters.Add("@origen", SqlDbType.VarChar);
+                cmd.Parameters.Add("@tipo", SqlDbType.VarChar);
+
+                conexion.Open();
+
+                cmd.Parameters["@registro"].Value = registro;
+                cmd.Parameters["@cliente"].Value = cliente;
+                cmd.Parameters["@clasif"].Value = classSave;
+                cmd.Parameters["@f_cierre"].Value = datepicker;
+                cmd.Parameters["@equipo"].Value = equipo;
+                cmd.Parameters["@marca"].Value = marca;
+                cmd.Parameters["@modelo"].Value = modelo;
+                cmd.Parameters["@valor"].Value = valor;
+                cmd.Parameters["@estatus"].Value = status;
+                cmd.Parameters["@asesor"].Value = user;
+                cmd.Parameters["@contacto"].Value = contacto;
+                cmd.Parameters["@localidad"].Value = localidad;
+                cmd.Parameters["@origen"].Value = origen;
+                cmd.Parameters["@tipo"].Value = tipoVenta;
+
+                
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+                Trace.WriteLine("SUCCES STORE PROCEDURE");
+            }
+            catch(SqlException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("STORE PROCEDURE FAILED " + ex.Message);
+            }
+        }
+
+        public static void executeStp_Save_Funnel(string cliente,string clasificacion, string fechaCierre, string equipo,string marca, string modelo,
+            string valor, string estatus, string asesor, string contacto, string localidad, string origen, string tipo, string gte)
+        {
+            initDatabase();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("stp_save_funnel", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@cliente", SqlDbType.VarChar);
+                cmd.Parameters.Add("@clasif", SqlDbType.VarChar);
+                cmd.Parameters.Add("@f_cierre", SqlDbType.Date);
+                cmd.Parameters.Add("@equipo", SqlDbType.VarChar);
+                cmd.Parameters.Add("@marca", SqlDbType.VarChar);
+                cmd.Parameters.Add("@modelo", SqlDbType.VarChar);
+                cmd.Parameters.Add("@valor", SqlDbType.Decimal);
+                cmd.Parameters.Add("@estatus", SqlDbType.VarChar);
+                cmd.Parameters.Add("@asesor", SqlDbType.VarChar);
+                cmd.Parameters.Add("@contacto", SqlDbType.VarChar);
+                cmd.Parameters.Add("@localidad", SqlDbType.VarChar);
+                cmd.Parameters.Add("@origen", SqlDbType.VarChar);
+                cmd.Parameters.Add("@tipo", SqlDbType.VarChar);
+                cmd.Parameters.Add("@gte", SqlDbType.VarChar);
+
+                conexion.Open();
+
+                cmd.Parameters["@cliente"].Value = cliente;
+                cmd.Parameters["@clasif"].Value = clasificacion;
+                cmd.Parameters["@f_cierre"].Value = fechaCierre;
+                cmd.Parameters["@equipo"].Value = equipo;
+                cmd.Parameters["@marca"].Value = marca;
+                cmd.Parameters["@modelo"].Value = modelo;
+                cmd.Parameters["@valor"].Value = valor;
+                cmd.Parameters["@estatus"].Value = estatus;
+                cmd.Parameters["@asesor"].Value = user;
+                cmd.Parameters["@contacto"].Value = contacto;
+                cmd.Parameters["@localidad"].Value = localidad;
+                cmd.Parameters["@origen"].Value = origen;
+                cmd.Parameters["@tipo"].Value = tipo;
+                cmd.Parameters["@gte"].Value = gte;
+
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+                Trace.WriteLine("SUCCES STORE PROCEDURE");
+
+            }
+            catch (SqlException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("FAIL STORE PROCEDURE"+ ex.Message);
+            }
+        }
+
     }
 }
