@@ -118,6 +118,28 @@ namespace INOLAB_OC.Modelo
 
         }
 
+        public static object getObject(string query)
+        {
+            initDatabase();
+            try
+            {
+                conexion.Open();
+                SqlCommand comando = new SqlCommand(query, conexion);
+                object objeto = comando.ExecuteScalar();
+                conexion.Close();
+                Trace.WriteLine("PASS SUCCES");
+                return objeto;
+            }
+            catch (SqlException ex)
+            {
+                Trace.WriteLine("PASS FAILED", ex.Message);
+                conexion.Close();
+                return null;
+            }
+            
+
+        }
+
         public static bool isThereSomeInformation(string query)
         {
             initDatabase();

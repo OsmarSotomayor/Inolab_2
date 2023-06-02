@@ -5,6 +5,8 @@ using System.Web.UI;
 using System.Web;
 using System.IO;
 using static INOLAB_OC.DescargaFolio;
+using INOLAB_OC.Modelo;
+using System.Data;
 
 public partial class FSR : Page
 {
@@ -86,52 +88,47 @@ public partial class FSR : Page
     }
 
     //Conexion a la base de datos (para hacer prebas acceder a BrowserPruebas y Test)
-    SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
     SqlConnection con2 = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Inolab;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
 
     public void consultadatos()
     {
-        //Consulta los datos que se encuentran en la vista de el folio
-        SqlCommand cmd=new SqlCommand("select * from v_fsr where idingeniero = " + Session["Idusuario"] + " and Folio = " + Session["folio_p"] + "; ", con);
-        con.Open();
+        
 
-        SqlDataReader leer;
-        leer = cmd.ExecuteReader();
-        if (leer.Read())
-        {
+           string query = "select * from v_fsr where idingeniero = " + Session["Idusuario"] + " and Folio = " + Session["folio_p"] + "; ";
+           DataRow informacionServicio = Conexion.getDataRow(query);
+        
             //Inserta los datos de la vista coorepondientemente al campo que se le es asignado dentro del .aspx
-            txtfolio.Text=leer["Cliente"].ToString();
-            txttelfax.Text=leer["Telefono"].ToString();
-            txtdireccion.Text= leer["Direccion"].ToString();
-            txtlocalidad.Text=leer["Localidad"].ToString();
-            txtdepto.Text=leer["Departamento"].ToString();
-            txtnresponsable.Text=leer["N_Responsable"].ToString();
-            txtreportadopor.Text=leer["N_Reportado"].ToString();
-            txtemail.Text = leer["Mail"].ToString();
-            txtdescripcion.Text=leer["Equipo"].ToString();
-            txtmarca.Text=leer["Marca"].ToString();
-            txtmodelo.Text=leer["Modelo"].ToString();
-            txtnoserie.Text=leer["NoSerie"].ToString();
-            txtid.Text=leer["IdEquipo_C"].ToString();
+            txtfolio.Text= informacionServicio["Cliente"].ToString();
+            txttelfax.Text= informacionServicio["Telefono"].ToString();
+            txtdireccion.Text= informacionServicio["Direccion"].ToString();
+            txtlocalidad.Text= informacionServicio["Localidad"].ToString();
+            txtdepto.Text= informacionServicio["Departamento"].ToString();
+            txtnresponsable.Text= informacionServicio["N_Responsable"].ToString();
+            txtreportadopor.Text= informacionServicio["N_Reportado"].ToString();
+            txtemail.Text = informacionServicio["Mail"].ToString();
+            txtdescripcion.Text= informacionServicio["Equipo"].ToString();
+            txtmarca.Text= informacionServicio["Marca"].ToString();
+            txtmodelo.Text= informacionServicio["Modelo"].ToString();
+            txtnoserie.Text= informacionServicio["NoSerie"].ToString();
+            txtid.Text= informacionServicio["IdEquipo_C"].ToString();
             
-            idservicio.SelectedValue = leer["idservicio"].ToString();
-            idcontrato.SelectedValue = leer["idcontrato"].ToString();
-            idproblema.SelectedValue = leer["idproblema"].ToString();
+            idservicio.SelectedValue = informacionServicio["idservicio"].ToString();
+            idcontrato.SelectedValue = informacionServicio["idcontrato"].ToString();
+            idproblema.SelectedValue = informacionServicio["idproblema"].ToString();
 
-            datepicker.Text = leer["FechaServicio"].ToString();
-            DropDownList7.SelectedValue = leer["HoraServicio"].ToString();
-            cmding.Text = leer["IdIngeniero"].ToString();
-            DropDownList8.Text = leer["Estatusid"].ToString();
-            labelestado.Text= leer["Estatusid"].ToString();
-        }
-        con.Close();
+            datepicker.Text = informacionServicio["FechaServicio"].ToString();
+            DropDownList7.SelectedValue = informacionServicio["HoraServicio"].ToString();
+            cmding.Text = informacionServicio["IdIngeniero"].ToString();
+            DropDownList8.Text = informacionServicio["Estatusid"].ToString();
+            labelestado.Text= informacionServicio["Estatusid"].ToString();
+        
 
         //Si ya se inicio el servicio, el boton en ves de decor Iniciar, dira Continuar
-        con.Open();
-        SqlCommand verificarhora = new SqlCommand("select top 1 Inicio_Servicio from FSR where Folio = " + Session["folio_p"].ToString() + " and Inicio_Servicio is not null;", con);
-        Object result = verificarhora.ExecuteScalar();
+       
         
-        if (result != null)
+        int result = Conexion.getScalar("select top 1 Inicio_Servicio from FSR where Folio = " + Session["folio_p"].ToString() + " and Inicio_Servicio is not null;");
+        
+        if (result != -1)
         {
             Button1.Text = "Continuar Servicio";
         }
@@ -139,7 +136,7 @@ public partial class FSR : Page
         {
             Button1.Text = "Iniciar Servicio";
         }
-        con.Close();
+        
     }
 
     protected void Button1_Click(object sender, EventArgs e)
@@ -172,20 +169,19 @@ public partial class FSR : Page
                 string email = emailHF.Value;
 
                 //se hace la actualizacion de los datos dentro de los campos asignados
-                con.Open();
-                SqlCommand comando = new SqlCommand(" UPDATE FSR SET Marca='" + marca + "', Modelo='" + modelo + "', NoSerie='" + noserie + 
-                    "', Equipo='" + descripcion + "', IdEquipo_C='" + id + "',Cliente='" + cliente + "',Telefono='" + telefono + 
-                    "',N_Responsable='" + responsable + "',N_Reportado='" + reportado + "',Mail='" + email + "',Direccion='" + direccion + 
-                    "',Localidad='" + localidad + "',Depto='" + depto + "',IdT_Problema='" + idproblema + "',IdT_Contrato='" + idcontrato + 
-                    "', IdT_Servicio='" + idservicio + "'" + " where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + 
-                    Session["idUsuario"] + ";", con);
-                comando.ExecuteNonQuery();
-                con.Close();
+                
+                Conexion.executeQuery(" UPDATE FSR SET Marca='" + marca + "', Modelo='" + modelo + "', NoSerie='" + noserie +
+                    "', Equipo='" + descripcion + "', IdEquipo_C='" + id + "',Cliente='" + cliente + "',Telefono='" + telefono +
+                    "',N_Responsable='" + responsable + "',N_Reportado='" + reportado + "',Mail='" + email + "',Direccion='" + direccion +
+                    "',Localidad='" + localidad + "',Depto='" + depto + "',IdT_Problema='" + idproblema + "',IdT_Contrato='" + idcontrato +
+                    "', IdT_Servicio='" + idservicio + "'" + " where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" +
+                    Session["idUsuario"] + ";");
+               
             }
             catch (Exception ex)
             {
                 Console.Write(ex.ToString());
-                con.Close();
+                
             }
 
         //Si el folio esta finalizado, sale a /FSR
@@ -287,11 +283,10 @@ public partial class FSR : Page
             DateTime DateObject = DateTime.Parse(fechacompleta);
 
             //Checa que sea la fecha del servicio
-            con.Open();
-            SqlCommand comando2 = new SqlCommand("select FechaServicio from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object fchsol = comando2.ExecuteScalar();
-            DateTime fecha_sol = (DateTime)fchsol;           
-            con.Close();
+            
+            object fechaServicio = Conexion.getObject("select FechaServicio from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+
+            DateTime fecha_sol = (DateTime)fechaServicio;           
             DateTime DateObject2 = DateTime.Parse(fecha_sol.ToString("yyyy-MM-dd"));
 
             //Validacion de si fecha web es despues de fecha servicio
@@ -304,13 +299,11 @@ public partial class FSR : Page
             //{
                 //Fecha se solicitud anterior o igual a la fecha de inicio
 
-                //update a base de datos y redireccionamiento
-                con.Open();
-                SqlCommand comando = new SqlCommand(" UPDATE FSR SET idStatus = '2' ,Inicio_Servicio='" +
+                //update a base de datos y redireccionamient
+                Conexion.executeQuery(" UPDATE FSR SET idStatus = '2' ,Inicio_Servicio='" +
                     DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', WebFechaIni='" + DateObject.ToString("yyyy - MM - dd HH: mm:ss.fff")
-                    + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-                comando.ExecuteNonQuery();
-                con.Close();
+                    + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+
             try
             {
                 //Conseguir la clave CLGcode de el folio
@@ -366,12 +359,10 @@ public partial class FSR : Page
         string fechafin = datepicker3.Text.ToString() + " " + horafs.SelectedValue.ToString() + ":" + horais.SelectedValue.ToString();
         DateTime DateObject1 = DateTime.Parse(fechafin);
 
-        con.Open();
-        SqlCommand comando = new SqlCommand(" UPDATE FSR SET WebFechaIni ='" + DateObject.ToString("yyyy - MM - dd HH: mm:ss.fff") + 
-            "' ,WebFechaFin='" + DateObject1.ToString("yyyy - MM - dd HH: mm:ss.fff") + "' where Folio=" + Session["folio_p"] + 
-            " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-        comando.ExecuteNonQuery();
-        con.Close();
+        Conexion.executeQuery(" UPDATE FSR SET WebFechaIni ='" + DateObject.ToString("yyyy - MM - dd HH: mm:ss.fff") +
+            "' ,WebFechaFin='" + DateObject1.ToString("yyyy - MM - dd HH: mm:ss.fff") + "' where Folio=" + Session["folio_p"] +
+            " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+
 
         Actfechas.Style.Add("display", "none");
         headerone.Style.Add("filter", "blur(0px)");
@@ -385,26 +376,21 @@ public partial class FSR : Page
         //Verifica si hay fecha de inicio de folio web o si hay fecha de inicio
         try
         {
-            con.Open();
-            SqlCommand act1 = new SqlCommand("select WebFechaIni from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object factual1 = act1.ExecuteScalar();
-            DateTime fecha_actual1 = (DateTime)factual1;
-            con.Close();
-            actual1.Text = fecha_actual1.ToString();
-
-            return fecha_actual1;
+            
+            object fechaActual1 = Conexion.getObject("select WebFechaIni from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            DateTime fechaActualFormatoDateTime = (DateTime)fechaActual1;
+            
+            actual1.Text = fechaActualFormatoDateTime.ToString();
+            return fechaActualFormatoDateTime;
         }
         catch (Exception es)
         {
-            con.Close();
-            con.Open();
-            SqlCommand act1 = new SqlCommand("select Inicio_Servicio from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object factual1 = act1.ExecuteScalar();
-            DateTime fecha_actual1 = (DateTime)factual1;
-            con.Close();
-            actual1.Text = fecha_actual1.ToString();
-
-            return fecha_actual1;
+            
+            object fechaActual = Conexion.getObject("select Inicio_Servicio from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            DateTime fechaActualFormatoDateTime = (DateTime)fechaActual;
+            
+            actual1.Text = fechaActualFormatoDateTime.ToString();
+            return fechaActualFormatoDateTime;
         }
     }
 
@@ -413,26 +399,21 @@ public partial class FSR : Page
         //Verifica si hay fecha de finalizacion de folio web o si hay fecha de finalizacion 
         try
         {
-            con.Open();
-            SqlCommand act2 = new SqlCommand("select WebFechaFin from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object factual2 = act2.ExecuteScalar();
-            DateTime fecha_actual2 = (DateTime)factual2;
-            con.Close();
-            actual2.Text = fecha_actual2.ToString();
+            
+            object fechaFinServicio = Conexion.getObject("select WebFechaFin from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            DateTime fechaFinServicioFormatoDateTime = (DateTime)fechaFinServicio;
 
-            return fecha_actual2;
+            actual2.Text = fechaFinServicioFormatoDateTime.ToString();
+            return fechaFinServicioFormatoDateTime;
         }
         catch (Exception es)
         {
-            con.Close();
-            con.Open();
-            SqlCommand act2 = new SqlCommand("select Fin_Servicio from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object factual2 = act2.ExecuteScalar();
-            DateTime fecha_actual2 = (DateTime)factual2;
-            con.Close();
-            actual2.Text = fecha_actual2.ToString();
-
-            return fecha_actual2;
+            
+            object fechaFinServicio = Conexion.getObject("select Fin_Servicio from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            DateTime fechaFinServicioFormatoDateTime = (DateTime)fechaFinServicio;
+         
+            actual2.Text = fechaFinServicio.ToString();
+            return fechaFinServicioFormatoDateTime;
         }
     }
 

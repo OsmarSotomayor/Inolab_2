@@ -9,7 +9,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/Encabezado.css" />
+    <link rel="stylesheet" href="CSS/EncabezadoComun.css" />
     <link rel="stylesheet" href="CSS/drop.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
@@ -121,9 +121,9 @@
                 <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" ></asp:Label>
                 <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
                 <nav>
-                    <div class="dropdown">                    
-                        <button type="reset" class="dropbtn" onclick="go('atras')">Atras</button>
-                    </div>
+                                       
+                        <button type="reset" class="dropbtn" id="Btn_Atras" onclick="go('atras')">Atras</button>
+                    
 
 <%--                    <div class="dropdown">
                         <button class="dropbtn"  type="reset" href="#" >Nuevo</button>
@@ -135,9 +135,9 @@
                             </div>
                     </div>--%>
                     
-                    <div class="dropdown">                    
-                        <button type="reset" class="dropbtn" onclick="go('salir')">Salir</button>
-                    </div>
+                                       
+                        <button type="reset" class="dropbtn" id="Btn_Salir" onclick="go('salir')">Salir</button>
+                    
                 </nav>                              
             </div>
         </header>
