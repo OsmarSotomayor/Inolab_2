@@ -351,6 +351,7 @@
     </Compile>
     <Compile Include="Modelo\Conexion.cs" />
     <Compile Include="Modelo\ConexionComercial.cs" />
+    <Compile Include="Modelo\ConexionInolab.cs" />
     <Compile Include="Principal.aspx.cs">
       <DependentUpon>Principal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

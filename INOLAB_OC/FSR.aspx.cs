@@ -87,9 +87,6 @@ public partial class FSR : Page
 
     }
 
-    //Conexion a la base de datos (para hacer prebas acceder a BrowserPruebas y Test)
-    SqlConnection con2 = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Inolab;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
-
     public void consultadatos()
     {
         
@@ -307,17 +304,12 @@ public partial class FSR : Page
             try
             {
                 //Conseguir la clave CLGcode de el folio
-                con2.Open();
                 string consulta = "Select ClgID FROM SCL5 where U_FSR = " + Session["folio_p"];
-                SqlCommand clgcode = new SqlCommand(consulta, con2);
-                int clg = (int)clgcode.ExecuteScalar();
-                con2.Close();
+                int clg = ConexionInolab.getScalar(consulta);
 
                 //Se hace el update de la concatenacion de Folio y Estatus
-                con2.Open();
-                SqlCommand sap = new SqlCommand(" UPDATE OCLG SET tel = '" + Session["folio_p"] + " En Proceso' where ClgCode=" + clg.ToString() + ";", con2);
-                sap.ExecuteNonQuery();
-                con2.Close();
+                ConexionInolab.executeQuery(" UPDATE OCLG SET tel = '" + Session["folio_p"] + " En Proceso' where ClgCode=" + clg.ToString() + ";");
+               
             }
             catch (Exception es)
             {

@@ -1,23 +1,15 @@
-﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 using System.Diagnostics;
-using System.IO.Packaging;
-using System.Data;
-using System.Drawing;
-using System.Web.Services.Description;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Office.Word;
 
 namespace INOLAB_OC.Modelo
 {
-    public class Conexion
+    public class ConexionInolab
     {
-        
         private static string source;
         private static string catalog;
         private static string user;
@@ -26,27 +18,26 @@ namespace INOLAB_OC.Modelo
         private static bool databaseProduction = false;
         private static bool databaseTest = true;
 
-       
+        
         private static void initDatabase()
         {
             if (databaseTest)
             {
                 source = "INOLABSERVER03";
-                catalog = "BrowserPruebas";
+                catalog = "Inolab_Test";
                 user = "ventas";
                 password = "V3ntas_17";
             }
-            else {
+            else
+            {
                 source = "INOLABSERVER03";
-                catalog = "Browser";
+                catalog = "Inolab";
                 user = "ventas";
                 password = "V3ntas_17";
             }
             string conexionString = @"Data Source=" + source + ";Initial Catalog=" + catalog + ";Persist Security Info=True;User ID=" + user + ";Password= " + password + "";
             conexion = new SqlConnection(conexionString);
         }
-
-      
 
         public static bool executeQuery(string query)
         {
@@ -59,13 +50,14 @@ namespace INOLAB_OC.Modelo
                 conexion.Close();
                 Trace.WriteLine("PASS: SUCESS");
                 return true;
-            }catch (SqlException ex)
+            }
+            catch (SqlException ex)
             {
                 conexion.Close();
                 Trace.WriteLine("PASS: FAILED");
                 return false;
             }
-            
+
         }
 
         public static int getScalar(string query)
@@ -73,20 +65,21 @@ namespace INOLAB_OC.Modelo
             initDatabase();
             try
             {
-                SqlCommand comand = new SqlCommand(query,conexion);
+                SqlCommand comand = new SqlCommand(query, conexion);
                 conexion.Open();
                 int escalar = Convert.ToInt32(comand.ExecuteNonQuery());
                 conexion.Close();
                 Trace.WriteLine("PASS: SUCESS");
                 return escalar;
 
-            }catch (SqlException ex)
+            }
+            catch (SqlException ex)
             {
                 conexion.Close();
                 Trace.WriteLine("PASS: FAILED");
                 return -1;
             }
-           
+
         }
 
         public static string getText(string query)
@@ -102,7 +95,8 @@ namespace INOLAB_OC.Modelo
                 Trace.WriteLine("PASS SUCES");
                 return table.Tables[0].Rows[0][0].ToString();
 
-            }catch (SqlException ex)
+            }
+            catch (SqlException ex)
             {
                 Trace.WriteLine("PASS FAILED");
                 conexion.Close();
@@ -135,7 +129,7 @@ namespace INOLAB_OC.Modelo
                 conexion.Close();
                 return null;
             }
-            
+
 
         }
 
@@ -151,9 +145,10 @@ namespace INOLAB_OC.Modelo
                 conexion.Close();
                 Trace.WriteLine("PAAS SUCCES");
                 return table.Tables[0].Rows.Count > 0 ? true : false;
-            }catch (SqlException ex)
+            }
+            catch (SqlException ex)
             {
-                Trace.WriteLine("PAS FAILED",ex.Message);
+                Trace.WriteLine("PAS FAILED", ex.Message);
                 conexion.Close();
                 return false;
             }
@@ -166,13 +161,14 @@ namespace INOLAB_OC.Modelo
             {
                 DataSet table = new DataSet();
                 conexion.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter(query,conexion);
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conexion);
                 adapter.Fill(table);
                 conexion.Close();
                 Trace.WriteLine("PASS SUCCES");
                 return table.Tables[0];
 
-            }catch (SqlException ex)
+            }
+            catch (SqlException ex)
             {
                 Trace.WriteLine("PASS FAILED", ex.Message);
                 conexion.Close();
@@ -185,7 +181,7 @@ namespace INOLAB_OC.Modelo
             initDatabase();
             try
             {
-      
+
                 DataSet tabla = new DataSet();
                 conexion.Open();
                 SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion); //SqlDataAdapter, actúa como un puente entre un DataSet y SQL Server para recuperar y guardar datos.
@@ -218,35 +214,13 @@ namespace INOLAB_OC.Modelo
                 return dataSet;
 
             }
-            catch(SqlException ex) 
+            catch (SqlException ex)
             {
                 conexion.Close();
                 Trace.WriteLine("CONEXION FAILED " + ex.Message);
                 return null;
             }
         }
-
-
-        public static void executeStoreProcedureLogWeb(string usuario, string ip)
-        {
-            initDatabase();
-            SqlCommand comando = new SqlCommand("LogWeb", conexion);
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@usuario", SqlDbType.VarChar);
-            comando.Parameters.Add("@ip", SqlDbType.VarChar);
-
-            comando.Parameters["@usuario"].Value = usuario;
-            comando.Parameters["@ip"].Value = ip;
-
-            conexion.Open();
-            comando.ExecuteNonQuery();
-            conexion.Close();
-        }
-
-       
-
-
-
 
     }
 }

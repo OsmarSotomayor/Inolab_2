@@ -20,6 +20,7 @@ public partial class ServiciosAsignados : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+       
 
         if (Session["idUsuario"] == null) { 
             Response.Redirect("./Sesion.aspx");
