@@ -9,7 +9,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/EncabezadoComun.css" />
+    <link rel="stylesheet" href="CSS/EncabezadoDetalleFSR.css" />
     <link rel="stylesheet" href="CSS/drop.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
@@ -135,7 +135,9 @@
                             </div>
                     </div>--%>
                     
-                                       
+                        
+                        
+                                 
                         <button type="reset" class="dropbtn" id="Btn_Salir" onclick="go('salir')">Salir</button>
                     
                 </nav>                              
@@ -181,6 +183,7 @@
                 
                 <div id="botonnuevo" class="btnnuevo" >
                     <asp:Button runat="server" Text="Nuevo" BorderStyle="None" style="float:right" ID="Button4" OnClick="Nuevo_Click" />
+                    <asp:Button class="dropbtn" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None" style="float:right"  ID="Btn_Ir_A_Servicios" OnClick="SA_Click"  />
                 </div>
                 <div id="botonsa" class="btnnuevo" >
                     <asp:Button runat="server" Text="Ir a Servicios Asignados" BorderStyle="None" style="float:left" ID="SA" OnClick="SA_Click" />

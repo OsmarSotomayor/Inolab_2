@@ -106,6 +106,7 @@
     <Content Include="CSS\EncabezadoCRM_2.css" />
     <Content Include="CSS\EncabezadoCRM_3.css" />
     <Content Include="CSS\EncabezadoDescargaFolio.css" />
+    <Content Include="CSS\EncabezadoDetalleFSR.css" />
     <Content Include="CSS\EncabezadoInformacion.css" />
     <Content Include="CSS\EstiloVista.css" />
     <Content Include="CSS\main.css" />

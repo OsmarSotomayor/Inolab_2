@@ -146,10 +146,9 @@ header nav {
     border-radius: 50px;
 }
 
-
-#Btn_Atras{
-    width:auto;
-    height:50px;
+#Btn_Atras {
+    width: auto;
+    height: 50px;
 }
 
 #Btn_Salir {
@@ -157,3 +156,6 @@ header nav {
     height: 50px;
 }
 
+#Btn_Ir_A_Servicios {
+    margin-right: 10px;
+}

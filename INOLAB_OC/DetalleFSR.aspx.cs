@@ -41,17 +41,17 @@ public partial class DetalleFSR : Page
         if (status == 3)
         {
             AddRef.Visible = false;
-            sirvebutton.Visible = false;
+            sirvebutton.Visible = true;
             AddFalla.Visible = false;
             vpbuttonid.Visible = false;
             SA.Visible = true;
         }
         else
         {
-            AddRef.Visible = true;
+            AddRef.Visible = false;
             sirvebutton.Visible = true;
-            AddFalla.Visible = true;
-            vpbuttonid.Visible = true;
+            AddFalla.Visible = false;
+            vpbuttonid.Visible = false;
             SA.Visible = false;
         }
 
@@ -166,9 +166,9 @@ public partial class DetalleFSR : Page
             
             int c = Conexion.getScalar("Insert into FSRAccion(FechaAccion,HorasAccion,AccionR,idFolioFSR,idUsuario, FechaSistema)" +
                 " values(CAST('" + uno + " " + DateTime.Now.ToString("HH:mm:ss.fff") + "' AS DATETIME)," + dos + ",'" + tres + "'," + Session["folio_p"] + "," + Session["idUsuario"] + ",CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME));");
+
+            return (c == 1) ? true: false;
             
-            if (c == 1) return true;
-            else return false;
         }
         catch(Exception ex)
         {
