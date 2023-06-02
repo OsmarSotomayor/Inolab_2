@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Web.Services.Description;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Office.Word;
+using System.Security.Cryptography;
 
 namespace INOLAB_OC.Modelo
 {
@@ -226,6 +227,51 @@ namespace INOLAB_OC.Modelo
             }
         }
 
+        public static DateTime getDateTime(string query)
+        {
+            initDatabase();
+            DateTime error = DateTime.Now;
+            try
+            {
+                conexion.Open();
+                SqlCommand comando = new SqlCommand(query, conexion);
+                object date = comando.ExecuteScalar();
+                DateTime dateTime = (DateTime)date;
+                conexion.Close();
+                Trace.WriteLine("PASS SUCCES");
+                return dateTime;
+            }
+            catch (SqlException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("PASS FAILED", ex.Message);
+                return error;
+            }
+
+
+        }
+
+
+        public static int getNumberOfRowsAfected(string query)
+        {
+            initDatabase();
+            try
+            {
+                conexion.Open();
+                SqlCommand insertREF = new SqlCommand(query, conexion);
+                int filasAfectadas = insertREF.ExecuteNonQuery();
+                conexion.Close();
+                Trace.WriteLine("PASS SUCES");
+                return filasAfectadas;
+            }
+            catch (SqlException ex)
+            {
+                Trace.WriteLine("PASS FAILED",ex.Message);
+                conexion.Close();
+                return 0;
+            }
+
+        }
 
         public static void executeStoreProcedureLogWeb(string usuario, string ip)
         {

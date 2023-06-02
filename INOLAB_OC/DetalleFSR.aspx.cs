@@ -4,6 +4,8 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Generic;
+using INOLAB_OC.Modelo;
+using INOLAB_OC;
 
 public partial class DetalleFSR : Page
 {
@@ -20,30 +22,22 @@ public partial class DetalleFSR : Page
             //Linea para poner en titulo el numero del folio (ya sin error de repeticion del numero)
             titulo.Text = "Detalle de FSR N°. " + Session["folio_p"].ToString();
             lbluser.Text = Session["nameUsuario"].ToString();
-            try
-            {
-                //Me trae el estatus actual del equipo para el check
-                con.Open();
-                SqlCommand comando2 = new SqlCommand("select Funcionando from FSR where Folio=" + Session["folio_p"] + ";", con);
-                string fun = (string)comando2.ExecuteScalar();
-                con.Close();
+            
+            //Me trae el estatus actual del equipo para el check
+
+           string fun = Conexion.getText("select Funcionando from FSR where Folio=" + Session["folio_p"] + ";");
                 //Para cambiar el estado del checken caso de que este en funcionamiento el equipo
-                if (fun == "Si")
-                {
-                    chkOnOff.Checked = true;
-                }
-            }
-            catch (Exception es)
-            {
-                con.Close();
-            }
+           if (fun == "Si")
+           {
+              chkOnOff.Checked = true;
+           }
+           
         }
 
         //Linea de comandos para ocultar los elementos inecesarios, una vez que se est finalizado el folio (solo para hacer cambios a anexos, proximo servicio y observaciones)
-        con.Open();
-        SqlCommand estatus = new SqlCommand("SELECT Top 1 IdStatus FROM FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-        int status = (int)estatus.ExecuteScalar();
-        con.Close();
+        
+        int status = Conexion.getScalar("SELECT Top 1 IdStatus FROM FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+        
         if (status == 3)
         {
             AddRef.Visible = false;
@@ -66,52 +60,26 @@ public partial class DetalleFSR : Page
         loadtable2();
     }
 
-    //Coneccion a la base de datos (para hacer pruebas usar BrowserPruebas)
-    SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
-
     private void cargardatos()
     {
-        try
-        {
-            //Se inicia el servicio en caso de que aun no este iniciado (Fecha sistema)
-            con.Open();
-            SqlCommand inserthora = new SqlCommand("UPDATE FSR SET Inicio_Servicio = CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) WHERE Folio = " + Session["folio_p"].ToString() + " and Inicio_Servicio is null;", con);
-            inserthora.ExecuteNonQuery();
-            con.Close();
-
-            //Se actualiza el estao de folio a "En proceso"
-            con.Open();
-            SqlCommand updatestatus = new SqlCommand("UPDATE FSR SET IdStatus = 2 WHERE Folio = " + Session["folio_p"].ToString() + " and IdStatus = 1;", con);
-            updatestatus.ExecuteNonQuery();
-            con.Close();
-            chkOnOff.Checked = estaFuncionando();
-        }
-        catch (Exception ex)
-        {
-            Console.Write(ex.ToString());
-            con.Close();
-        }
+        
+    //Se inicia el servicio en caso de que aun no este iniciado (Fecha sistema)
+    Conexion.executeQuery("UPDATE FSR SET Inicio_Servicio = CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) WHERE Folio = " + Session["folio_p"].ToString() + " and Inicio_Servicio is null;");
+            
+     //Se actualiza el estao de folio a "En proceso"
+     Conexion.executeQuery("UPDATE FSR SET IdStatus = 2 WHERE Folio = " + Session["folio_p"].ToString() + " and IdStatus = 1;");
+     chkOnOff.Checked = estaFuncionando();
+        
     }
 
     private void cargardatos2()
     {//Carga los folios del ingeniero
-        try
-        {
-            //Llena los datos de los acciones segun el folio
-            SqlCommand cmd = new SqlCommand("Select *from  FSRAccion where idFolioFSR=" + Session["folio_p"], con);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            adapter.SelectCommand = cmd;
-            DataSet objdataset = new DataSet();
-            adapter.Fill(objdataset);
-
-            //Se actualiza el datagrid para mostrar todas las acciones
-            GridView1.DataSource = objdataset;
-            GridView1.DataBind();
-        }
-        catch (Exception e)
-        {
-            Response.Write(e.ToString());
-        }
+        
+       //Llena los datos de los acciones segun el folio
+       //Se actualiza el datagrid para mostrar todas las acciones
+       GridView1.DataSource = Conexion.getDataSet("Select *from  FSRAccion where idFolioFSR=" + Session["folio_p"]);
+      GridView1.DataBind();
+      
     }
 
     protected void Nuevo_Click(object sender, EventArgs e)
@@ -143,10 +111,8 @@ public partial class DetalleFSR : Page
                 one = datepicker.Text;
 
                 //Obtener la fecha de solicitud del servicio
-                con.Open();
-                SqlCommand datever = new SqlCommand("SELECT FechaServicio FROM FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-                DateTime fechasol = (DateTime)datever.ExecuteScalar();
-                con.Close();
+                
+                DateTime fechasol = Conexion.getDateTime("SELECT FechaServicio FROM FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
 
                 //Comparacion de fechas (no puede hacerlo si la fecha es anterior a la fecha de servicio)
                 //int result = DateTime.Compare(Convert.ToDateTime(fechasol), Convert.ToDateTime(one));
@@ -197,11 +163,10 @@ public partial class DetalleFSR : Page
         //Inserta una nueva acción realizada 
         try
         {
-            con.Open();
-            SqlCommand verificarhora = new SqlCommand("Insert into FSRAccion(FechaAccion,HorasAccion,AccionR,idFolioFSR,idUsuario, FechaSistema)" +
-                " values(CAST('" + uno + " " + DateTime.Now.ToString("HH:mm:ss.fff") + "' AS DATETIME)," + dos + ",'" + tres + "'," + Session["folio_p"] + "," + Session["idUsuario"] + ",CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME));", con);
-            int c = verificarhora.ExecuteNonQuery();
-            con.Close();
+            
+            int c = Conexion.getScalar("Insert into FSRAccion(FechaAccion,HorasAccion,AccionR,idFolioFSR,idUsuario, FechaSistema)" +
+                " values(CAST('" + uno + " " + DateTime.Now.ToString("HH:mm:ss.fff") + "' AS DATETIME)," + dos + ",'" + tres + "'," + Session["folio_p"] + "," + Session["idUsuario"] + ",CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME));");
+            
             if (c == 1) return true;
             else return false;
         }
@@ -209,7 +174,6 @@ public partial class DetalleFSR : Page
         {
             Response.Write("<script>alert('Error al cargar la información');</script>");
             Console.Write(ex.ToString());
-            con.Close();
             return false;
         }
     }
@@ -231,23 +195,21 @@ public partial class DetalleFSR : Page
         try
         {
             //hace busqueda de si existen observaciones en el folio FSR correspondiente y si las hay, las incerta en el textbox
-            con.Open();
-            SqlCommand comando = new SqlCommand("select Observaciones from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object observ = comando.ExecuteScalar();
+            
+            string observaciones = Conexion.getText("select Observaciones from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
 
-            if (observ != DBNull.Value)
+            if (observaciones != null)
             {
-                txtobservaciones.Text = (string)observ;
+                txtobservaciones.Text =observaciones;
             }
-            con.Close();
+         
 
             try
             {
                 //Checa si se le notificara al asesor o no (Enviar SendMail2 en CargaFin)
-                con.Open();
-                SqlCommand comando1 = new SqlCommand("SELECT NotAsesor FROM FSR where Folio=" + Session["folio_p"] + ";", con);
-                string asesor = (string)comando1.ExecuteScalar();
-                con.Close();
+             
+                string asesor = Conexion.getText("SELECT NotAsesor FROM FSR where Folio=" + Session["folio_p"] + ";");
+               
                 if (asesor == "Si")
                 {
                     Chck.Checked = true;
@@ -260,13 +222,13 @@ public partial class DetalleFSR : Page
             catch (Exception ex)
             {
                 Console.Write(ex.ToString());
-                con.Close();
+               
             }
         }
         catch (Exception ex)
         {
             Console.Write(ex.ToString());
-            con.Close();
+            
         }
         finally
         {
@@ -282,20 +244,19 @@ public partial class DetalleFSR : Page
         //Selecciona las fallas registradas en la base de datos
         try
         {
-            con.Open();
-            SqlCommand comando = new SqlCommand("select FallaEncontrada from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object observ = comando.ExecuteScalar();
+            
+            string observaciones = Conexion.getText("select FallaEncontrada from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
 
-            if (observ != DBNull.Value)
+            if (observaciones != null)
             {
-                txtfallaencontrada.Text = (string)observ;
+                txtfallaencontrada.Text = observaciones;
             }
-            con.Close();
+           
         }
         catch (Exception ex)
         {
             Console.Write(ex.ToString());
-            con.Close();
+            
         }
         finally
         {
@@ -333,34 +294,27 @@ public partial class DetalleFSR : Page
         {
             try
             {
-                con.Open();
-                SqlCommand comando = new SqlCommand(" UPDATE FSR SET Observaciones='" + txtobservaciones.Text + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-                comando.ExecuteNonQuery();
-                con.Close();
+                
+                Conexion.executeQuery(" UPDATE FSR SET Observaciones='" + txtobservaciones.Text + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+                
 
                 if (Chck.Checked == true)
                 {
-                    
-                    con.Open();
-                    SqlCommand com5 = new SqlCommand("update fsr set NotAsesor = 'Si' where Folio=" + Session["folio_p"].ToString() + ";", con);
-                    com5.ExecuteNonQuery();
-                    con.Close();
-
+     
+                    Conexion.executeQuery("update fsr set NotAsesor = 'Si' where Folio=" + Session["folio_p"].ToString() + ";");
                     Session["not_ase"] = "Si";
                 }
                 else if (Chck.Checked == false)
                 {
-                    con.Open();
-                    SqlCommand com6 = new SqlCommand("update fsr set NotAsesor = 'No' where Folio=" + Session["folio_p"].ToString() + ";", con);
-                    com6.ExecuteNonQuery();
-                    con.Close();
+    
+                    Conexion.executeQuery("update fsr set NotAsesor = 'No' where Folio=" + Session["folio_p"].ToString() + ";");
                     Session["not_ase"] = "No";
                 }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.ToString());
-                con.Close();
+                
             }
             finally
             {
@@ -380,15 +334,12 @@ public partial class DetalleFSR : Page
         {
             try
             {
-                con.Open();
-                SqlCommand comando = new SqlCommand(" UPDATE FSR SET FallaEncontrada='" + txtfallaencontrada.Text + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-                comando.ExecuteNonQuery();
-                con.Close();
+                Conexion.executeQuery(" UPDATE FSR SET FallaEncontrada='" + txtfallaencontrada.Text + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
             }
             catch (Exception ex)
             {
                 Console.Write(ex.ToString());
-                con.Close();
+                
             }
             finally
             {
@@ -416,15 +367,12 @@ public partial class DetalleFSR : Page
                 texto = "No";
             }
 
-            con.Open();
-            SqlCommand comando = new SqlCommand(" UPDATE FSR SET Funcionando='" + texto + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            comando.ExecuteNonQuery();
-            con.Close();
+            Conexion.executeQuery(" UPDATE FSR SET Funcionando='" + texto + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
         }
         catch (Exception ex)
         {
             Console.Write(ex.ToString());
-            con.Close();
+            
         }
         finally
         {
@@ -436,10 +384,9 @@ public partial class DetalleFSR : Page
     {
         //Funcion para conocer si el equipo y tenia algun estatus de "Funcionando" para poner el chck en algun estado (si o no)
         try
-        {   con.Open();
-            SqlCommand comando = new SqlCommand(" SELECT Funcionando FROM FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            string texto = (string)comando.ExecuteScalar();
-            con.Close();
+        {   
+            string texto = Conexion.getText(" SELECT Funcionando FROM FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            
             if (texto == "Si")
             {
                 return true;
@@ -452,7 +399,6 @@ public partial class DetalleFSR : Page
         catch (Exception ex)
         {
             Console.Write(ex.ToString());
-            con.Close();
             return false;
         }
     }
@@ -471,16 +417,11 @@ public partial class DetalleFSR : Page
             {
                 texto = "No";
             }
-
-            con.Open();
-            SqlCommand comando = new SqlCommand(" UPDATE FSR SET Funcionando='" + texto + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            comando.ExecuteNonQuery();
-            con.Close();
+            Conexion.executeQuery(" UPDATE FSR SET Funcionando='" + texto + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
         }
         catch (Exception ex)
         {
             Console.Write(ex.ToString());
-            con.Close();
         }
     }
 
@@ -544,19 +485,17 @@ public partial class DetalleFSR : Page
         //Proceso de insert a la tabla de refacciones
         try
         {
-            con.Open();
-            SqlCommand insertREF = new SqlCommand("Insert into Refaccion(numRefaccion,cantidadRefaccion,descRefaccion,idFSR)" +
-                " values('" + no +"'," + num + ",'" + desc + "'," + Session["folio_p"] + ");", con);
-            int c = insertREF.ExecuteNonQuery();
-            con.Close();
-            if (c == 1) return true;
-            else return false;
+
+            int c = Conexion.getNumberOfRowsAfected("Insert into Refaccion(numRefaccion,cantidadRefaccion,descRefaccion,idFSR)" +
+                " values('" + no + "'," + num + ",'" + desc + "'," + Session["folio_p"] + ");");
+            
+            return c == 1?  true : false;
+            
         }
         catch (Exception ex)
         {
             Response.Write("<script>alert('Error al cargar la información');</script>");
             Console.Write(ex.ToString());
-            con.Close();
             return false;
         }
     }
@@ -566,24 +505,23 @@ public partial class DetalleFSR : Page
         //Llena la información de las refacciones que se tienen actualmente
         try
         {
-            con.Open();
-            SqlCommand comando = new SqlCommand("select numRefaccion,cantidadRefaccion from Refaccion where idFSR=" + Session["folio_p"] + ";", con);
-            DataSet ds = new DataSet();
-            SqlDataAdapter da = new SqlDataAdapter(comando);
-            int count = da.Fill(ds, "tabladetalle");
-            if (count > 0)
+        
+            DataSet refacciones = Conexion.getDataSet("select numRefaccion,cantidadRefaccion from Refaccion where idFSR=" + Session["folio_p"] + ";");
+            int cuenta = refacciones.Tables[0].Rows.Count;
+
+            if (cuenta > 0)
             {
-                foreach (DataRow dr in ds.Tables["tabladetalle"].Rows)
+                foreach (DataRow dataRow in refacciones.Tables[0].Rows)
                 {
-                    AddRowRef(dr["numRefaccion"].ToString(), dr["cantidadRefaccion"].ToString());
+                    AddRowRef(dataRow["numRefaccion"].ToString(), dataRow["cantidadRefaccion"].ToString());
                 }
             }
-            con.Close();
+            
         }
         catch (Exception ex)
         {
             Console.Write(ex.ToString());
-            con.Close();
+            
         }
     }
 
@@ -631,10 +569,7 @@ public partial class DetalleFSR : Page
     protected void btnProxServicio_Click(object sender, EventArgs e)
     {
         //Guarda la fecha de proximo servicio que se haya insertado (Si se oprimio sin haber seleccionado una fecha antes aparecera como 1999-01-01)
-        con.Open();
-        SqlCommand prox = new SqlCommand("Update FSR set Proximo_Servicio='" + datepicker1.Text + "' where Folio=" + Session["folio_p"], con);
-        prox.ExecuteNonQuery();
-        con.Close();
+        Conexion.executeQuery("Update FSR set Proximo_Servicio='" + datepicker1.Text + "' where Folio=" + Session["folio_p"]);
     }
 
     public void GridView1_OnRowComand(object sender, GridViewCommandEventArgs e)
@@ -650,33 +585,18 @@ public partial class DetalleFSR : Page
                 query = GridView1.Rows[q].Cells[0].Text.ToString();                
                 
                 //Busqueda de los campos de la accion 
-                con.Open();
-                SqlCommand com = new SqlCommand("select AccionR from FSRAccion where idFSRAccion=" + query + ";", con);
-                string accion = (string)com.ExecuteScalar();
-                con.Close();
-                con.Open();
-                SqlCommand com1 = new SqlCommand("select convert(varchar, FechaAccion, 105) as FechaAccion from FSRAccion where idFSRAccion=" + query + ";", con);
-                string fecha = (string)com1.ExecuteScalar();
-                con.Close();
-                con.Open();
-                SqlCommand com2 = new SqlCommand("select HorasAccion from FSRAccion where idFSRAccion=" + query + ";", con);
-                int hora = (int)com2.ExecuteScalar();
-                con.Close();
-                con.Open();
-                SqlCommand com3 = new SqlCommand("select IDFSRAccion from FSRAccion where idFSRAccion=" + query + ";", con);
-                int ida = (int)com3.ExecuteScalar();
-                con.Close();
+                
+                string accion = Conexion.getText("select AccionR from FSRAccion where idFSRAccion=" + query + ";");
+                string fecha = Conexion.getText("select convert(varchar, FechaAccion, 105) as FechaAccion from FSRAccion where idFSRAccion=" + query + ";");
+                
+                int hora = Conexion.getScalar("select HorasAccion from FSRAccion where idFSRAccion=" + query + ";");
+                int ida = Conexion.getScalar("select IDFSRAccion from FSRAccion where idFSRAccion=" + query + ";");
+               
+                string fol_io = Conexion.getText("select idFolioFSR from FSRAccion where idFSRAccion=" + query + ";");
+                string serv_io = Conexion.getText("select TipoServicio from v_fsr where Folio=" + fol_io.ToString() + ";");
+               
 
-                con.Open();
-                SqlCommand com4 = new SqlCommand("select idFolioFSR from FSRAccion where idFSRAccion=" + query + ";", con);
-                int fol_io = (int)com4.ExecuteScalar();
-                con.Close();
-                con.Open();
-                SqlCommand com5 = new SqlCommand("select TipoServicio from v_fsr where Folio=" + fol_io.ToString() + ";", con);
-                string serv_io = (string)com5.ExecuteScalar();
-                con.Close();
-
-                fol.Text = fol_io.ToString();
+                fol.Text = fol_io;
                 serv.Text =serv_io;
                 descacci.Text = accion;
                 fechacci.Text = fecha;
@@ -697,10 +617,8 @@ public partial class DetalleFSR : Page
     public void borrarsibtn_Click(object sender, EventArgs e)
     {
         //Codigo para borrar la accion realizada
-        con.Open();
-        SqlCommand del = new SqlCommand("delete from FSRAccion where idFSRAccion =" + IDAccion.Text + ";", con);
-        del.ExecuteNonQuery();
-        con.Close();
+
+        Conexion.executeQuery("delete from FSRAccion where idFSRAccion =" + IDAccion.Text + ";");
         cargardatos2();
 
         avisodel.Style.Add("display", "none");
@@ -722,19 +640,14 @@ public partial class DetalleFSR : Page
         if (Chck.Checked == true)
         {
             //Codigo anterior para checar si es que se esta encontrando la notificacion del asesor para enviar el mail
-            con.Open();
-            SqlCommand com5 = new SqlCommand("update fsr set NotAsesor = 'Si' where Folio=" + Session["folio_p"].ToString() + ";", con);
-            com5.ExecuteNonQuery();
-            con.Close();
-
+           
+            Conexion.executeQuery("update fsr set NotAsesor = 'Si' where Folio=" + Session["folio_p"].ToString() + ";");
             Session["not_ase"] = "Si";
         }
         else if(Chck.Checked == false)
         {
-            con.Open();
-            SqlCommand com6 = new SqlCommand("update fsr set NotAsesor = 'No' where Folio=" + Session["folio_p"].ToString() + ";", con);
-            com6.ExecuteNonQuery();
-            con.Close();
+            
+            Conexion.executeQuery("update fsr set NotAsesor = 'No' where Folio=" + Session["folio_p"].ToString() + ";");
             Session["not_ase"] = "No";
         }
     }

@@ -11,7 +11,7 @@ namespace INOLAB_OC
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+         
             string IP = Request.ServerVariables["REMOTE_ADDR"];
             lblip.Text = IP.ToString();
             

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Diagnostics;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace INOLAB_OC.Modelo
 {
@@ -130,6 +131,29 @@ namespace INOLAB_OC.Modelo
                 return null;
             }
 
+        }
+
+        public static DateTime getDateTime(string query)
+        {
+            initDatabase();
+            DateTime error = DateTime.Now;
+            try
+            {
+                conexion.Open();
+                SqlCommand comando = new SqlCommand(query, conexion);
+                object date = comando.ExecuteScalar();
+                DateTime dateTime = (DateTime)date;
+                conexion.Close();
+                Trace.WriteLine("PASS SUCCES");
+                return dateTime;
+            }
+            catch (SqlException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("PASS FAILED", ex.Message);
+                return error;
+            }
+          
 
         }
 
