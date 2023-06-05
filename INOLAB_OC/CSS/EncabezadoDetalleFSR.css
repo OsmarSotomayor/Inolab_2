@@ -159,3 +159,15 @@ header nav {
 #Btn_Ir_A_Servicios {
     margin-right: 10px;
 }
+
+#txthorasD {
+    width: 200px;
+    align-self: center;
+    
+}
+
+#txtacciones {
+    width: 200px;
+    align-self: center;
+   
+}

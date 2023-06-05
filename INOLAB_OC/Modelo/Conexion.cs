@@ -76,7 +76,7 @@ namespace INOLAB_OC.Modelo
             {
                 SqlCommand comand = new SqlCommand(query,conexion);
                 conexion.Open();
-                int escalar = Convert.ToInt32(comand.ExecuteNonQuery());
+                int escalar = Convert.ToInt32(comand.ExecuteScalar());
                 conexion.Close();
                 Trace.WriteLine("PASS: SUCESS");
                 return escalar;
@@ -113,7 +113,7 @@ namespace INOLAB_OC.Modelo
             {
                 conexion.Close();
                 Trace.WriteLine("PASS: FAILED ( " + ex.Message + " )");
-                return "FUERA_DE_RANGO";
+                return "";
             }
 
         }
@@ -186,7 +186,6 @@ namespace INOLAB_OC.Modelo
             initDatabase();
             try
             {
-      
                 DataSet tabla = new DataSet();
                 conexion.Open();
                 SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion); //SqlDataAdapter, actúa como un puente entre un DataSet y SQL Server para recuperar y guardar datos.

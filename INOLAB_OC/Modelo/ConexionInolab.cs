@@ -68,7 +68,7 @@ namespace INOLAB_OC.Modelo
             {
                 SqlCommand comand = new SqlCommand(query, conexion);
                 conexion.Open();
-                int escalar = Convert.ToInt32(comand.ExecuteNonQuery());
+                int escalar = Convert.ToInt32(comand.ExecuteScalar());
                 conexion.Close();
                 Trace.WriteLine("PASS: SUCESS");
                 return escalar;

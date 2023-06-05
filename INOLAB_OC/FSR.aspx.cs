@@ -7,9 +7,14 @@ using System.IO;
 using static INOLAB_OC.DescargaFolio;
 using INOLAB_OC.Modelo;
 using System.Data;
+using System.Linq.Expressions;
 
 public partial class FSR : Page
 {
+    const string FINALIZADO = "3";
+    const string ASIGNADO = "1";
+    const string PROCESO = "2";
+    const string SIN_SERVICIO_INICIADO ="";
 
     protected void Page_Init(object sender, EventArgs e)
     {
@@ -49,7 +54,7 @@ public partial class FSR : Page
             titulo.Text = "Información de FSR N°. " +  Session["folio_p"].ToString();
             lbluser.Text = Session["nameUsuario"].ToString();
         }
-        consultadatos();
+        consultaDatosFolioServicio();
 
         if (labelestado.Text == "3")
         {
@@ -87,10 +92,8 @@ public partial class FSR : Page
 
     }
 
-    public void consultadatos()
+    public void consultaDatosFolioServicio()
     {
-        
-
            string query = "select * from v_fsr where idingeniero = " + Session["Idusuario"] + " and Folio = " + Session["folio_p"] + "; ";
            DataRow informacionServicio = Conexion.getDataRow(query);
         
@@ -123,13 +126,13 @@ public partial class FSR : Page
         //Si ya se inicio el servicio, el boton en ves de decor Iniciar, dira Continuar
        
         
-        int result = Conexion.getScalar("select top 1 Inicio_Servicio from FSR where Folio = " + Session["folio_p"].ToString() + " and Inicio_Servicio is not null;");
-        
-        if (result != -1)
+        string inicioServicio = Conexion.getText("select top 1 Inicio_Servicio from FSR where Folio = " + Session["folio_p"].ToString() + " and Inicio_Servicio is not null;");
+
+        if (inicioServicio != SIN_SERVICIO_INICIADO)
         {
             Button1.Text = "Continuar Servicio";
         }
-        else
+        else if(inicioServicio.Equals(SIN_SERVICIO_INICIADO) || inicioServicio == null )
         {
             Button1.Text = "Iniciar Servicio";
         }
@@ -181,35 +184,41 @@ public partial class FSR : Page
                 
             }
 
-        //Si el folio esta finalizado, sale a /FSR
-        if (labelestado.Text == "3") {
-            recreatePDF(Session["folio_p"].ToString());
-            Response.Redirect("./FSR.aspx");
-
-        }
-        //Si esta en proceso puede ir a ver la parte de acciones realizadas (modificada)
-        else if (labelestado.Text == "2")
-        {
-            recreatePDF(Session["folio_p"].ToString());
-            Response.Redirect("./DetalleFSR.aspx");
-        }
-        //Si esta asignado, ve la parte de acciones realizadas
-        else if (labelestado.Text == "1")
-        {
-            //Se abre ventana emergente para colocar 
-            floatsection.Style.Add("display", "block");
-            headerone.Style.Add("filter", "blur(9px)");
-            cuerpo.Style.Add("display", "none");
-            reportdiv.Style.Add("display", "none");
-        }
+        verificarEstatusDeFolio(labelestado.Text);
+       
     }
 
+    private void verificarEstatusDeFolio(string estatusDeFolio)
+    {
+        switch (estatusDeFolio)
+        {
+            case ASIGNADO:
+                //Se abre ventana emergente para colocar 
+                floatsection.Style.Add("display", "block");
+                headerone.Style.Add("filter", "blur(9px)");
+                cuerpo.Style.Add("display", "none");
+                reportdiv.Style.Add("display", "none");
+                break;
+
+            case PROCESO:
+                //Si esta en proceso puede ir a ver la parte de acciones realizadas (modificada)
+                recreatePdfParaServicioFinalizado(Session["folio_p"].ToString());
+                Response.Redirect("./DetalleFSR.aspx");
+                break;
+            case FINALIZADO:
+                recreatePdfParaServicioFinalizado(Session["folio_p"].ToString());
+                Response.Redirect("./FSR.aspx");
+                break;
+
+        }
+            
+    }
     protected void btndescarga_Click(object sender, EventArgs e)
     {
         //recreatePDF(Session["folio_p"].ToString());
     }
 
-    protected void recreatePDF(string folio)
+    protected void recreatePdfParaServicioFinalizado(string folio)
     {//Esta función sirve para crear el Folio de un servicio finalizado.
 
         ServerReport serverReport = ReportViewer1.ServerReport;

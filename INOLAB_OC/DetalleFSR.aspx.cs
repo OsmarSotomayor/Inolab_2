@@ -6,11 +6,13 @@ using System.Data;
 using System.Collections.Generic;
 using INOLAB_OC.Modelo;
 using INOLAB_OC;
-
+using DocumentFormat.OpenXml.Drawing.Diagrams;
+using System.Diagnostics;
 public partial class DetalleFSR : Page
 {
     int q;
     string query;
+    const int FINALIZADO =3;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["idUsuario"] == null)
@@ -35,31 +37,43 @@ public partial class DetalleFSR : Page
         }
 
         //Linea de comandos para ocultar los elementos inecesarios, una vez que se est finalizado el folio (solo para hacer cambios a anexos, proximo servicio y observaciones)
+       
         
-        int status = Conexion.getScalar("SELECT Top 1 IdStatus FROM FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+        string query = "SELECT Top 1 IdStatus FROM FSR where Folio= " + Session["folio_p"].ToString() + " and Id_Ingeniero =" + Session["idUsuario"].ToString() + ";";
         
-        if (status == 3)
+        int status = Conexion.getScalar(query);
+    
+
+        if (status == FINALIZADO)
         {
             AddRef.Visible = false;
             sirvebutton.Visible = true;
             AddFalla.Visible = false;
             vpbuttonid.Visible = false;
-            SA.Visible = true;
+            Btn_Ir_A_Servicios.Visible = true;
         }
         else
         {
-            AddRef.Visible = false;
+            AddRef.Visible = true;
             sirvebutton.Visible = true;
-            AddFalla.Visible = false;
-            vpbuttonid.Visible = false;
-            SA.Visible = false;
+            AddFalla.Visible = true;
+            vpbuttonid.Visible = true;
+            Btn_Ir_A_Servicios.Visible = true;
         }
 
         //Carga los datos de los anexos correspondientes al folio
         cargardatos2();
         loadtable2();
     }
+    private void cargardatos2()
+    {//Carga los folios del ingeniero
 
+        //Llena los datos de los acciones segun el folio
+        //Se actualiza el datagrid para mostrar todas las acciones
+        GridView1.DataSource = Conexion.getDataSet("Select *from  FSRAccion where idFolioFSR=" + Session["folio_p"]);
+        GridView1.DataBind();
+
+    }
     private void cargardatos()
     {
         
@@ -72,15 +86,7 @@ public partial class DetalleFSR : Page
         
     }
 
-    private void cargardatos2()
-    {//Carga los folios del ingeniero
-        
-       //Llena los datos de los acciones segun el folio
-       //Se actualiza el datagrid para mostrar todas las acciones
-       GridView1.DataSource = Conexion.getDataSet("Select *from  FSRAccion where idFolioFSR=" + Session["folio_p"]);
-      GridView1.DataBind();
-      
-    }
+  
 
     protected void Nuevo_Click(object sender, EventArgs e)
     {//Despliega el espacio para agregar nuevas acciones
@@ -101,9 +107,11 @@ public partial class DetalleFSR : Page
         }
         else
         {
+           
             //Si no ha insertado alguna accion
-            if (txtacciones.Text == "")
+          if (txtacciones.Text == "")
             {
+               
                 acciones.Text = "Favor de ingresar la acción realizada";
             }
             else

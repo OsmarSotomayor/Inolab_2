@@ -186,7 +186,7 @@
                     <asp:Button class="dropbtn" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None" style="float:right"  ID="Btn_Ir_A_Servicios" OnClick="SA_Click"  />
                 </div>
                 <div id="botonsa" class="btnnuevo" >
-                    <asp:Button runat="server" Text="Ir a Servicios Asignados" BorderStyle="None" style="float:left" ID="SA" OnClick="SA_Click" />
+                    
                 </div>
                     <table style="width: 100%;">
                         <tr>
