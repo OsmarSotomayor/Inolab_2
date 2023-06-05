@@ -13,7 +13,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/Encabezado.css" />
+    <link rel="stylesheet" href="CSS/EncabezadoComun.css" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
 

@@ -7,7 +7,7 @@
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/Encabezado.css" />
+    <link rel="stylesheet" href="CSS/EncabezadoComun.css" />
     <link rel="stylesheet" href="http://localhost:50455/code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="/resources/demos/style.css" />
     

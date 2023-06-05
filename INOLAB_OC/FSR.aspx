@@ -7,11 +7,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head id="Head1" runat="server">
-    <title></title>
+    <title>FSR</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/EncabezadoComun.css" />
+    <link rel="stylesheet" href="CSS/EncabezadoFSR.css" />
     <link rel="stylesheet" href="CSS/drop.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
@@ -174,7 +174,7 @@
                         <button type="reset" class="dropbtn" id="Btn_Salir" onclick="go('salir')">Salir</button>
                     
                 </nav>                              
-        </div>
+         </div>
     </header>
 
                 <section class="contenido3" id="sectionreport" runat="server" style="display:none;">
@@ -198,39 +198,39 @@
                 </tr>
                 <tr>
                     <td class="auto-style6">
-                        <asp:Label ID="Label2" runat="server" Text="Cliente/Empresa:"></asp:Label>
-                        <asp:TextBox ID="txtfolio" runat="server" ></asp:TextBox>
+                        <asp:Label ID="Label2" runat="server" Text="Cliente/Empresa:"></asp:Label> <br />
+                        <asp:TextBox ID="txtfolio" runat="server" Width="160px" ></asp:TextBox>
                     </td>
                     <td class="auto-style6">
-                        <asp:Label ID="Label6" runat="server" Text="Tel. Ext.:"></asp:Label>
-                        <asp:TextBox ID="txttelfax" runat="server" ></asp:TextBox>
+                        <asp:Label ID="Label6" runat="server" Text="Tel. Ext.:"></asp:Label> <br /> 
+                        <asp:TextBox ID="txttelfax" runat="server" Width="160px" ></asp:TextBox>
                     </td>
                     <td class="auto-style6">
-                        <asp:Label ID="Label7" runat="server" Text="Dirección:"></asp:Label>
-                        <asp:TextBox ID="txtdireccion" runat="server"></asp:TextBox>
+                        <asp:Label ID="Label7" runat="server" Text="Dirección:"></asp:Label> <br />
+                        <asp:TextBox ID="txtdireccion" runat="server" with="200px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="Label8" runat="server" Text="Localidad:"></asp:Label>
-                        <asp:TextBox ID="txtlocalidad" runat="server" ></asp:TextBox>
+                        <asp:Label ID="Label8" runat="server" Text="Localidad:"></asp:Label> <br />
+                        <asp:TextBox ID="txtlocalidad" runat="server" Width="160px" ></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Label ID="Label3" runat="server" Text="Departamento:"></asp:Label>
-                        <asp:TextBox ID="txtdepto" runat="server"></asp:TextBox>
+                        <asp:Label ID="Label3" runat="server" Text="Departamento:"></asp:Label> <br />
+                        <asp:TextBox ID="txtdepto" runat="server" Width="160px"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Label ID="Label4" runat="server" Text="Nombre de Responsable:"></asp:Label>
-                        <asp:TextBox ID="txtnresponsable" runat="server"></asp:TextBox>
+                        <asp:Label ID="Label4" runat="server" Text="Nombre de Responsable:"></asp:Label> <br />
+                        <asp:TextBox ID="txtnresponsable" runat="server" ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="Label5" runat="server" Text="Reportado por:"></asp:Label>
+                        <asp:Label ID="Label5" runat="server" Text="Reportado por:"></asp:Label> <br />
                         <asp:TextBox ID="txtreportadopor" runat="server"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Label ID="Label9" runat="server" Text="E-mail:"></asp:Label>
+                        <asp:Label ID="Label9" runat="server" Text="E-mail:"></asp:Label> <br />
                         <asp:TextBox ID="txtemail" runat="server"></asp:TextBox>
                     </td>
                     <td>&nbsp;</td>    
@@ -245,26 +245,26 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="Label10" runat="server" Text="Descripción"></asp:Label>
+                        <asp:Label ID="Label10" runat="server" Text="Descripción"></asp:Label><br />
                         <asp:TextBox ID="txtdescripcion" runat="server"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Label ID="Label11" runat="server" Text="Marca:"></asp:Label>
-                        <asp:TextBox ID="txtmarca" runat="server"></asp:TextBox>
+                        <asp:Label ID="Label11" runat="server" Text="Marca:"></asp:Label> <br />
+                        <asp:TextBox ID="txtmarca" runat="server" Width="160px"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Label ID="Label12" runat="server" Text="Modelo:"></asp:Label>
+                        <asp:Label ID="Label12" runat="server" Text="Modelo:"></asp:Label> <br />
                         <asp:TextBox ID="txtmodelo" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="Label13" runat="server" Text="No. de Serie"></asp:Label>
+                        <asp:Label ID="Label13" runat="server" Text="No. de Serie"></asp:Label><br />
                         <asp:TextBox ID="txtnoserie" runat="server"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Label ID="Label14" runat="server" Text="ID:"></asp:Label>
-                        <asp:TextBox ID="txtid" runat="server"></asp:TextBox>
+                        <asp:Label ID="Label14" runat="server" Text="ID:"></asp:Label> <br />
+                        <asp:TextBox ID="txtid" runat="server" Width="160px"></asp:TextBox>
                     </td>
                     <td>&nbsp;</td>
                 </tr>
@@ -275,8 +275,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="Label20" runat="server" Text="Tipo de Problema:"></asp:Label>
-                        <asp:DropDownList ID="idproblema" runat="server" Enabled="True">
+                        <asp:Label ID="Label20" runat="server" Text="Tipo de Problema:"></asp:Label> <br />
+                        <asp:DropDownList ID="idproblema" runat="server" Enabled="True" Width="180px">
                                             <asp:ListItem Value="1">Neumático</asp:ListItem>
                                             <asp:ListItem Value="2">Electrónico</asp:ListItem>
                                             <asp:ListItem Value="3">Periféricos</asp:ListItem>
@@ -287,7 +287,7 @@
                         </asp:DropDownList>
                     </td>
                     <td>
-                        <asp:Label ID="Label21" runat="server" Text="Tipo de Servicio:"></asp:Label>
+                        <asp:Label ID="Label21" runat="server" Text="Tipo de Servicio:"></asp:Label> <br />
                         <asp:DropDownList ID="idservicio" runat="server" Enabled="True">
                                             <asp:ListItem Value="1">Desinstalación</asp:ListItem>
                                             <asp:ListItem Value="2">Instalacíon</asp:ListItem>
@@ -310,7 +310,7 @@
                         </asp:DropDownList>
                      </td>
                      <td>
-                        <asp:Label ID="Label22" runat="server" Text="Tipo de Contrato:"></asp:Label>
+                        <asp:Label ID="Label22" runat="server" Text="Tipo de Contrato:" Width="180px"></asp:Label><br />
                         <asp:DropDownList ID="idcontrato" runat="server" Enabled="true">
                                             <asp:ListItem Value="1">Equipo en Garantía</asp:ListItem>
                                             <asp:ListItem Value="2">Contrato Classic</asp:ListItem>
@@ -335,11 +335,11 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="Label23" runat="server" Text="Fecha de servicio:"></asp:Label>
+                        <asp:Label ID="Label23" runat="server" Text="Fecha de servicio:"></asp:Label><br />
                         <asp:TextBox ID="datepicker" runat="server" Enabled="False" ReadOnly="True" OnTextChanged="datepicker_TextChanged"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Label ID="Label25" runat="server" Text="Hora:"></asp:Label>
+                        <asp:Label ID="Label25" runat="server" Text="Hora:"></asp:Label><br/>
                         <asp:DropDownList ID="DropDownList7" runat="server" AutoPostBack="True" Enabled="False">
                                     <asp:ListItem>07:00</asp:ListItem>
                                     <asp:ListItem>07:30</asp:ListItem>
@@ -370,14 +370,14 @@
                         </asp:DropDownList>
                     </td>
                     <td>
-                        <asp:Label ID="Label24" runat="server" Text="Ingeniero de Servicio:"></asp:Label>
+                        <asp:Label ID="Label24" runat="server" Text="Ingeniero de Servicio:"></asp:Label> <br />
                         <asp:DropDownList ID="cmding" runat="server" AutoPostBack="True" DataSourceID="Ingeniero" DataTextField="NombreI" DataValueField="IdUsuario" Enabled="False"></asp:DropDownList>
                         <asp:SqlDataSource ID="Ingeniero" runat="server" ConnectionString="<%$ ConnectionStrings:CSServicio %>" SelectCommand="SELECT IdUsuario, Nombre + ' ' + Apellidos AS NombreI FROM Usuarios WHERE (IdArea = 6) ORDER BY Nombre"></asp:SqlDataSource>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="Label27" runat="server" Text="Status:"></asp:Label>
+                        <asp:Label ID="Label27" runat="server" Text="Status:"></asp:Label> <br />
                         <asp:DropDownList ID="DropDownList8" runat="server" AutoPostBack="True" DataSourceID="Estatusfolio" DataTextField="Descripcion" DataValueField="IdStatus" Enabled="False"></asp:DropDownList>
                         <asp:SqlDataSource ID="Estatusfolio" runat="server" ConnectionString="<%$ ConnectionStrings:CSServicio %>" SelectCommand="SELECT * FROM [F_Status]"></asp:SqlDataSource>
                     </td>
@@ -405,7 +405,7 @@
                         <asp:Button runat="server" Text="Actualizar Acciones" BorderStyle="None" style="float:unset; background-color:teal;" Visible="false" ID="btnacciones" OnClick="btnacciones_Click" />
                     </td>
                     <td>
-                        <asp:Button runat="server" Text="Descargar Folio" BorderStyle="None" style="float:unset;" Visible="false" ID="btndescarga" OnClick="btndescarga_Click" />
+                        <asp:Button runat="server" Text="Descargar Folio" BorderStyle="None" style="float:unset;" Visible="false" ID="btndescarga" OnClick="btndescarga_Click" color="b"/>
                     </td>
                     <td>&nbsp;</td>
                 </tr>
