@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/EncabezadoComun.css" />
+    <link rel="stylesheet" href="CSS/EncabezadoFirmaFolio.css" />
     <link rel="stylesheet" href="CSS/drop.css"  />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
@@ -143,12 +143,12 @@
                 <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" ></asp:Label>
                 <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
                 <nav>
-                    <div class="dropdown">                    
-                        <button type="reset" class="dropbtn" onclick="go('atras')">Atras</button>
-                    </div>
-                    <div class="dropdown">                    
-                        <button type="reset" class="dropbtn" onclick="go('salir')">Salir</button>
-                    </div>
+                                     
+                        <button id="Btn_Atras" type="reset" class="dropbtn" onclick="go('atras')">Atras</button>
+                    
+                                     
+                        <button id="Btn_Salir" type="reset" class="dropbtn" onclick="go('salir')">Salir</button>
+                    
                 </nav>                              
         </div>
     </header>
@@ -177,15 +177,15 @@
                     </table>
                 </div>
 
-                <div id="Button1id" class="dropdown">
+               
                     <button id="salir" runat="server" class="dropbtn" onclick="go('regresar')">Salir</button> 
-                </div>
-                <div id="Button2id" class="dropdown">
+                
+                
                     <button  id="clear" runat="server"  class="dropbtn">Limpiar</button> 
-                </div>
-                <div id="Button3id" class="dropdown">
+                
+                
                     <button  id="save" runat="server"  class="dropbtn">Guardar</button> 
-                </div>
+                
             </div>
         </div>    
         <div style="display: none;">
