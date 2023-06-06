@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.IO;
+using INOLAB_OC.Modelo;
 
 public partial class VistaPrevia : Page
 {
@@ -26,9 +27,6 @@ public partial class VistaPrevia : Page
         }
     }
 
-    //Conexion a base de datos (Para la base de datos de pruebas cambiar a BrowserPruebas y a Test)
-    SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
-    SqlConnection con2 = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Inolab;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
     protected void Page_Init(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -160,24 +158,15 @@ public partial class VistaPrevia : Page
             updateFSR(nombre);
             ReportViewer1.ServerReport.Refresh();
         }
-    }
+    }//asdoasdoads
 
     protected void updateFSR(string nombre)
     {
         //Actualiza el nombre del cliente y la fecha en la que el cliente realiza la firma 
-        try
-        {
-            con.Open();
-            SqlCommand comando = new SqlCommand(" UPDATE FSR SET NombreCliente='" + nombre + "', FechaFirmaCliente=" +
-                "CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            comando.ExecuteNonQuery();
-            con.Close();
-        }
-        catch (Exception ex)
-        {
-            Console.Write(ex.ToString());
-            con.Close();
-        }
+        string query = " UPDATE FSR SET NombreCliente='" + nombre + "', FechaFirmaCliente=" +
+                "CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";";
+        Conexion.executeQuery(query);
+        
     }
 
     protected bool insertFirma(string nombre, string image)
@@ -194,27 +183,16 @@ public partial class VistaPrevia : Page
             Match m = rx.Match(img1);
             if (m.Success)
                 mimetype = m.Value;
-            con.Open();
-            SqlCommand firma = new SqlCommand("Insert into FirmaImg(ImageName,MimeType,ImageBits)" +
-                " values(@nombre,@mime,@image);" +
-                "SELECT CAST(scope_identity() AS int)", con);
-            firma.Parameters.Add("@nombre", SqlDbType.VarChar);
-            firma.Parameters.Add("@mime", SqlDbType.VarChar);
-            firma.Parameters.Add("@image", SqlDbType.VarBinary);
-            firma.Parameters["@nombre"].Value = nombre;
-            firma.Parameters["@mime"].Value = mimetype;
-            firma.Parameters["@image"].Value = Convert.FromBase64String(img2);
-            int c = (int)firma.ExecuteScalar();
+           
+            int c = Conexion.insertarFirmaImagen(nombre, mimetype, img2);
             if (c != 0)
             {
-                SqlCommand datofirma = new SqlCommand("update FSR set IdFirmaImg=" + c + " where Folio=" + Session["folio_p"] + ";", con);
-                datofirma.ExecuteNonQuery();
-                con.Close();
+                Conexion.executeQuery("update FSR set IdFirmaImg=" + c + " where Folio=" + Session["folio_p"] + ";");
                 return true;
             }
             else
             {
-                con.Close();
+               
                 return false;
             }
         }
@@ -222,7 +200,6 @@ public partial class VistaPrevia : Page
         {
             Response.Write("<script>alert('Error al cargar la información');</script>");
             Console.Write(ex.ToString());
-            con.Close();
             return false;
         }
     }
@@ -236,11 +213,7 @@ public partial class VistaPrevia : Page
         //Proceso para identificar si hay regristros de la firma del cliente en este folio 
         try
         {
-            con.Open();
-            SqlCommand firma = new SqlCommand("select IdFirmaImg from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object firmaus = firma.ExecuteScalar();
-            fir_us = (int)firmaus;
-            con.Close();
+            fir_us = Conexion.getScalar("select IdFirmaImg from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
         }
         catch (Exception es)
         {
@@ -250,11 +223,10 @@ public partial class VistaPrevia : Page
         //Proceso para identificar si hay registros de la firma del ingeniero en este folio
         try
         {
-            con.Open();
-            SqlCommand firma2 = new SqlCommand("select IDFirmaIng from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object firmaing = firma2.ExecuteScalar();
-            fir_ing = (int)firmaing;
-            con.Close();
+            
+
+            fir_ing = Conexion.getScalar("select IDFirmaIng from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+           
         }
         catch (Exception er)
         {
@@ -283,64 +255,50 @@ public partial class VistaPrevia : Page
         try
         {
             //Actualizacion a estado de cierre de actividad de SAP
-            con2.Open();
-            SqlCommand updatestatus2 = new SqlCommand("Update OCLG set OCLG.status = -3, OCLG.Closed = 'Y', OCLG.CloseDate =CAST('" +
-                DateTime.Now.ToString("yyyy-MM-dd") + "' AS DATETIME) from OCLG INNER JOIN SCL5 ON OCLG.ClgCode=SCL5.ClgID where SCL5.U_FSR ='" + Session["folio_p"].ToString() + "'", con2);
-            updatestatus2.ExecuteNonQuery();
-            con2.Close();
+            string actualizarEstatus = "Update OCLG set OCLG.status = -3, OCLG.Closed = 'Y', OCLG.CloseDate =CAST('" +
+                DateTime.Now.ToString("yyyy-MM-dd") + "' AS DATETIME) from OCLG INNER JOIN SCL5 ON OCLG.ClgCode=SCL5.ClgID where SCL5.U_FSR ='" + Session["folio_p"].ToString() + "'";
+            ConexionInolab.executeQuery(actualizarEstatus);
 
-            con2.Open();
-            SqlCommand updatestatus3 = new SqlCommand("Update SCL5 set U_ESTATUS = 'Finalizado' where U_FSR ='" + Session["folio_p"].ToString() + "'", con2);
-            updatestatus3.ExecuteNonQuery();
-            con2.Close();
-
-
+            string queryUpdateStatusSCL5 = "Update SCL5 set U_ESTATUS = 'Finalizado' where U_FSR ='" + Session["folio_p"].ToString() + "'";
+            ConexionInolab.executeQuery(queryUpdateStatusSCL5);
+           
             //Buscar el callid
-            con2.Open();
-            string query = "Select SrvcCallId FROM SCL5 where U_FSR ='" + Session["folio_p"].ToString() + "'";
-            SqlCommand command = new SqlCommand(query, con2);
-            string resultado = Convert.ToString(command.ExecuteScalar());
-            //Me da el Callid 
-            con2.Close();
+            string querySrvcCallId = "Select SrvcCallId FROM SCL5 where U_FSR ='" + Session["folio_p"].ToString() + "'";
+            string resultado =ConexionInolab.getText(querySrvcCallId);
 
-            con2.Open();
-            string query2 = "Select count (DISTINCT U_ESTATUS) FROM SCL5 where SrvcCallId = " + resultado.ToString();
-            SqlCommand command2 = new SqlCommand(query2, con2);
-            string resultado2 = Convert.ToString(command2.ExecuteScalar());
+            //Me da el Callid 
+            string querySCL5 = "Select count (DISTINCT U_ESTATUS) FROM SCL5 where SrvcCallId = " + resultado.ToString();
+            string resultado2 = ConexionInolab.getText(querySCL5);
+
             //resultado2 el numero de valores que hay en estatus (Para que se cierre la llamada debe de ser "-1")
-            con2.Close();
+
 
             //Hacer un ciclo while para identificar nulos? (usar visorder para pasar por todos)
-            con2.Open();
-            string queryc= "Select count(*) FROM SCL5 where SrvcCallId = " + resultado.ToString();
-            SqlCommand commandc = new SqlCommand(queryc, con2);
-            string resultadoc = Convert.ToString(commandc.ExecuteScalar());
-            con2.Close();
+            string queryCountSCL5 = "Select count(*) FROM SCL5 where SrvcCallId = " + resultado.ToString();
+            string resultadoc = ConexionInolab.getText(queryCountSCL5);
+            
 
             bool nulo = false;
 
             for (int i = 1; i <= Convert.ToInt32(resultadoc); i++)
             {
                 //Comprueba si hy m folios con distintos estatus en la tabla de la llamada en SAP
-                con2.Open();
                 string queryt = "Select U_ESTATUS FROM SCL5 where SrvcCallId = " + resultado.ToString() + 
                     "and VisOrder = " + i.ToString();
-                SqlCommand commandt = new SqlCommand(queryt, con2);
-                string resultadot = Convert.ToString(commandt.ExecuteScalar());
+                string resultadot = ConexionInolab.getText(queryt);
+
                 if (resultadot != "Finalizado")
                 {
                     nulo = true;
                 }
-                con2.Close();
+                
             }
 
             if (resultado2 == "1" && nulo == false)
             {
                 //En caso de que todos los registros correspondientes a la llamda esten con estatus de finalizado, finaliza la llamada
-                con2.Open();
-                SqlCommand updatestatus4 = new SqlCommand("Update OSCL set status = -1 where callID=" + resultado.ToString(), con2);
-                updatestatus4.ExecuteNonQuery();
-                con2.Close();
+                ConexionInolab.executeQuery("Update OSCL set status = -1 where callID=" + resultado.ToString());
+                
             }
         }
         catch (Exception er)
@@ -357,16 +315,14 @@ public partial class VistaPrevia : Page
             string to,bcc, from, subject;
             Console.Write(mail);
             to = "";
-            con.Open();
-            SqlCommand getemails = new SqlCommand("select * from MailNotification;", con);
-            SqlDataReader sqldr = getemails.ExecuteReader();
+            SqlDataReader sqlDataReader = Conexion.getSqlDataReader("select * from MailNotification;");
            
-            if (sqldr.HasRows)
+            if (sqlDataReader.HasRows)
             {
                 List<String> mails = new List<string>();
-                while (sqldr.Read())
+                while (sqlDataReader.Read())
                 {
-                    mails.Add(sqldr.GetValue(2).ToString());
+                    mails.Add(sqlDataReader.GetValue(2).ToString());
                 }
                 bcc = String.Join(", ", mails);
             }
@@ -375,7 +331,6 @@ public partial class VistaPrevia : Page
                 bcc = "notificaciones@inolab.com";
             }
 
-            con.Close();
             from = "notificaciones@inolab.com";
             subject = "FSR folio " + Session["folio_p"];
             MailMessage message = new MailMessage();
@@ -511,53 +466,30 @@ public partial class VistaPrevia : Page
         }
 
         //Consulta de todos los datos que se necesitan para llenar la informacion que tendra el correo
-        con.Open();
-        string query = "Select top (1) Observaciones FROM FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand obs = new SqlCommand(query, con);
-        string observ = Convert.ToString(obs.ExecuteScalar());
-        con.Close();
+        string queryObservaciones = "Select top (1) Observaciones FROM FSR where Folio=" + Session["folio_p"].ToString();
+        string observ = Conexion.getText(queryObservaciones);
+        
+        string querySrvcCallId = "Select top (1) SrvcCallId FROM SCL5 where U_FSR=" + Session["folio_p"].ToString();
+        string llamada = Conexion.getText(querySrvcCallId);
+  
+        string queryCliente = "Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString();
+        string cliente = Conexion.getText(queryCliente);
 
-        con2.Open();
-        string query2 = "Select top (1) SrvcCallId FROM SCL5 where U_FSR=" + Session["folio_p"].ToString();
-        SqlCommand call = new SqlCommand(query2, con2);
-        string llamada = Convert.ToString(call.ExecuteScalar());
-        con2.Close();
+        string queryEquipoDeFSR = "Select top (1) Equipo FROM FSR where Folio=" + Session["folio_p"].ToString();
+        string equipo = Conexion.getText(queryEquipoDeFSR);
+    
+        string queryServicio= "Select top (1) TipoServicio FROM V_FSR where Folio=" + Session["folio_p"].ToString();
+        string servicio = Conexion.getText(queryServicio);
 
-        con.Open();
-        string query3 = "Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand clie = new SqlCommand(query3, con);
-        string cliente = Convert.ToString(clie.ExecuteScalar());
-        con.Close();
-
-        con.Open();
-        string query4 = "Select top (1) Equipo FROM FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand equi = new SqlCommand(query4, con);
-        string equipo = Convert.ToString(equi.ExecuteScalar());
-        con.Close();
-
-        con.Open();
-        string query5= "Select top (1) TipoServicio FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand serv = new SqlCommand(query5, con);
-        string servicio = Convert.ToString(serv.ExecuteScalar());
-        con.Close();
-
-        con.Open();
-        string query6 = "Select top (1) Ingeniero FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand ing = new SqlCommand(query6, con);
-        string ingeniero = Convert.ToString(ing.ExecuteScalar());
-        con.Close();
-
-        con.Open();
-        string query7 = "Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand act = new SqlCommand(query7, con);
-        string actividad = Convert.ToString(act.ExecuteScalar());
-        con.Close();
-
-        con.Open();
-        string query8 = "Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand orden = new SqlCommand(query8, con);
-        string OrdenVenta = Convert.ToString(orden.ExecuteScalar());
-        con.Close();
+        string queryIngeniero = "Select top (1) Ingeniero FROM V_FSR where Folio=" + Session["folio_p"].ToString();
+        string ingeniero= Conexion.getText(queryIngeniero);
+     
+        string queryActividad = "Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString();
+        string actividad = Conexion.getText(queryActividad);
+        
+        string queryOC = "Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString();
+        string OrdenVenta = Conexion.getText(queryOC);
+        
 
         //Incersion de datos para el HTML
         body = body.Replace("{folio}", folio);
@@ -625,29 +557,21 @@ public partial class VistaPrevia : Page
         }
 
         //Consulta de todos los datos que se necesitan para llenar la informacion que tendra el correo
-        con2.Open();
+        
         string query2 = "Select top (1) SrvcCallId FROM SCL5 where U_FSR=" + Session["folio_p"].ToString();
-        SqlCommand call = new SqlCommand(query2, con2);
-        string llamada = Convert.ToString(call.ExecuteScalar());
-        con2.Close();
+        string llamada = ConexionInolab.getText(query2);
+       
+        string queryCliente = "Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString();
+        string cliente = Conexion.getText(queryCliente);
+     
+        string queryActividad = "Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString();
+        string actividad = Conexion.getText(queryActividad);
+       
 
-        con.Open();
-        string query3 = "Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand clie = new SqlCommand(query3, con);
-        string cliente = Convert.ToString(clie.ExecuteScalar());
-        con.Close();
-
-        con.Open();
-        string query7 = "Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand act = new SqlCommand(query7, con);
-        string actividad = Convert.ToString(act.ExecuteScalar());
-        con.Close();
-
-        con.Open();
-        string query8 = "Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-        SqlCommand orden = new SqlCommand(query8, con);
-        string OrdenVenta = Convert.ToString(orden.ExecuteScalar());
-        con.Close();
+ 
+        string queryOC = "Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString();
+        string OrdenVenta = Conexion.getText(queryOC);
+       
 
         //Incersion de los datos que requiere el HTML 
         body = body.Replace("{folio}", folio);
@@ -689,11 +613,9 @@ public partial class VistaPrevia : Page
             else
             {
                 //update a base de datos y redireccionamiento
-                con.Open();
-            SqlCommand comando = new SqlCommand(" UPDATE FSR SET  WebFechaFin='" + DateObject.ToString("yyyy-MM-dd HH:mm:ss.fff")
-                + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            comando.ExecuteNonQuery();
-            con.Close();
+                Conexion.executeQuery(" UPDATE FSR SET  WebFechaFin='" + DateObject.ToString("yyyy-MM-dd HH:mm:ss.fff")
+                + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            
 
                 //Despues por medio de un boton redireccoinar a carga fin
                 Response.Redirect("CargaFin.aspx");
@@ -706,29 +628,18 @@ public partial class VistaPrevia : Page
         //Comprueba la fecha en la que se inicio el folio y no deja que la fech de finweb sea antes que la de inicioWeb
         try
         {
-            con.Open();
-            SqlCommand comando2 = new SqlCommand("select WebFechaIni from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object fchsol = comando2.ExecuteScalar();
-            DateTime fecha_sol = (DateTime)fchsol;
-            con.Close();
-
-            return fecha_sol;
+            string query = "select WebFechaIni from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";";
+            DateTime fechaSolucion = Conexion.getDateTime(query);
+            return fechaSolucion;
         }
         catch (Exception et)
         {
-            con.Close();
-            con.Open();
-            SqlCommand comando2 = new SqlCommand("select Inicio_Servicio from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            object fchsol = comando2.ExecuteScalar();
-            DateTime fecha_sol = (DateTime)fchsol;
-            con.Close();
+            
+            string query = "select Inicio_Servicio from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";"; 
+            DateTime fecha_sol = Conexion.getDateTime(query);
 
-            con.Open();
-            SqlCommand comando = new SqlCommand(" UPDATE FSR SET WebFechaIni=" +
-                "CAST('" + fecha_sol.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-            comando.ExecuteNonQuery();
-            con.Close();
-
+            Conexion.executeQuery(" UPDATE FSR SET WebFechaIni=" +
+                "CAST('" + fecha_sol.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
             return fecha_sol;
         }
 

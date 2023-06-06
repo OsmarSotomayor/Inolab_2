@@ -13,6 +13,8 @@ using System.Web.Services.Description;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Office.Word;
 using System.Security.Cryptography;
+using DocumentFormat.OpenXml.Bibliography;
+using System.Runtime.Remoting.Messaging;
 
 namespace INOLAB_OC.Modelo
 {
@@ -58,7 +60,7 @@ namespace INOLAB_OC.Modelo
                 conexion.Open();
                 comand.ExecuteNonQuery();
                 conexion.Close();
-                Trace.WriteLine("PASS: SUCESS");
+                Trace.WriteLine("PASS: SUCESS executeQuery()");
                 return true;
             }catch (SqlException ex)
             {
@@ -78,13 +80,13 @@ namespace INOLAB_OC.Modelo
                 conexion.Open();
                 int escalar = Convert.ToInt32(comand.ExecuteScalar());
                 conexion.Close();
-                Trace.WriteLine("PASS: SUCESS");
+                Trace.WriteLine("PASS: SUCESS getScalar()");
                 return escalar;
 
             }catch (SqlException ex)
             {
                 conexion.Close();
-                Trace.WriteLine("PASS: FAILED");
+                Trace.WriteLine("PASS: FAILED getScalar()");
                 return -1;
             }
            
@@ -288,8 +290,53 @@ namespace INOLAB_OC.Modelo
             conexion.Close();
         }
 
-       
+       public static int insertarFirmaImagen(string nombre,string mimetype,string imagen)
+        {
+            initDatabase();
+            try{
+                conexion.Open();
+                SqlCommand firma = new SqlCommand("Insert into FirmaImg(ImageName,MimeType,ImageBits)" +
+                    " values(@nombre,@mime,@image);" +
+                    "SELECT CAST(scope_identity() AS int)", conexion);
 
+                firma.Parameters.Add("@nombre", SqlDbType.VarChar);
+                firma.Parameters.Add("@mime", SqlDbType.VarChar);
+                firma.Parameters.Add("@image", SqlDbType.VarBinary);
+                firma.Parameters["@nombre"].Value = nombre;
+                firma.Parameters["@mime"].Value = mimetype;
+                firma.Parameters["@image"].Value = Convert.FromBase64String(imagen);
+                int escalar = (int)firma.ExecuteScalar();
+
+                return escalar;
+            }
+            catch(SqlException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("PASS FAILED"+ex.Message);
+                return -1;
+            }
+        }
+
+
+         public static SqlDataReader getSqlDataReader(string query)
+         {
+            initDatabase();
+            try
+            {
+                conexion.Open();
+                SqlCommand getemails = new SqlCommand(query, conexion);
+                SqlDataReader sqlDataReader = getemails.ExecuteReader();
+                conexion.Close();
+                Trace.WriteLine("PASS SUCCES getSqlDataReader()");
+                return sqlDataReader;
+            }
+            catch(SqlException ex)
+            {
+                conexion.Close();
+                Trace.WriteLine("PASS FAILED getSqlDataReader()");
+                return null;
+            }
+         }
 
 
 
