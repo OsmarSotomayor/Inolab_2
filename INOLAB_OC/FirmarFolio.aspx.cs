@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.IO;
-
+using INOLAB_OC.Modelo;
 
 namespace INOLAB_OC
 {
@@ -30,7 +30,7 @@ namespace INOLAB_OC
             }
         }
 
-        SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
+       
 
 
         protected void Page_Init(object sender, EventArgs e)
@@ -136,20 +136,10 @@ namespace INOLAB_OC
         }
 
         protected void updateFSR(string nombre)
-        {//Actualiza el nombre del cliente y la fecha en la que el cliente realiza la firma 
-            try
-            {
-                con.Open();
-                SqlCommand comando = new SqlCommand(" UPDATE FSR SET NombreCliente='" + nombre + "', FechaFirmaCliente=" +
-                    "CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";", con);
-                comando.ExecuteNonQuery();
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.ToString());
-                con.Close();
-            }
+        {//Actualiza el nombre del cliente y la fecha en la que el cliente realiza la firma    
+        Conexion.executeQuery(" UPDATE FSR SET NombreCliente='" + nombre + "', FechaFirmaCliente=" +
+                    "CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+             
         }
 
         protected bool insertFirma(string nombre, string image)
@@ -166,27 +156,16 @@ namespace INOLAB_OC
                 if (m.Success)
                     mimetype = m.Value;
 
-                con.Open();
-                SqlCommand firma = new SqlCommand("Insert into FirmaImg_ING(ImageName,MimeType,ImageBits)" +
-                    " values(@nombre,@mime,@image);" +
-                    "SELECT CAST(scope_identity() AS int)", con);
-                firma.Parameters.Add("@nombre", SqlDbType.VarChar);
-                firma.Parameters.Add("@mime", SqlDbType.VarChar);
-                firma.Parameters.Add("@image", SqlDbType.VarBinary);
-                firma.Parameters["@nombre"].Value = nombre;
-                firma.Parameters["@mime"].Value = mimetype;
-                firma.Parameters["@image"].Value = Convert.FromBase64String(img2);
-                int c = (int)firma.ExecuteScalar();
+               
+                int c = Conexion.insertarFirmaImagen(nombre, mimetype, img2);
+
                 if (c != 0)
                 {
-                    SqlCommand datofirma = new SqlCommand("update FSR set IDFirmaIng=" + c + " where Folio=" + Session["folio_p"] + ";", con);
-                    datofirma.ExecuteNonQuery();
-                    con.Close();
+                    Conexion.executeQuery("update FSR set IDFirmaIng=" + c + " where Folio=" + Session["folio_p"] + ";");
                     return true;
                 }
                 else
                 {
-                    con.Close();
                     return false;
                 }
             }
@@ -194,7 +173,6 @@ namespace INOLAB_OC
             {
                 Response.Write("<script>alert('Error al cargar la información');</script>");
                 Console.Write(ex.ToString());
-                con.Close();
                 return false;
             }
         }
@@ -203,28 +181,19 @@ namespace INOLAB_OC
         {//Realiza el update de los datos en FSR y sollicita la creación del PDF para mandarlo por correo electrónico 
             try
             {
-                con.Open();
-                SqlCommand comprobarfirma = new SqlCommand("select Mail from FSR where Folio = " + Session["folio_p"].ToString() + " and IdFirmaImg is not null;", con);
-                SqlDataReader sqldr = comprobarfirma.ExecuteReader();
+                
+                SqlDataReader sqldr = Conexion.getSqlDataReader("select Mail from FSR where Folio = " + Session["folio_p"].ToString() + " and IdFirmaImg is not null;");
                 if (sqldr.Read())
                 {
                     string mail = sqldr.GetValue(0).ToString();
-                    con.Close();
-                    con.Open();
-                    SqlCommand comando = new SqlCommand(" UPDATE F SET F.IdHorasServicio=A.TotalHoras, " +
-                        "F.Fin_Servicio=CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) FROM FSR as F INNER JOIN(" +
-                    "select idFolioFSR, idUsuario, SUM(HorasAccion) as TotalHoras from FSRAccion GROUP BY idFolioFSR, idUsuario) A" +
-                     " ON A.idFolioFSR = F.Folio and A.idUsuario = F.Id_Ingeniero WHERE F.Folio = @folio and F.Id_Ingeniero = @usuario;", con);
-                    comando.Parameters.Add("@folio", SqlDbType.Int);
-                    comando.Parameters.Add("@usuario", SqlDbType.Int);
-                    comando.Parameters["@folio"].Value = Session["folio_p"];
-                    comando.Parameters["@usuario"].Value = Session["idUsuario"];
-                    comando.ExecuteNonQuery();
-                    con.Close();
-                    con.Open();
-                    SqlCommand updatestatus = new SqlCommand("UPDATE FSR SET IdStatus = 3 WHERE Folio = " + Session["folio_p"].ToString() + " and IdStatus = 2;", con);
-                    updatestatus.ExecuteNonQuery();
-                    con.Close();
+                  
+                    Conexion.updateHorasDeServicio(Session["folio_p"], Session["idUsuario"]);
+
+                 
+                    string queryUpdateStatus = "UPDATE FSR SET IdStatus = 3 WHERE Folio = " + Session["folio_p"].ToString() + " and IdStatus = 2;";
+                    Conexion.executeQuery(queryUpdateStatus);
+                 
+
                     ReportViewer1.ServerReport.Refresh();
                     SendMail(CreatePDF(Session["folio_p"].ToString()), mail);
                     Response.Redirect("ServiciosAsignados.aspx");
@@ -232,7 +201,6 @@ namespace INOLAB_OC
                 else
                 {
                     Response.Write("<script>alert('Falta realizar la firma del reporte');</script>");
-                    con.Close();
                     firma.Style.Add("display", "block");
                     headerid.Style.Add("display", "none");
                     sectionreport.Style.Add("display", "none");
@@ -244,7 +212,6 @@ namespace INOLAB_OC
             catch (Exception ex)
             {
                 Console.Write(ex.ToString());
-                con.Close();
             }
         }
 
@@ -255,9 +222,8 @@ namespace INOLAB_OC
                 string to, bcc, from, subject;
                 Console.Write(mail);
                 to = "";
-                con.Open();
-                SqlCommand getemails = new SqlCommand("select * from MailNotification;", con);
-                SqlDataReader sqldr = getemails.ExecuteReader();
+                
+                SqlDataReader sqldr = Conexion.getSqlDataReader("select * from MailNotification;");
 
                 if (sqldr.HasRows)
                 {
@@ -273,7 +239,6 @@ namespace INOLAB_OC
                     bcc = "carlosflores@inolab.com";
                 }
 
-                con.Close();
                 from = "notificaciones@inolab.com";
                 subject = "FSR folio " + Session["folio_p"];
                 MailMessage message = new MailMessage();

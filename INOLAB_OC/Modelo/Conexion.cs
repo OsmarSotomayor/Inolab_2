@@ -318,14 +318,14 @@ namespace INOLAB_OC.Modelo
         }
 
 
-         public static SqlDataReader getSqlDataReader(string query)
+      public static SqlDataReader getSqlDataReader(string query)
          {
             initDatabase();
             try
             {
                 conexion.Open();
-                SqlCommand getemails = new SqlCommand(query, conexion);
-                SqlDataReader sqlDataReader = getemails.ExecuteReader();
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader sqlDataReader = comando.ExecuteReader();
                 conexion.Close();
                 Trace.WriteLine("PASS SUCCES getSqlDataReader()");
                 return sqlDataReader;
@@ -339,6 +339,29 @@ namespace INOLAB_OC.Modelo
          }
 
 
+      public static void updateHorasDeServicio(object folio, object idUsuario)
+      {
+            initDatabase();
+            try
+            {
+                conexion.Open();
+                SqlCommand comando = new SqlCommand(" UPDATE F SET F.IdHorasServicio=A.TotalHoras, " +
+                    "F.Fin_Servicio=CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) FROM FSR as F INNER JOIN(" +
+                "select idFolioFSR, idUsuario, SUM(HorasAccion) as TotalHoras from FSRAccion GROUP BY idFolioFSR, idUsuario) A" +
+                 " ON A.idFolioFSR = F.Folio and A.idUsuario = F.Id_Ingeniero WHERE F.Folio = @folio and F.Id_Ingeniero = @usuario;", conexion);
+
+                comando.Parameters.Add("@folio", SqlDbType.Int);
+                comando.Parameters.Add("@usuario", SqlDbType.Int);
+                comando.Parameters["@folio"].Value = folio;
+                comando.Parameters["@usuario"].Value = idUsuario;
+                comando.ExecuteNonQuery();
+                conexion.Close();
+            }
+            catch (SqlException ex)
+            {
+                conexion.Close();
+            }
+      }
 
     }
 }

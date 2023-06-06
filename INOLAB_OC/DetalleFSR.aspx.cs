@@ -247,7 +247,7 @@ public partial class DetalleFSR : Page
         }
     }
 
-    protected void fallasbtn_Click(object sender, EventArgs e)
+    protected void Btn_Fallas_Encontradas_Click(object sender, EventArgs e)
     {
         //Selecciona las fallas registradas en la base de datos
         try
@@ -360,7 +360,7 @@ public partial class DetalleFSR : Page
         }
     }
 
-    protected void vpbutton_Click(object sender, EventArgs e)
+    protected void Btn_Vista_Previa_Click(object sender, EventArgs e)
     {
         //Actualiza si se encuentra funcionando correctamente o no el servicio y redirige a la página de Vista Previa
         try

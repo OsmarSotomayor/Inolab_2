@@ -109,6 +109,7 @@
     <Content Include="CSS\EncabezadoDetalleFSR.css" />
     <Content Include="CSS\EncabezadoFSR.css" />
     <Content Include="CSS\EncabezadoInformacion.css" />
+    <Content Include="CSS\EncabezadoVistaPrevia.css" />
     <Content Include="CSS\EstiloVista.css" />
     <Content Include="CSS\main.css" />
     <Content Include="CSS\stilos.css" />

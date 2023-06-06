@@ -144,12 +144,10 @@
                 <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" ></asp:Label>
                 <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
                 <nav>
-                    <div class="dropdown">                    
-                        <button type="reset" class="dropbtn" onclick="go('atras')">Atras</button>
-                    </div>
-                    <div class="dropdown">                    
-                        <button type="reset" class="dropbtn" onclick="go('salir')">Salir</button>
-                    </div>
+                   <button type="reset" class="dropbtn" id="Btn_Atras" onclick="go('atras')">Atras</button>
+                    
+                                      
+                   <button type="reset" class="dropbtn" id="Btn_Salir" onclick="go('salir')">Salir</button>
                 </nav>
             </div>
         </header>

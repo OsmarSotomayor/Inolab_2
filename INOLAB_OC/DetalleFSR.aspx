@@ -410,10 +410,10 @@
                 </label>
             </div>
             <div runat="server" id="AddFalla" class="footerbtn" >
-                 <asp:Button runat="server" Text="Reportar Fallas" BorderStyle="None" style="float:unset;" ID="addfallabtn" OnClick="fallasbtn_Click"  />
+                 <asp:Button runat="server" Text="Reportar Fallas" BorderStyle="None" style="float:unset;" ID="addfallabtn" OnClick="Btn_Fallas_Encontradas_Click"  />
             </div>
             <div runat="server" id="vpbuttonid" class="footerbtn" >
-                 <asp:Button runat="server" Text="Vista Previa" BorderStyle="None" style="float:unset;" ID="vpbutton"  OnClick="vpbutton_Click" />
+                 <asp:Button runat="server" Text="Vista Previa" BorderStyle="None" style="float:unset;" ID="vpbutton"  OnClick="Btn_Vista_Previa_Click" />
             </div>
         </footer>
     </form>
