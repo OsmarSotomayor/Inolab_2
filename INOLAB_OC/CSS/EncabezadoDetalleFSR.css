@@ -161,13 +161,72 @@ header nav {
 }
 
 #txthorasD {
-    width: 200px;
-    align-self: center;
-    
+    position: absolute;
+    width: 250px;
+    left: 43%;
 }
 
 #txtacciones {
-    width: 200px;
-    align-self: center;
-   
+    position: absolute;
+    width: 250px;
+    left: 43%;
+}
+#datepicker {
+    position: absolute;
+    width: 250px;
+    left: 43%;
+
+}
+
+#acciones {
+    position: absolute;
+    left: 28%;
+    
+}
+
+#horasD {
+    position: absolute;
+    left: 30%;
+    
+}
+
+#fechad {
+    position: absolute;
+    left: 37%;
+    
+}
+
+#txtobservaciones {
+    width: 75%;
+    
+}
+
+#txtfallaencontrada {
+    width: 75%;
+    
+}
+
+#LBL_CANTIDAD_REFACCION {
+    position: absolute;
+    left: 38%;
+    padding-bottom: 5px;
+}
+
+#textboxnumrefaccion {
+    position: absolute;
+    left: 45%;
+    padding-bottom:5px;
+}
+
+#textboxdescrefaccion {
+    position: absolute;
+    width: 290px;
+    left: 45%;
+    padding-bottom: 5px;
+}
+
+#Label8 {
+    position: absolute;
+    left: 36%;
+    padding-bottom: 5px;
 }

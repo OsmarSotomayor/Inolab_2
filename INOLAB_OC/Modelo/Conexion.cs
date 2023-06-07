@@ -326,7 +326,6 @@ namespace INOLAB_OC.Modelo
                 conexion.Open();
                 SqlCommand comando = new SqlCommand(query, conexion);
                 SqlDataReader sqlDataReader = comando.ExecuteReader();
-                conexion.Close();
                 Trace.WriteLine("PASS SUCCES getSqlDataReader()");
                 return sqlDataReader;
             }
@@ -337,7 +336,11 @@ namespace INOLAB_OC.Modelo
                 return null;
             }
          }
-
+ 
+       public static void cerrarConexion()
+        {
+            conexion.Close();
+        }  
 
       public static void updateHorasDeServicio(object folio, object idUsuario)
       {

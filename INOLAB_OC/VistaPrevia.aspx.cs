@@ -29,6 +29,7 @@ public partial class VistaPrevia : Page
 
     protected void Page_Init(object sender, EventArgs e)
     {
+        
         if (!Page.IsPostBack)
         {
             ReportViewer1.ServerReport.ReportServerCredentials = new MyReportServerCredentials();
@@ -330,7 +331,7 @@ public partial class VistaPrevia : Page
             {
                 bcc = "notificaciones@inolab.com";
             }
-
+            Conexion.cerrarConexion();
             from = "notificaciones@inolab.com";
             subject = "FSR folio " + Session["folio_p"];
             MailMessage message = new MailMessage();

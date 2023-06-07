@@ -197,7 +197,7 @@ namespace INOLAB_OC
                     bcc = "notificaciones@inolab.com";
                 }
 
-                
+                Conexion.cerrarConexion();
                 from = "notificaciones@inolab.com";
                 subject = "FSR folio " + Session["folio_p"];
                 MailMessage message = new MailMessage();
@@ -470,18 +470,17 @@ namespace INOLAB_OC
         {
             Timer1.Enabled = false;
             //Realiza el update de los datos en FSR y sollicita la creación del PDF para mandarlo por correo electrónico 
-            try
-            {
+            
                 //Obtiene el Mail de el cliente
           
                 SqlDataReader sqldr = Conexion.getSqlDataReader("select Mail from FSR where Folio = " + Session["folio_p"].ToString() + " and IdFirmaImg is not null;");
                 if (sqldr.Read())
                 {
                     string mail = sqldr.GetValue(0).ToString();
-                    
-                    
+                    Conexion.cerrarConexion();
+
                     //Actualizacion de estatus de el FSR con los datos correspondientes
-                   
+
                     Conexion.updateHorasDeServicio(Session["folio_p"], Session["idUsuario"]);
 
                     //Proceso de SAP
@@ -539,12 +538,7 @@ namespace INOLAB_OC
                 {
                     Response.Redirect("VistaPrevia.aspx");
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.ToString());
-
-            }
+            
         }
     }
 }

@@ -186,7 +186,7 @@ namespace INOLAB_OC
                 if (sqldr.Read())
                 {
                     string mail = sqldr.GetValue(0).ToString();
-                  
+                    Conexion.cerrarConexion();
                     Conexion.updateHorasDeServicio(Session["folio_p"], Session["idUsuario"]);
 
                  
@@ -238,7 +238,7 @@ namespace INOLAB_OC
                 {
                     bcc = "carlosflores@inolab.com";
                 }
-
+                Conexion.cerrarConexion();
                 from = "notificaciones@inolab.com";
                 subject = "FSR folio " + Session["folio_p"];
                 MailMessage message = new MailMessage();

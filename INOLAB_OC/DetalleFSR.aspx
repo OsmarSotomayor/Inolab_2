@@ -347,7 +347,7 @@
                         </tr>                
                         <tr>
                             <td class="auto-style6">
-                                <asp:Label ID="Label7" runat="server" Text="Cantidad"></asp:Label>
+                                <asp:Label ID="LBL_CANTIDAD_REFACCION" runat="server" Text="Cantidad"></asp:Label>
                                 <asp:TextBox ID="textboxnumrefaccion" runat="server" Columns="2"  autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator3"
                                     ControlToValidate="textboxnumrefaccion" runat="server"
@@ -403,9 +403,9 @@
                 <asp:Button runat="server" Text="Refacciones" BorderStyle="None" style="float:unset;" ID="addrefbtn" OnClick="addrefbtn_Click"  />
             </div>
             <div runat="server" id="sirvebutton" class="footerbtn">
-                <asp:Label runat="server" ID="funciona" Text="¿Funciona al 100%?"/>
+                <asp:Label runat="server" ID="funciona" Text="¿Funciona al 100%? "/>
                 <label class="switch"style="color:azure">
-                    <asp:CheckBox ID="chkOnOff" runat="server" OnCheckedChanged="chkOnOff_CheckedChanged"/>
+                    <asp:CheckBox ID="CHECKED_ESTA_FUNCIONANDO" runat="server" OnCheckedChanged="CHECKED_ESTA_FUNCIONANDO_CheckedChanged" AutoPostBack="true" />
                     <span class="slider round"></span>
                 </label>
             </div>

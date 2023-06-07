@@ -25,15 +25,6 @@ public partial class DetalleFSR : Page
             titulo.Text = "Detalle de FSR N°. " + Session["folio_p"].ToString();
             lbluser.Text = Session["nameUsuario"].ToString();
             
-            //Me trae el estatus actual del equipo para el check
-
-           string fun = Conexion.getText("select Funcionando from FSR where Folio=" + Session["folio_p"] + ";");
-                //Para cambiar el estado del checken caso de que este en funcionamiento el equipo
-           if (fun == "Si")
-           {
-              chkOnOff.Checked = true;
-           }
-           
         }
 
         //Linea de comandos para ocultar los elementos inecesarios, una vez que se est finalizado el folio (solo para hacer cambios a anexos, proximo servicio y observaciones)
@@ -82,7 +73,7 @@ public partial class DetalleFSR : Page
             
      //Se actualiza el estao de folio a "En proceso"
      Conexion.executeQuery("UPDATE FSR SET IdStatus = 2 WHERE Folio = " + Session["folio_p"].ToString() + " and IdStatus = 1;");
-     chkOnOff.Checked = estaFuncionando();
+     CHECKED_ESTA_FUNCIONANDO.Checked = estaFuncionando();
         
     }
 
@@ -158,7 +149,8 @@ public partial class DetalleFSR : Page
                         contenone.Style.Add("filter", "blur(0)");
                         headerone.Style.Add("filter", "blur(0)");
                         footerid.Style.Add("display", "flex");
-                    }
+                        Response.Redirect("DetalleFSR.aspx");
+                }
                 //}
                 
             }
@@ -366,7 +358,7 @@ public partial class DetalleFSR : Page
         try
         {
             string texto = "Si";
-            if (chkOnOff.Checked)
+            if (CHECKED_ESTA_FUNCIONANDO.Checked)
             {
                 texto = "Si";
             }
@@ -411,13 +403,14 @@ public partial class DetalleFSR : Page
         }
     }
 
-    protected void chkOnOff_CheckedChanged(object sender, EventArgs e)
+    
+    protected void CHECKED_ESTA_FUNCIONANDO_CheckedChanged(object sender, EventArgs e)
     {
         //Actualizar el estado del check de si esta funcionando o no
         try
         {
             string texto = "Si";
-            if (chkOnOff.Checked)
+            if (CHECKED_ESTA_FUNCIONANDO.Checked)
             {
                 texto = "Si";
             }
@@ -433,6 +426,7 @@ public partial class DetalleFSR : Page
         }
     }
 
+   
     protected void btnrefaccion_Click(object sender, EventArgs e)
     {
         //Se realiza la inserción en la BD onteniendo los datos del formulario. 

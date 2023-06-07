@@ -418,13 +418,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.TextBox textboxidrefaccion;
 
     /// <summary>
-    /// Control Label7.
+    /// Control LBL_CANTIDAD_REFACCION.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label Label7;
+    protected global::System.Web.UI.WebControls.Label LBL_CANTIDAD_REFACCION;
 
     /// <summary>
     /// Control textboxnumrefaccion.
@@ -634,13 +634,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Label funciona;
 
     /// <summary>
-    /// Control chkOnOff.
+    /// Control CHECKED_ESTA_FUNCIONANDO.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.CheckBox chkOnOff;
+    protected global::System.Web.UI.WebControls.CheckBox CHECKED_ESTA_FUNCIONANDO;
 
     /// <summary>
     /// Control AddFalla.
