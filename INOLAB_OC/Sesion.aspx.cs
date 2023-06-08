@@ -8,7 +8,8 @@ namespace INOLAB_OC
 {
     public partial class Sesion : System.Web.UI.Page
     {
-        
+        const string areaVentas = "2";
+        const string areaServiciosIngenieria = "6";
         protected void Page_Load(object sender, EventArgs e)
         {
          
@@ -38,15 +39,15 @@ namespace INOLAB_OC
                 {
                     Response.Write("<script>alert('Ingreso de " + dataUser["Nombre"].ToString() + " " + dataUser["Apellidos"].ToString() + "');</script>");
                 }
-                string valor = dataUser["Nombre"].ToString(), idar = dataUser["IdArea"].ToString(), idr = dataUser["IdRol"].ToString();
+                string valor = dataUser["Nombre"].ToString(), idAarea = dataUser["IdArea"].ToString(), idRollUser = dataUser["IdRol"].ToString();
                 //Asignacion de variables globales 
                 Session["valor"] = valor;
-                Session["idar"] = idar;
-                Session["idr"] = idr;
+                Session["idar"] = idAarea;
+                Session["idr"] = idRollUser;
                 Session["Usuario"] = dataUser["Usuario"].ToString();
 
 
-                if (idar == "6")
+                if (idAarea == areaServiciosIngenieria)
                 {
                     //Accede a servicios asignados mientras sea idar = 6
                     Session["idUsuario"] = dataUser["idUsuario"].ToString();
@@ -67,7 +68,7 @@ namespace INOLAB_OC
                     }
                     //Usado para las paginas que dependan al departamento que vengan
                     //if (idr == "2" && idar=="2")
-                    if (idar == "2")
+                    if (idAarea == areaVentas)
                     {
                         if(Session["idUsuario"].ToString() == "7")
                         {
