@@ -49,13 +49,13 @@ namespace INOLAB_OC.Modelo
                 conexion.Open();
                 comand.ExecuteNonQuery();
                 conexion.Close();
-                Trace.WriteLine("PASS: SUCESS");
+                Trace.WriteLine("PASS: SUCESS executeQuery");
                 return true;
             }
             catch (SqlException ex)
             {
                 conexion.Close();
-                Trace.WriteLine("PASS: FAILED");
+                Trace.WriteLine("PASS: FAILED" +ex.Message);
                 return false;
             }
 

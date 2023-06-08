@@ -11,6 +11,7 @@ using System.Net.Mail;
 using System.Security.Principal;
 using System.Web;
 using System.Web.UI;
+using System.Diagnostics;
 
 namespace INOLAB_OC
 {
@@ -120,7 +121,8 @@ namespace INOLAB_OC
         protected void updateFSR(string nombre)
         {//Actualiza el nombre del cliente y la fecha en la que el cliente realiza la firma 
               Conexion.executeQuery(" UPDATE FSR SET NombreCliente='" + nombre + "', FechaFirmaCliente=" +
-                    "CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");       
+                    "CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            Trace.Write(nombre);
         }
 
         private void ActStatus()
@@ -473,11 +475,11 @@ namespace INOLAB_OC
             
                 //Obtiene el Mail de el cliente
           
-                SqlDataReader sqldr = Conexion.getSqlDataReader("select Mail from FSR where Folio = " + Session["folio_p"].ToString() + " and IdFirmaImg is not null;");
-                if (sqldr.Read())
+                string correoDeCliente = Conexion.getText("select Mail from FSR where Folio = " + Session["folio_p"].ToString() + " and IdFirmaImg is not null;");
+                if (!correoDeCliente.Equals("") || correoDeCliente != null)
                 {
-                    string mail = sqldr.GetValue(0).ToString();
-                    Conexion.cerrarConexion();
+                    string mail = correoDeCliente;
+                    
 
                     //Actualizacion de estatus de el FSR con los datos correspondientes
 
@@ -489,6 +491,7 @@ namespace INOLAB_OC
                         //Conseguir la clave CLGcode de el folio                     
                         string clgcode = "Select ClgID FROM SCL5 where U_FSR = " + Session["folio_p"];                       
                         int clg = ConexionInolab.getScalar(clgcode);            
+                        string folio = Session["folio_p"].ToString();
 
                         //Se hace el update de la concatenacion de Folio y Estatus
                         ConexionInolab.executeQuery(" UPDATE OCLG SET tel = '" + Session["folio_p"] + " Finalizado' where ClgCode=" + clg.ToString() + ";");

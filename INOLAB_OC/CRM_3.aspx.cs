@@ -203,7 +203,8 @@ namespace INOLAB_OC
 
             ConexionComercial.executeStp_Save_Funnel(cliente, clasifiacion, fechaCierre, equipo, marca, modelo, valor, estatus, asesor, contacto, localidad, origen,
                 tipo, gte);
-            
+
+            Trace.Write(asesor);
             Response.Write("<script language=javascript>if(confirm('Registro Guardado Exitosamente')==true){ location.href='CRM_3.aspx'} else {location.href='CRM_3.aspx'}</script>");
 
         }

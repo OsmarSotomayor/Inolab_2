@@ -147,6 +147,7 @@ header nav {
 }
 
 #Btn_Atras {
+    background-color: #5DADE2;
     width: auto;
     height: 50px;
 }
@@ -154,11 +155,22 @@ header nav {
 #Btn_Salir {
     width: auto;
     height: 50px;
+    background-color: #5DADE2;
 }
 
-#Btn_Ir_A_Servicios {
-    margin-right: 10px;
+#Btn_Atras:hover {
+    background: #5D6D7E;
+    color: #ffffff;
 }
+
+#Btn_Salir:hover {
+    background: #5D6D7E;
+    color: #ffffff;
+}
+
+
+
+
 
 #txthorasD {
     position: absolute;
@@ -230,3 +242,16 @@ header nav {
     left: 36%;
     padding-bottom: 5px;
 }
+
+#Btn_Ir_A_Servicios {
+    width: auto;
+    height: 50px;
+    margin-right: 20px;
+    background-color: #5DADE2;
+}
+
+
+    #Btn_Ir_A_Servicios:hover {
+        background: #5D6D7E;
+        color: #ffffff;
+    }

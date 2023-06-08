@@ -114,7 +114,7 @@ namespace INOLAB_OC.Modelo
             catch (IndexOutOfRangeException ex)
             {
                 conexion.Close();
-                Trace.WriteLine("PASS: FAILED ( " + ex.Message + " ) getText");
+                Trace.WriteLine("PASS: FAILED ( " + ex.Message + " ) getText No encontro texto en esa posicion y devuelve '' ");
                 return "";
             }
 

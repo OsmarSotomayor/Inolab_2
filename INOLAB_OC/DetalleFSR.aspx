@@ -121,7 +121,7 @@
                 <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" ></asp:Label>
                 <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
                 <nav>
-                                       
+                        <asp:Button class="dropbtn" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None"   ID="Btn_Ir_A_Servicios" OnClick="SA_Click"  />          
                         <button type="reset" class="dropbtn" id="Btn_Atras" onclick="go('atras')">Atras</button>
                     
 
@@ -139,7 +139,7 @@
                         
                                  
                         <button type="reset" class="dropbtn" id="Btn_Salir" onclick="go('salir')">Salir</button>
-                    
+                        
                 </nav>                              
             </div>
         </header>
@@ -182,8 +182,8 @@
                     </asp:GridView>
                 
                 <div id="botonnuevo" class="btnnuevo" >
-                    <asp:Button runat="server" Text="Nuevo" BorderStyle="None" style="float:right" ID="Button4" OnClick="Nuevo_Click" />
-                    <asp:Button class="dropbtn" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None" style="float:right"  ID="Btn_Ir_A_Servicios" OnClick="SA_Click"  />
+                    <asp:Button runat="server" Text="Nuevo Servicio" BorderStyle="None" style="float:right" ID="Button4" OnClick="Nuevo_Click" />
+                    
                 </div>
                 <div id="botonsa" class="btnnuevo" >
                     

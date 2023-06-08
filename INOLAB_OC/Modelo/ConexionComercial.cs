@@ -347,7 +347,7 @@ namespace INOLAB_OC.Modelo
                 cmd.Parameters["@modelo"].Value = modelo;
                 cmd.Parameters["@valor"].Value = valor;
                 cmd.Parameters["@estatus"].Value = estatus;
-                cmd.Parameters["@asesor"].Value = user;
+                cmd.Parameters["@asesor"].Value = asesor;
                 cmd.Parameters["@contacto"].Value = contacto;
                 cmd.Parameters["@localidad"].Value = localidad;
                 cmd.Parameters["@origen"].Value = origen;

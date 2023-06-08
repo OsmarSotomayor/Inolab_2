@@ -249,6 +249,7 @@ namespace INOLAB_OC
             txtcomentario.Text = null;
             btnUpdate.Visible = false;
             btnGuardar.Visible = true;
+            txtobjetivo.Text="";
         }
 
 
