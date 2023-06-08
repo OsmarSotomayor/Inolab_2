@@ -189,3 +189,21 @@ header nav {
     position: relative;
     bottom: 5%;
 }
+
+.Txt_Datos_Folio{
+    width:300px;
+}
+
+.DropDownList8{
+    width:200px;
+}
+
+#DropDownList8{
+    width:300px;
+}
+
+#txtfalla {
+ margin-right:101px;
+ width: 300px;
+
+}

@@ -65,7 +65,7 @@ namespace INOLAB_OC.Modelo
             }catch (SqlException ex)
             {
                 conexion.Close();
-                Trace.WriteLine("PASS: FAILED");
+                Trace.WriteLine("PASS: FAILED executeQuery()");
                 return false;
             }
             
@@ -107,14 +107,14 @@ namespace INOLAB_OC.Modelo
 
             }catch (SqlException ex)
             {
-                Trace.WriteLine("PASS FAILED");
+                Trace.WriteLine("PASS FAILED getText");
                 conexion.Close();
                 return null;
             }
             catch (IndexOutOfRangeException ex)
             {
                 conexion.Close();
-                Trace.WriteLine("PASS: FAILED ( " + ex.Message + " )");
+                Trace.WriteLine("PASS: FAILED ( " + ex.Message + " ) getText");
                 return "";
             }
 
@@ -129,12 +129,12 @@ namespace INOLAB_OC.Modelo
                 SqlCommand comando = new SqlCommand(query, conexion);
                 object objeto = comando.ExecuteScalar();
                 conexion.Close();
-                Trace.WriteLine("PASS SUCCES");
+                Trace.WriteLine("PASS SUCCES getObject");
                 return objeto;
             }
             catch (SqlException ex)
             {
-                Trace.WriteLine("PASS FAILED", ex.Message);
+                Trace.WriteLine("PASS FAILED getObject ", ex.Message);
                 conexion.Close();
                 return null;
             }
@@ -216,14 +216,14 @@ namespace INOLAB_OC.Modelo
                 DataSet dataSet = new DataSet();
                 adapter.Fill(dataSet);
                 conexion.Close();
-                Trace.WriteLine("PASS SUCCES");
+                Trace.WriteLine("PASS SUCCES getDataSet");
                 return dataSet;
 
             }
             catch(SqlException ex) 
             {
                 conexion.Close();
-                Trace.WriteLine("CONEXION FAILED " + ex.Message);
+                Trace.WriteLine("CONEXION FAILED getDataSet" + ex.Message);
                 return null;
             }
         }
@@ -239,13 +239,13 @@ namespace INOLAB_OC.Modelo
                 object date = comando.ExecuteScalar();
                 DateTime dateTime = (DateTime)date;
                 conexion.Close();
-                Trace.WriteLine("PASS SUCCES");
+                Trace.WriteLine("PASS SUCCES getDateTime");
                 return dateTime;
             }
             catch (SqlException ex)
             {
                 conexion.Close();
-                Trace.WriteLine("PASS FAILED", ex.Message);
+                Trace.WriteLine("PASS FAILED getDateTime", ex.Message);
                 return error;
             }
 
@@ -262,12 +262,12 @@ namespace INOLAB_OC.Modelo
                 SqlCommand insertREF = new SqlCommand(query, conexion);
                 int filasAfectadas = insertREF.ExecuteNonQuery();
                 conexion.Close();
-                Trace.WriteLine("PASS SUCES");
+                Trace.WriteLine("PASS SUCES getNumberOfRowsAfected");
                 return filasAfectadas;
             }
             catch (SqlException ex)
             {
-                Trace.WriteLine("PASS FAILED",ex.Message);
+                Trace.WriteLine("PASS FAILED getNumberOfRowsAfected", ex.Message);
                 conexion.Close();
                 return 0;
             }
