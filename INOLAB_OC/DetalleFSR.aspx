@@ -115,31 +115,26 @@
 
 <body style="overflow:auto;" onload="window.history.forward();">
     <form id="form1" runat="server" autocomplete="off">
+
         <header class="header2">
             <div id="headerone" class="auto-style1" runat="server">
             <div class="logo" style="height: 67px"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
                 <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" ></asp:Label>
                 <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
-                <nav>
-                        <asp:Button class="dropbtn" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None"   ID="Btn_Ir_A_Servicios" OnClick="SA_Click"  />          
-                        <button type="reset" class="dropbtn" id="Btn_Atras" onclick="go('atras')">Atras</button>
-                    
-
-<%--                    <div class="dropdown">
-                        <button class="dropbtn"  type="reset" href="#" >Nuevo</button>
-                            <div class="dropdown-content">
-                                <a href="#">Cliente/Empresa</a>
-                                <a href="#">Ingeniero</a>
-                                <a href="#">Marca</a>
-                                <a href="#">Modelo</a>
-                            </div>
-                    </div>--%>
-                    
+                
+                <input type="checkbox" id="check" />
+                <label for="check" class="mostrar-menu">
+                    &#8801
+                </label>
+                
+                <nav class="menu">
+                        <asp:Button class="Btn_Header" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None"   ID="Btn_Ir_A_Servicios" OnClick="SA_Click"  />          
+                        <button type="reset" class="Btn_Header" id="Btn_Atras" onclick="go('atras')">Atras</button>
+                        <button type="reset" class="Btn_Header" id="Btn_Salir" onclick="go('salir')">Salir</button>
                         
-                        
-                                 
-                        <button type="reset" class="dropbtn" id="Btn_Salir" onclick="go('salir')">Salir</button>
-                        
+                        <label for="check" class="esconder-menu">
+                        &#215
+                        </label>
                 </nav>                              
             </div>
         </header>
