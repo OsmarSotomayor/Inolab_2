@@ -10,12 +10,12 @@ namespace INOLAB_OC
     {
         const string areaVentas = "2";
         const string areaServiciosIngenieria = "6";
+        const string directorArtemio = "7";
         protected void Page_Load(object sender, EventArgs e)
         {
-         
+  
             string IP = Request.ServerVariables["REMOTE_ADDR"];
-            lblip.Text = IP.ToString();
-            
+            lblip.Text = IP.ToString();   
         }
 
       
@@ -23,7 +23,7 @@ namespace INOLAB_OC
         {
             Conexion.executeStoreProcedureLogWeb(txtUsuario.Text, lblip.Text);
         }
-        public void Ingresar()
+        public void ingresarAlAreaCorrespondiente()
         {
             try
             {
@@ -39,12 +39,13 @@ namespace INOLAB_OC
                 {
                     Response.Write("<script>alert('Ingreso de " + dataUser["Nombre"].ToString() + " " + dataUser["Apellidos"].ToString() + "');</script>");
                 }
-                string valor = dataUser["Nombre"].ToString(), idAarea = dataUser["IdArea"].ToString(), idRollUser = dataUser["IdRol"].ToString();
+                string nombreDeUsuario = dataUser["Nombre"].ToString(), idAarea = dataUser["IdArea"].ToString(), idRollUser = dataUser["IdRol"].ToString(), nombreDeUsuarioAbreviado = dataUser["Usuario"].ToString();
+                
                 //Asignacion de variables globales 
-                Session["valor"] = valor;
+                Session["valor"] = nombreDeUsuario;
                 Session["idar"] = idAarea;
                 Session["idr"] = idRollUser;
-                Session["Usuario"] = dataUser["Usuario"].ToString();
+                Session["Usuario"] = nombreDeUsuarioAbreviado;
 
 
                 if (idAarea == areaServiciosIngenieria)
@@ -70,7 +71,7 @@ namespace INOLAB_OC
                     //if (idr == "2" && idar=="2")
                     if (idAarea == areaVentas)
                     {
-                        if(Session["idUsuario"].ToString() == "7")
+                        if(Session["idUsuario"].ToString() == directorArtemio)
                         {
                             Response.Redirect("CRM_4.aspx");
                         }
@@ -88,7 +89,7 @@ namespace INOLAB_OC
 
         protected void Btn_Init_Sesion_Click(object sender, EventArgs e)
         {
-            Ingresar();
+            ingresarAlAreaCorrespondiente();
         }
 
 
