@@ -81,7 +81,7 @@ public partial class DetalleFSR : Page
 
     protected void Nuevo_Click(object sender, EventArgs e)
     {//Despliega el espacio para agregar nuevas acciones
-        seccion_nueva_accion_realizada.Style.Add("display", "block");
+        seccion_nuevo_servicio.Style.Add("display", "block");
         headerone.Style.Add("filter", "blur(9px)");
         contenone.Style.Add("filter", "blur(9px)");
         footerid.Style.Add("display", "none");
@@ -90,11 +90,11 @@ public partial class DetalleFSR : Page
     protected void Addbutton_Click(object sender, EventArgs e)
     {//Agrega la actividad nueva realizada al reporte
         String one, dos, tres;
-        fecha_nueva_accion_realizada.Text = "Fecha: ";
+        lbl_fecha_nuevo_servicio.Text = "Fecha: ";
         //Si no ha insertado una fecha
         if (datepicker.Text == "")
         {
-            fecha_nueva_accion_realizada.Text = "Favor de ingresar fecha";
+            lbl_fecha_nuevo_servicio.Text = "Favor de ingresar fecha";
         }
         else
         {
@@ -133,7 +133,7 @@ public partial class DetalleFSR : Page
                         datepicker.Text = "";
                         txthorasD.Text = "";
                         txtacciones.Text = "";
-                        seccion_nueva_accion_realizada.Style.Add("display", "none");
+                        seccion_nuevo_servicio.Style.Add("display", "none");
                         contenone.Style.Add("filter", "blur(0)");
                         headerone.Style.Add("filter", "blur(0)");
                         footerid.Style.Add("display", "flex");
@@ -145,7 +145,7 @@ public partial class DetalleFSR : Page
                         datepicker.Text = "";
                         txthorasD.Text = "";
                         txtacciones.Text = "";
-                        seccion_nueva_accion_realizada.Style.Add("display", "none");
+                        seccion_nuevo_servicio.Style.Add("display", "none");
                         contenone.Style.Add("filter", "blur(0)");
                         headerone.Style.Add("filter", "blur(0)");
                         footerid.Style.Add("display", "flex");
@@ -184,7 +184,7 @@ public partial class DetalleFSR : Page
         datepicker.Text = "";
         txthorasD.Text = "";
         txtacciones.Text = "";
-        seccion_nueva_accion_realizada.Style.Add("display", "none");
+        seccion_nuevo_servicio.Style.Add("display", "none");
         contenone.Style.Add("filter", "blur(0)");
         headerone.Style.Add("filter", "blur(0)");
         footerid.Style.Add("display", "flex");

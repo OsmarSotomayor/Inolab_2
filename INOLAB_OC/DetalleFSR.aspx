@@ -199,27 +199,27 @@
         </section>
         
         <!--seccion para ingresar una nueva accion realizada -->
-        <section class="seccion-nueva-accion-realizada"  id="seccion_nueva_accion_realizada" runat="server" style="display: none;">
+        <section class="seccion-nuevo-servicio"  id="seccion_nuevo_servicio" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf">
-                <div class="buton" id="closebtn">
+                
                     <asp:ImageButton Visible="true" ID="closeimg" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="closeimg_Click" />
-                </div>
+                
 
-                <table class="auto-style5">
+                <table class="auto-style5" id="tabla_nuevo_servicio">
                     <tr>
                         <td colspan="2">
-                            <asp:Label ID="txtbox_nueva_accion_realizada" runat="server" Text="Nueva acción realizada" CssClass="auto-style4"></asp:Label>
+                            <asp:Label ID="lbl_nueva_accion_realizada" runat="server" Text="Nueva acción realizada" CssClass="auto-style4"></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Label ID="fecha_nueva_accion_realizada" runat="server" Text="Fecha:"></asp:Label>
+                            <asp:Label ID="lbl_fecha_nuevo_servicio" runat="server" Text="Fecha:" CssClass="lbl-nueva-accion"></asp:Label>
                             <asp:TextBox ID="datepicker" runat="server" autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
                         </td>                           
                     </tr>
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Label ID="horasD" runat="server" Text="Horas Dedicadas:"></asp:Label>
+                            <asp:Label ID="horasD" runat="server" Text="Horas Dedicadas:" CssClass="lbl-nueva-accion"></asp:Label>
                             <asp:TextBox ID="txthorasD" runat="server" autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
                                 ControlToValidate="txthorasD" runat="server"
@@ -230,7 +230,7 @@
                     </tr>
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Label ID="acciones" runat="server" Text="Acciones Realizadas:"></asp:Label>
+                            <asp:Label ID="acciones" runat="server" Text="Acciones Realizadas:" CssClass="lbl-nueva-accion"></asp:Label>
                             <asp:TextBox ID="txtacciones" runat="server" Columns="2" MaxLength="240" AutoCompleteType="Disabled"></asp:TextBox>
                         </td>    
                     </tr>

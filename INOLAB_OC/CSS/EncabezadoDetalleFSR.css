@@ -163,20 +163,23 @@ header nav {
     left: 43%;
 
 }
+#datepicker_nuevo_servicio {
+    position: absolute;
+    width: 250px;
+    left: 43%;
+}
 
 #acciones {
     position: absolute;
     left: 28%;
-    
 }
 
 #horasD {
     position: absolute;
     left: 30%;
-    
 }
 
-#fecha_nueva_accion_realizada {
+#lbl_fecha_nuevo_servicio {
     position: absolute;
     left: 37%;
 }
@@ -407,5 +410,48 @@ header {
 }
 
 
-/*Agregar diseño responsive a nueva accion realizada */
+/*Agregar diseño responsive a nuevo servicio */
 
+@media only screen and (max-width: 800px) {
+   
+
+    #lbl_fecha_nuevo_servicio {
+        position: absolute;
+        left: 7%;
+        width: 70px;
+    }
+    #horasD {
+        position: absolute;
+        left: 7%;
+        width:70px;
+    }
+    #acciones {
+        position: absolute;
+        left: 6%;
+        width:100px;
+    }
+
+
+    #datepicker{
+        width:90px;
+    }
+    #txthorasD {
+        width: 90px;
+    }
+    #txtacciones {
+        width: 120px;
+        height:80px;
+        text-align:start;
+        
+    }
+
+    #Addbutton {
+        position: absolute;
+        left: 7%;
+        width: 100px;
+    }
+
+    #tabla_nuevo_servicio{
+        background-color:whitesmoke;
+    }
+}

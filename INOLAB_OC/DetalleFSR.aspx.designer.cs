@@ -130,13 +130,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Button btnProxServicio;
 
     /// <summary>
-    /// Control seccion_nueva_accion_realizada.
+    /// Control seccion_nuevo_servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl seccion_nueva_accion_realizada;
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl seccion_nuevo_servicio;
 
     /// <summary>
     /// Control closeimg.
@@ -148,22 +148,22 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.ImageButton closeimg;
 
     /// <summary>
-    /// Control txtbox_nueva_accion_realizada.
+    /// Control lbl_nueva_accion_realizada.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label txtbox_nueva_accion_realizada;
+    protected global::System.Web.UI.WebControls.Label lbl_nueva_accion_realizada;
 
     /// <summary>
-    /// Control fecha_nueva_accion_realizada.
+    /// Control lbl_fecha_nuevo_servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label fecha_nueva_accion_realizada;
+    protected global::System.Web.UI.WebControls.Label lbl_fecha_nuevo_servicio;
 
     /// <summary>
     /// Control datepicker.
