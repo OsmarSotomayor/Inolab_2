@@ -176,10 +176,9 @@ header nav {
     
 }
 
-#fechad {
+#fecha_nueva_accion_realizada {
     position: absolute;
     left: 37%;
-    
 }
 
 #txtobservaciones {
@@ -192,26 +191,21 @@ header nav {
     
 }
 
-#LBL_CANTIDAD_REFACCION {
+
+#txtbox_cantidad_refaccion {
     position: absolute;
-    left: 38%;
+    left: 45%;
     padding-bottom: 5px;
 }
 
-#textboxnumrefaccion {
-    position: absolute;
-    left: 45%;
-    padding-bottom:5px;
-}
-
-#textboxdescrefaccion {
+#txtbox_descripcion_refaccion {
     position: absolute;
     width: 290px;
     left: 45%;
     padding-bottom: 5px;
 }
 
-#Label8 {
+#LBL_DESCRIPCION {
     position: absolute;
     left: 36%;
     padding-bottom: 5px;
@@ -295,4 +289,123 @@ header {
         right: 0;
     }
 }
+
+/*DISEÑO RESPONSIVE PARABOTON AGREGAR REFACCION */
+
+.seccion-agregar-refaccion {
+    position: relative;
+    padding: 10px;
+    max-width: 1000px;
+    margin: auto;
+    background-color:white;
+}
+.div-agregar-refaccion {
+    position: inherit;
+    margin-right: 3%;
+    /*box-shadow:  5px 10px 8px grey;*/
+    box-shadow: 1px 1px 10px 1px #252932;
+    margin-bottom: 5%;
+    padding: 1%;
+    overflow: auto;
+    background-color: white;
+}
+
+
+#AGREGAR_REFACCION_TITULO {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.tabla-agregar-refaccion {
+    width: 100%;
+    
+}
+
+
+.tabla-agregar-refaccion-celda {
+    text-decoration: underline;
+    font-weight: bold;
+    height: 48px;
+    margin: auto;
+   
+}
+
+#LBL_DESCRIPCION_REFACCION {
+    position: absolute;
+    left: 36%;
+    padding-bottom: 5px;
+}
+
+#LBL_CANTIDAD_REFACCION {
+    position: absolute;
+    left: 38%;
+    padding-bottom: 5px;
+}
+
+
+@media only screen and (max-width: 800px) {
+    .seccion-agregar-refaccion{
+        position:absolute;
+        left:10%;
+        width:80%;
+        height:70%;
+    }
+    .tabla-agregar-refaccion {
+        position: absolute;
+        left: 10%;
+        width: 80%;
+        height: 70%;
+    }
+
+ 
+    #LBL_NUM_PARTES_REFACCION {
+        position: absolute;
+        left: 10%;
+    }
+
+    #LBL_CANTIDAD_REFACCION {
+        position: absolute;
+        left: 10%;
+    }
+    #LBL_DESCRIPCION_REFACCION {
+        position: absolute;
+        left: 9%;
+    }
+
+    #txtbox_numero_de_partes {
+        position: absolute;
+        left: 42%;
+        width: 70px;
+        margin: 3px;
+    }
+
+    #txbox-cantidad-refaccion {
+        position: absolute;
+        left: 40%;
+    }
+    #txtbox_descripcion_refaccion {
+        position: absolute;
+        left: 7%;
+        margin-right: 10px;
+        margin-left: 10px;
+        width: 250px;
+    }
+    #BTN_AGREGAR_REFACCION {
+        position: absolute;
+        bottom: -70px;
+        margin-right: 10px;
+        margin-left: 10px;
+        left:7%;
+    }
+    #txtbox_cantidad_refaccion {
+        position: absolute;
+        left: 42%;
+        width: 70px;
+        margin: 3px;
+    }
+    
+}
+
+
+/*Agregar diseño responsive a nueva accion realizada */
 

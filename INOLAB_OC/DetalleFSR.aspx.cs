@@ -81,7 +81,7 @@ public partial class DetalleFSR : Page
 
     protected void Nuevo_Click(object sender, EventArgs e)
     {//Despliega el espacio para agregar nuevas acciones
-        floatsection.Style.Add("display", "block");
+        seccion_nueva_accion_realizada.Style.Add("display", "block");
         headerone.Style.Add("filter", "blur(9px)");
         contenone.Style.Add("filter", "blur(9px)");
         footerid.Style.Add("display", "none");
@@ -90,11 +90,11 @@ public partial class DetalleFSR : Page
     protected void Addbutton_Click(object sender, EventArgs e)
     {//Agrega la actividad nueva realizada al reporte
         String one, dos, tres;
-        fechad.Text = "Fecha: ";
+        fecha_nueva_accion_realizada.Text = "Fecha: ";
         //Si no ha insertado una fecha
         if (datepicker.Text == "")
         {
-            fechad.Text = "Favor de ingresar fecha";
+            fecha_nueva_accion_realizada.Text = "Favor de ingresar fecha";
         }
         else
         {
@@ -133,7 +133,7 @@ public partial class DetalleFSR : Page
                         datepicker.Text = "";
                         txthorasD.Text = "";
                         txtacciones.Text = "";
-                        floatsection.Style.Add("display", "none");
+                        seccion_nueva_accion_realizada.Style.Add("display", "none");
                         contenone.Style.Add("filter", "blur(0)");
                         headerone.Style.Add("filter", "blur(0)");
                         footerid.Style.Add("display", "flex");
@@ -145,7 +145,7 @@ public partial class DetalleFSR : Page
                         datepicker.Text = "";
                         txthorasD.Text = "";
                         txtacciones.Text = "";
-                        floatsection.Style.Add("display", "none");
+                        seccion_nueva_accion_realizada.Style.Add("display", "none");
                         contenone.Style.Add("filter", "blur(0)");
                         headerone.Style.Add("filter", "blur(0)");
                         footerid.Style.Add("display", "flex");
@@ -184,7 +184,7 @@ public partial class DetalleFSR : Page
         datepicker.Text = "";
         txthorasD.Text = "";
         txtacciones.Text = "";
-        floatsection.Style.Add("display", "none");
+        seccion_nueva_accion_realizada.Style.Add("display", "none");
         contenone.Style.Add("filter", "blur(0)");
         headerone.Style.Add("filter", "blur(0)");
         footerid.Style.Add("display", "flex");
@@ -431,9 +431,9 @@ public partial class DetalleFSR : Page
     {
         //Se realiza la inserción en la BD onteniendo los datos del formulario. 
         string no, desc, num;
-        no = textboxidrefaccion.Text;
-        desc = textboxdescrefaccion.Text;
-        num = textboxnumrefaccion.Text;
+        no = txtbox_numero_de_partes.Text;
+        desc = txtbox_descripcion_refaccion.Text;
+        num = txtbox_cantidad_refaccion.Text;
         if (no.Length > 0)
         {
             if (desc.Length > 0)
@@ -443,10 +443,10 @@ public partial class DetalleFSR : Page
                     if (insertRefaccion(no, num, desc))
                     {
                         AddRowRef(no, num);
-                        textboxidrefaccion.Text = "";
-                        textboxnumrefaccion.Text = "";
-                        textboxdescrefaccion.Text = "";
-                        SectionNewRef.Style.Add("display", "none");
+                        txtbox_numero_de_partes.Text = "";
+                        txtbox_cantidad_refaccion.Text = "";
+                        txtbox_descripcion_refaccion.Text = "";
+                        SECCION_AGREGAR_REFACCION.Style.Add("display", "none");
                         refacciones.Style.Add("display", "block");
                     }
                 }
@@ -541,9 +541,9 @@ public partial class DetalleFSR : Page
     protected void closeimg1_Click(object sender, ImageClickEventArgs e)
     {
         //Cierra la ventana de refacciones
-        textboxidrefaccion.Text = "";
-        textboxnumrefaccion.Text = "";
-        textboxdescrefaccion.Text = "";
+        txtbox_numero_de_partes.Text = "";
+        txtbox_cantidad_refaccion.Text = "";
+        txtbox_descripcion_refaccion.Text = "";
         refacciones.Style.Add("display", "none");
         contenone.Style.Add("filter", "blur(0)");
         headerone.Style.Add("filter", "blur(0)");
@@ -553,10 +553,10 @@ public partial class DetalleFSR : Page
     protected void closeimg2_Click(object sender, ImageClickEventArgs e)
     {
         //Cierra la ventana de nueva refacción
-        textboxidrefaccion.Text = "";
-        textboxnumrefaccion.Text = "";
-        textboxdescrefaccion.Text = "";
-        SectionNewRef.Style.Add("display", "none");
+        txtbox_numero_de_partes.Text = "";
+        txtbox_cantidad_refaccion.Text = "";
+        txtbox_descripcion_refaccion.Text = "";
+        SECCION_AGREGAR_REFACCION.Style.Add("display", "none");
         refacciones.Style.Add("display", "block");
 
     }
@@ -565,7 +565,7 @@ public partial class DetalleFSR : Page
     {
         //Muestra la creación de una nueva refacción        
         refacciones.Style.Add("display", "none");
-        SectionNewRef.Style.Add("display", "block");
+        SECCION_AGREGAR_REFACCION.Style.Add("display", "block");
     }
 
     protected void btnProxServicio_Click(object sender, EventArgs e)

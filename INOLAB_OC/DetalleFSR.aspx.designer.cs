@@ -130,13 +130,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Button btnProxServicio;
 
     /// <summary>
-    /// Control floatsection.
+    /// Control seccion_nueva_accion_realizada.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl floatsection;
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl seccion_nueva_accion_realizada;
 
     /// <summary>
     /// Control closeimg.
@@ -148,22 +148,22 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.ImageButton closeimg;
 
     /// <summary>
-    /// Control textnueva.
+    /// Control txtbox_nueva_accion_realizada.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label textnueva;
+    protected global::System.Web.UI.WebControls.Label txtbox_nueva_accion_realizada;
 
     /// <summary>
-    /// Control fechad.
+    /// Control fecha_nueva_accion_realizada.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label fechad;
+    protected global::System.Web.UI.WebControls.Label fecha_nueva_accion_realizada;
 
     /// <summary>
     /// Control datepicker.
@@ -373,13 +373,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Button btnNuevoR;
 
     /// <summary>
-    /// Control SectionNewRef.
+    /// Control SECCION_AGREGAR_REFACCION.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl SectionNewRef;
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl SECCION_AGREGAR_REFACCION;
 
     /// <summary>
     /// Control ImageButton1.
@@ -391,31 +391,31 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
 
     /// <summary>
-    /// Control Label5.
+    /// Control AGREGAR_REFACCION_TITULO.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label Label5;
+    protected global::System.Web.UI.WebControls.Label AGREGAR_REFACCION_TITULO;
 
     /// <summary>
-    /// Control Label6.
+    /// Control LBL_NUM_PARTES_REFACCION.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label Label6;
+    protected global::System.Web.UI.WebControls.Label LBL_NUM_PARTES_REFACCION;
 
     /// <summary>
-    /// Control textboxidrefaccion.
+    /// Control txtbox_numero_de_partes.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox textboxidrefaccion;
+    protected global::System.Web.UI.WebControls.TextBox txtbox_numero_de_partes;
 
     /// <summary>
     /// Control LBL_CANTIDAD_REFACCION.
@@ -427,13 +427,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Label LBL_CANTIDAD_REFACCION;
 
     /// <summary>
-    /// Control textboxnumrefaccion.
+    /// Control txtbox_cantidad_refaccion.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox textboxnumrefaccion;
+    protected global::System.Web.UI.WebControls.TextBox txtbox_cantidad_refaccion;
 
     /// <summary>
     /// Control RegularExpressionValidator3.
@@ -445,31 +445,31 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
 
     /// <summary>
-    /// Control Label8.
+    /// Control LBL_DESCRIPCION_REFACCION.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label Label8;
+    protected global::System.Web.UI.WebControls.Label LBL_DESCRIPCION_REFACCION;
 
     /// <summary>
-    /// Control textboxdescrefaccion.
+    /// Control txtbox_descripcion_refaccion.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox textboxdescrefaccion;
+    protected global::System.Web.UI.WebControls.TextBox txtbox_descripcion_refaccion;
 
     /// <summary>
-    /// Control Button1.
+    /// Control BTN_AGREGAR_REFACCION.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button Button1;
+    protected global::System.Web.UI.WebControls.Button BTN_AGREGAR_REFACCION;
 
     /// <summary>
     /// Control avisodel.

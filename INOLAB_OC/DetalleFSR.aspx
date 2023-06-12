@@ -94,11 +94,12 @@
         }
         .auto-style4 {
             text-decoration: underline;
-           font-weight:bold;
+            font-weight:bold;
         }
         .auto-style5 {
             width: 100%;
         }
+        
         .auto-style6 {
             height: 48px;
         }
@@ -198,7 +199,7 @@
         </section>
         
         <!--seccion para ingresar una nueva accion realizada -->
-        <section class="centrar2"  id="floatsection" runat="server" style="display: none;">
+        <section class="seccion-nueva-accion-realizada"  id="seccion_nueva_accion_realizada" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf">
                 <div class="buton" id="closebtn">
                     <asp:ImageButton Visible="true" ID="closeimg" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="closeimg_Click" />
@@ -207,12 +208,12 @@
                 <table class="auto-style5">
                     <tr>
                         <td colspan="2">
-                            <asp:Label ID="textnueva" runat="server" Text="Nueva acción realizada" CssClass="auto-style4"></asp:Label>
+                            <asp:Label ID="txtbox_nueva_accion_realizada" runat="server" Text="Nueva acción realizada" CssClass="auto-style4"></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Label ID="fechad" runat="server" Text="Fecha:"></asp:Label>
+                            <asp:Label ID="fecha_nueva_accion_realizada" runat="server" Text="Fecha:"></asp:Label>
                             <asp:TextBox ID="datepicker" runat="server" autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
                         </td>                           
                     </tr>
@@ -321,51 +322,58 @@
             </div>
         </section>
 
-        <section class="centrar2"  id="SectionNewRef" runat="server" style="display: none;">
-            <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf3">
+        <section class="seccion-agregar-refaccion"  id="SECCION_AGREGAR_REFACCION" runat="server" style="display: none;">
+            
                 <div class="buton" id="closebtnref1">
                     <asp:ImageButton Visible="true" ID="ImageButton1" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="closeimg2_Click" />
                 </div>
 
-                <div>
-                    <table class="auto-style5">
+                    <table class="tabla-agregar-refaccion">
                         <tr>
                             <td>
-                                <asp:Label ID="Label5" runat="server" Text="Agregar refacción" CssClass="auto-style4"></asp:Label>
+                                <asp:Label ID="AGREGAR_REFACCION_TITULO" runat="server" Text="Agregar refacción" ></asp:Label>
                             </td>
                         </tr>
                         <tr>
-                            <td class="auto-style6">
-                                <asp:Label ID="Label6" runat="server" Text="N° de parte"></asp:Label>
-                                <asp:TextBox ID="textboxidrefaccion" runat="server" autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
+                            <td class="tabla-agregar-refaccion-celda">
+                                <asp:Label ID="LBL_NUM_PARTES_REFACCION" runat="server" Text="N° de partes" ></asp:Label>
+                                <asp:TextBox ID="txtbox_numero_de_partes" runat="server" autocomplete="off" AutoCompleteType="Disabled" ></asp:TextBox>
                             </td>
                         </tr>                
                         <tr>
-                            <td class="auto-style6">
-                                <asp:Label ID="LBL_CANTIDAD_REFACCION" runat="server" Text="Cantidad"></asp:Label>
-                                <asp:TextBox ID="textboxnumrefaccion" runat="server" Columns="2"  autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
+
+                            <td class="tabla-agregar-refaccion-celda">
+                                <asp:Label ID="LBL_CANTIDAD_REFACCION" runat="server" Text="Cantidad"   ></asp:Label>
+                                <asp:TextBox ID="txtbox_cantidad_refaccion" runat="server" Columns="2"  autocomplete="off" AutoCompleteType="Disabled" CssClass="txbox-agregar-refaccion"></asp:TextBox>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator3"
-                                    ControlToValidate="textboxnumrefaccion" runat="server"
+                                    ControlToValidate="txtbox_cantidad_refaccion" runat="server"
                                     ErrorMessage="Solo se permiten números"
                                     ValidationExpression="\d+">
                                 </asp:RegularExpressionValidator>
                             </td>
+
                         </tr>
                         <tr>
-                            <td class="auto-style6">
-                                <asp:Label ID="Label8" runat="server" Text="Descripción"></asp:Label>
-                                <asp:TextBox ID="textboxdescrefaccion" runat="server" TextMode="MultiLine" Rows="5" MaxLength="240" autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
-                            </td>   
-                        </tr>
-                        <tr>
-                            <td class="auto-style6">
-                                <asp:Button runat="server" Text="Agregar" BorderStyle="None" style="float:right;" ID="Button1" OnClick="btnrefaccion_Click" />
+
+                            <td class="tabla-agregar-refaccion-celda">
+                                <asp:Label ID="LBL_DESCRIPCION_REFACCION" runat="server" Text="Descripción" class="lbl-agregar-refaccion" ></asp:Label><br />
+                                <asp:TextBox ID="txtbox_descripcion_refaccion" runat="server" TextMode="MultiLine" Rows="5" MaxLength="240" autocomplete="off" AutoCompleteType="Disabled" CssClass="txbox-agregar-refaccion"></asp:TextBox>
                             </td>
+                            
+                        </tr>
+                        <tr>
+
+                            <td class="tabla-agregar-refaccion-celda">
+                                <asp:Button runat="server" Text="Agregar Refaccion" BorderStyle="None" style="float:right;" ID="BTN_AGREGAR_REFACCION" OnClick="btnrefaccion_Click" />
+                            </td>
+
                         </tr>
                     </table>
-                </div>
-            </div>
+                 
+           
         </section>
+
+
         <section class="centrar2"  id="avisodel" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf12">
                 <table class="auto-style5">
