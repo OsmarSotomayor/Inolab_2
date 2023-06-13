@@ -363,7 +363,7 @@ header {
  
     #LBL_NUM_PARTES_REFACCION {
         position: absolute;
-        left: 10%;
+        left: 7%;
     }
 
     #LBL_CANTIDAD_REFACCION {
@@ -377,21 +377,23 @@ header {
 
     #txtbox_numero_de_partes {
         position: absolute;
-        left: 42%;
+        left: 43%;
         width: 70px;
         margin: 3px;
     }
 
     #txbox-cantidad-refaccion {
         position: absolute;
-        left: 40%;
+        left: 45%;
+        width: 70px;
+        margin: 3px;
     }
     #txtbox_descripcion_refaccion {
         position: absolute;
         left: 7%;
         margin-right: 10px;
         margin-left: 10px;
-        width: 250px;
+        width: 230px;
     }
     #BTN_AGREGAR_REFACCION {
         position: absolute;
@@ -411,33 +413,33 @@ header {
 
     #lbl_fecha_nuevo_servicio {
         position: absolute;
-        left: 7%;
+        left: 6%;
         width: 70px;
     }
 
     #horasD {
         position: absolute;
-        left: 7%;
+        left: 6%;
         width: 70px;
     }
 
     #acciones {
         position: absolute;
-        left: 6%;
+        left: 5%;
         width: 100px;
     }
 
 
     #datepicker {
-        width: 90px;
+        width: 80px;
     }
 
     #txthorasD {
-        width: 90px;
+        width: 80px;
     }
 
     #txtacciones {
-        width: 120px;
+        width: 110px;
         height: 80px;
         text-align: start;
     }
