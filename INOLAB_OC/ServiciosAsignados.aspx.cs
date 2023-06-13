@@ -206,6 +206,37 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         }
     }
 
+   
+
+    private void verificarSiServicioTieneFechaActual(GridViewRow filasDelDataGridView)
+    {
+        //Validacion de fecha 
+        string fechaDelServicio = "";
+        string fechaDelDiaActual = "";
+        fechaDelServicio = filasDelDataGridView.Cells[4].Text;
+        fechaDelDiaActual = DateTime.Now.ToString("dd/MM/yyyy");
+
+        if (fechaDelDiaActual.Equals(fechaDelServicio))
+        {
+            Response.Redirect("FSR.aspx", true);
+        }
+        else
+        {
+            Response.Write("<script>alert('Error: Fecha de servicio no coincide con el dia de hoy');</script>");
+        }
+    }
+
+    private void generarDocumentoParaReporteServicio()
+    {
+        SLDocument documentoReporteServicio = new SLDocument();
+        System.Data.DataTable reporteServicio = generarReporteServiciosModoOffLine();
+
+        documentoReporteServicio.ImportDataTable(1, 1, reporteServicio, true);
+        string rutaReporteServicio = HttpRuntime.AppDomainAppPath + "Docs\\" + Session["folio_p"].ToString() + ".xlsx";
+
+        documentoReporteServicio.SaveAs(rutaReporteServicio);
+    }
+
     private System.Data.DataTable generarReporteServiciosModoOffLine()
     {
         SLDocument documentoSl = new SLDocument();
@@ -258,63 +289,7 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         return reporteServicio;
     }
 
-    private void verificarSiServicioTieneFechaActual(GridViewRow filasDelDataGridView)
-    {
-        //Validacion de fecha 
-        string fechaDelServicio = "";
-        string fechaDelDiaActual = "";
-        fechaDelServicio = filasDelDataGridView.Cells[4].Text;
-        fechaDelDiaActual = DateTime.Now.ToString("dd/MM/yyyy");
-
-        if (fechaDelDiaActual.Equals(fechaDelServicio))
-        {
-            Response.Redirect("FSR.aspx", true);
-        }
-        else
-        {
-            Response.Write("<script>alert('Error: Fecha de servicio no coincide con el dia de hoy');</script>");
-        }
-    }
-
-    private void generarDocumentoParaReporteServicio()
-    {
-        SLDocument documentoReporteServicio = new SLDocument();
-        System.Data.DataTable reporteServicio = generarReporteServiciosModoOffLine();
-
-        documentoReporteServicio.ImportDataTable(1, 1, reporteServicio, true);
-        string rutaReporteServicio = HttpRuntime.AppDomainAppPath + "Docs\\" + Session["folio_p"].ToString() + ".xlsx";
-
-        documentoReporteServicio.SaveAs(rutaReporteServicio);
-    }
-    
-
-    public void pagina()
-    {
-        DownloadFolio(Session["folio_p"].ToString());
-        Response.Redirect("FSR.aspx");    
-    }
-
-    protected void DownloadFolio(string folio)
-    {//Esta función intenta descargar el folio del reporteador, si falla, vuelve a inicializar el reporteador
-        try
-        {
-            string filepath = HttpRuntime.AppDomainAppPath + "Docs\\" + folio + ".pdf";
-            byte[] readText = File.ReadAllBytes(filepath);
-            string month = DateTime.Now.Month.ToString();
-            string year = DateTime.Now.Year.ToString();
-            string nombre = "Folio:" + folio + "_" + year + ".pdf";
-            Response.Buffer = true;
-            Response.Clear();
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment; filename=" + nombre);
-            Response.BinaryWrite(readText);
-            Response.Flush();
-        }
-        catch(Exception e)
-        {
-            recrearPDFParaFolioDeServicioFinalizado(folio);
-        }
-    }
+   
 
     protected void Btn_Salir_Click(object sender, EventArgs e)
     {
