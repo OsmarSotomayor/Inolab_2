@@ -280,11 +280,17 @@ header {
     #check:checked ~ .menu {
         right: 0;
     }
+  
+
 }
 
 
+
+.lbluser {
+}
+
 header .logo {
-    width: 181px;
+    width: 140px;
     padding-top: 3px;
     float: left;
     z-index: 100;
@@ -304,3 +310,5 @@ header .logo {
     /*text-transform: uppercase;*/
     height: 30px;
 }
+
+

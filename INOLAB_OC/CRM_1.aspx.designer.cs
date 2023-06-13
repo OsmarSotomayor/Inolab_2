@@ -42,49 +42,49 @@ namespace INOLAB_OC
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// Control lbluser.
+        /// Control Lbl_nombre_usuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbluser;
+        protected global::System.Web.UI.WebControls.Label Lbl_nombre_usuario;
 
         /// <summary>
-        /// Control lbliduser.
+        /// Control Lbl_id_usuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbliduser;
+        protected global::System.Web.UI.WebControls.Label Lbl_id_usuario;
 
         /// <summary>
-        /// Control btnPlan.
+        /// Control Btn_plan_de_trabajo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPlan;
+        protected global::System.Web.UI.WebControls.Button Btn_plan_de_trabajo;
 
         /// <summary>
-        /// Control btnRegistroFunnel.
+        /// Control Btn_registro_funnel_ventas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRegistroFunnel;
+        protected global::System.Web.UI.WebControls.Button Btn_registro_funnel_ventas;
 
         /// <summary>
-        /// Control Button1.
+        /// Control Btn_reporte_cotizaciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button Btn_reporte_cotizaciones;
 
         /// <summary>
         /// Control Btn_Salir.

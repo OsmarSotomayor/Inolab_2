@@ -93,8 +93,8 @@
         
         <div class="logo" style="height: 70px"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
            <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" Width="65px" Height="68px" ></asp:Label>
-           <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo" Height="69px"></asp:Label>
-           <asp:Label ID="lbliduser" runat="server" Text="id" Font-Bold="True" ForeColor="White" class="logo" Height="69px" Visible="false"></asp:Label>                
+           <asp:Label ID="Lbl_nombre_usuario" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo" Height="69px"></asp:Label>
+           <asp:Label ID="Lbl_id_usuario" runat="server" Text="id" Font-Bold="True" ForeColor="White" class="logo" Height="69px" Visible="false"></asp:Label>                
             
             <input type="checkbox" id="check" />
                 <label for="check" class="mostrar-menu">
@@ -102,9 +102,9 @@
                 </label>
 
             <nap class="menu">
-                <asp:Button ID="btnPlan" runat="server" Text="Plan de Trabajo" class="boton"  visible="True" OnClick="btnPlan_Click" width="200px" Height="25px"/> 
-                <asp:Button ID="btnRegistroFunnel" runat="server" Text="Registro Funnel" class="boton" visible="True"  Target="_blank" OnClick="btnInforme_A_Click" width="200px" Height="25px"/>     
-                <asp:Button ID="Button1" runat="server" Text="Cotizaciones" class="boton" OnClick="Button1_Click"  width="200px" Height="25px"/>
+                <asp:Button ID="Btn_plan_de_trabajo" runat="server" Text="Plan de Trabajo" class="boton"  visible="True" OnClick="Btn_Plan_De_Trabajo_Click" width="200px" Height="25px"/> 
+                <asp:Button ID="Btn_registro_funnel_ventas" runat="server" Text="Registro Funnel" class="boton" visible="True"  Target="_blank" OnClick="Btn_Registro_Funnel_Click" width="200px" Height="25px"/>     
+                <asp:Button ID="Btn_reporte_cotizaciones" runat="server" Text="Cotizaciones" class="boton" OnClick="Btn_Reporte_Cotizaciones_Click"  width="200px" Height="25px"/>
                 
                 <asp:Button ID="Btn_Salir" runat="server" Text="Salir" class="boton"   OnClick="Btn_Salir_Click" Height="25px"/>
 

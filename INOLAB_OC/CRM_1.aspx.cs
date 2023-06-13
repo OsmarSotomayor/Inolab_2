@@ -17,36 +17,39 @@ namespace INOLAB_OC
     public partial class CRM_1 : System.Web.UI.Page
     {
 
+        const string usuarioArtemio = "7";
+        string ligaReporte;
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (Session["idUsuario"] == null)
             {
                 Response.Redirect("./Sesion.aspx");
             }
 
-            lbluser.Text = Session["nameUsuario"].ToString();
-            lbliduser.Text = Session["idUsuario"].ToString();
+            Lbl_nombre_usuario.Text = Session["nameUsuario"].ToString();
+            Lbl_id_usuario.Text = Session["idUsuario"].ToString();
             ReportViewer1.ServerReport.Refresh();
 
-            if(lbliduser.Text=="7") // usuario ARTEMIO
+            if(Lbl_id_usuario.Text.Equals(usuarioArtemio)) 
             {
-                btnPlan.Visible = false;
-                btnRegistroFunnel.Visible = false;
-                Button1.Visible = false;
-                Reporte = "/Comercial/Funnel-Direccion";
+                Btn_plan_de_trabajo.Visible = false;
+                Btn_registro_funnel_ventas.Visible = false;
+                Btn_reporte_cotizaciones.Visible = false;
+                ligaReporte = "/Comercial/Funnel-Direccion";
             }
             else
             {
-                btnPlan.Visible = true;
-                btnRegistroFunnel.Visible = true;
-                Button1.Visible = true;
-                Reporte = "/Comercial/FunnelxAsesor";
+                Btn_plan_de_trabajo.Visible = true;
+                Btn_registro_funnel_ventas.Visible = true;
+                Btn_reporte_cotizaciones.Visible = true;
+                ligaReporte = "/Comercial/FunnelxAsesor";
             }                      
 
 
         }
 
-        string Reporte;
+        
 
         // COMIENZO DE REPORTEADOR
         protected void Page_Init(object sender, EventArgs e)
@@ -138,25 +141,25 @@ namespace INOLAB_OC
             }
         }
 
-        //REDIRECCIONA A PLAN DE TRABAJO
-        protected void btnPlan_Click(object sender, EventArgs e)
+        
+        protected void Btn_Plan_De_Trabajo_Click(object sender, EventArgs e)
         {
             Response.Redirect("CRM_2.aspx");
         }
 
-        // REDIRECCIONA A REGISTROS FUNNEL
-        protected void btnInforme_A_Click(object sender, EventArgs e)
+       
+        protected void Btn_Registro_Funnel_Click(object sender, EventArgs e)
         {
             Response.Redirect("CRM_3.aspx");
         }
 
-        // BOTON PARA RREDIRECCIONAR A LINK DE REPORTE COTIZACIONES
-        protected void Button1_Click(object sender, EventArgs e)
+        
+        protected void Btn_Reporte_Cotizaciones_Click(object sender, EventArgs e)
         {
            // Response.Redirect("http://inolabserver01/Reportes_Inolab/Pages/ReportViewer.aspx?%2fComercial%2fCOTIZACION-EQUIPO&rs:Command=Render");
 
-            string _open = "window.open('http://inolabserver01/Reportes_Inolab/Pages/ReportViewer.aspx?%2fComercial%2fCOTIZACION-EQUIPO&rs:Command=Render', '_newtab');";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(), _open, true);
+            string abrirReporteCotizaciones = "window.open('http://inolabserver01/Reportes_Inolab/Pages/ReportViewer.aspx?%2fComercial%2fCOTIZACION-EQUIPO&rs:Command=Render', '_newtab');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(), abrirReporteCotizaciones, true);
         }
 
         protected void Btn_Salir_Click(object sender, EventArgs e)

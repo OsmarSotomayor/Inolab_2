@@ -20,6 +20,8 @@ namespace INOLAB_OC
     public partial class Informacion : System.Web.UI.Page
     {
         string area;
+        const string estatusDeFolioAsignado = "Asignado";
+        const string estatusDeFolioEnProceso = "En Proceso";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,20 +55,20 @@ namespace INOLAB_OC
         {
             if (Session["idUsuario"].ToString() == "54")
             {
-                D_Analitica();
+                datosAnalitica();
             }
             if (Session["idUsuario"].ToString() == "60")
             {
-                D_Fisicoquimicos();
+                datosFisicoquimicos();
             }
             if (Session["idUsuario"].ToString() == "30")
             {
-                D_Temperatura();
+                datosTemperatura();
             }
         }
 
         // VALIDACION DE AREA PARA MOSTRAR FSR
-        public void D_Analitica()
+        public void datosAnalitica()
         {
                 //Carga los folios del ingeniero
                 string query = "Select DISTINCT * from  v_fsr where areaservicio='Analitica' AND estatus='" + ddlfiltro.Text + "' order by folio desc";
@@ -76,7 +78,7 @@ namespace INOLAB_OC
                 contador.Text = GridView1.Rows.Count.ToString();
            
         }
-        public void D_Temperatura()
+        public void datosTemperatura()
         {
                 //Carga los folios del ingeniero
                 string query = "Select DISTINCT * from  v_fsr where areaservicio='Temperatura' order by folio desc";
@@ -85,7 +87,7 @@ namespace INOLAB_OC
                 GridView1.DataBind();
                 contador.Text = GridView1.Rows.Count.ToString();
         }
-        public void D_Fisicoquimicos()
+        public void datosFisicoquimicos()
         {
                 //Carga los folios del ingeniero
                 string query = "Select DISTINCT * from  v_fsr where areaservicio='Fisicoquimico' order by folio desc";
@@ -96,24 +98,21 @@ namespace INOLAB_OC
            
         }
 
-        protected void ddlfiltro_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        string comando = "";
+      
+        string consulta = "";
 
         // filtro de estatus de los FSR
         protected void ddlfiltro_SelectedIndexChanged1(object sender, EventArgs e)
         {
             //Filtro de folios dependiendo a su estado de FSR Estatus 
-            if (ddlfiltro.Text == "Asignado")
+            if (ddlfiltro.Text.Equals(estatusDeFolioAsignado))
             {
-                D_Analitica();
+                datosAnalitica();
 
-                comando = "select *from V_FSR where Estatus='Asignado' and IdIngeniero=" + Session["idusuario"] + " order by folio desc";
-                sentencia();
+                consulta = "select *from V_FSR where Estatus='Asignado' and IdIngeniero=" + Session["idusuario"] + " order by folio desc";
+                llenarDataGridView();
             }
-            if (ddlfiltro.Text == "En Proceso")
+            if (ddlfiltro.Text.Equals(estatusDeFolioEnProceso))
             {
                 //comando = "select *from V_FSR where Estatus='En Proceso' and IdIngeniero=" + Session["idusuario"] + " order by folio desc";
                 //sentencia();
@@ -128,10 +127,9 @@ namespace INOLAB_OC
                 // cargardatos();
             }
         }
-        public void sentencia()
+        public void llenarDataGridView()
         {
-            //Proceso de llenado del datagridview
-            GridView1.DataSource = Conexion.getDataSet(comando);
+            GridView1.DataSource = Conexion.getDataSet(consulta);
             GridView1.DataBind();
             contador.Text = GridView1.Rows.Count.ToString();
         }
