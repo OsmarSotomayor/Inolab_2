@@ -67,13 +67,13 @@ public partial class ServiciosAsignados
     protected global::System.Web.UI.WebControls.Button btninformacion;
 
     /// <summary>
-    /// Control cg.
+    /// Control Btn_Calendario.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button cg;
+    protected global::System.Web.UI.WebControls.Button Btn_Calendario;
 
     /// <summary>
     /// Control manual.
@@ -148,13 +148,13 @@ public partial class ServiciosAsignados
     protected global::System.Web.UI.WebControls.Label lblcontador;
 
     /// <summary>
-    /// Control ddlfiltro.
+    /// Control Estatus_de_servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlfiltro;
+    protected global::System.Web.UI.WebControls.DropDownList Estatus_de_servicio;
 
     /// <summary>
     /// Control Label2.
@@ -175,13 +175,13 @@ public partial class ServiciosAsignados
     protected global::System.Web.UI.WebControls.Label contador;
 
     /// <summary>
-    /// Control GridView1.
+    /// Control Gridview_datos_de_servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.GridView GridView1;
+    protected global::System.Web.UI.WebControls.GridView Gridview_datos_de_servicio;
 
     /// <summary>
     /// Control DSBrowser.

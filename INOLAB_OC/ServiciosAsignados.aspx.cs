@@ -19,27 +19,35 @@ using INOLAB_OC.Modelo;
 public partial class ServiciosAsignados : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
-    {
-       
-
+    { 
         if (Session["idUsuario"] == null) { 
             Response.Redirect("./Sesion.aspx");
         }
         else {
-            //En caso de que sean los jefes de area de los ingenieros tendran acceso al boton de calendario por el area a la que representan
             lbluser.Text = Session["nameUsuario"].ToString();
-            if (Session["idUsuario"].ToString() == "54" || Session["idUsuario"].ToString() == "60" ||
-                Session["idUsuario"].ToString() == "30")
+            if (validarSiUsuarioEsGefeDeArea())
             {
-                cg.Visible = true;
+                Btn_Calendario.Visible = true;
             }
             else
             {
-                cg.Visible = false;
+                Btn_Calendario.Visible = false;
             }
         }
     }
 
+    public bool validarSiUsuarioEsGefeDeArea()
+    {
+        if (Session["idUsuario"].ToString() == "54" || Session["idUsuario"].ToString() == "60" ||
+                Session["idUsuario"].ToString() == "30")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }    
+    }
 
     protected void Page_Init(object sender, EventArgs e)
     {
@@ -132,50 +140,27 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         }
     }
 
-    private void cargardatos()
-    {
-        //Carga los folios del ingeniero
-        
-            string query = "Select DISTINCT* from  v_fsr where idingeniero = " + Session["Idusuario"] + " order by folio desc";
-            GridView1.DataSource = Conexion.getDataSet(query);
-            GridView1.DataBind();
-            contador.Text = GridView1.Rows.Count.ToString();
-       
-    }
-
-    protected void GridView1_OnRowComand(object sender, GridViewCommandEventArgs e)
+  
+    protected void Gridview_datos_de_servicio_OnRowComand(object sender, GridViewCommandEventArgs e)
     {
         //Al darle clic al folio deseado este se almacena en la sesión y te redirige a la ventana de FSR
         try
         {
 
             int index = int.Parse(e.CommandArgument.ToString());
-            GridViewRow row = GridView1.Rows[index];
-            String text = "";
-            String tipo = "";
+            GridViewRow filasDelDataGridView = Gridview_datos_de_servicio.Rows[index];
+            string numeroDeFolioDeServicio = "";
+            string estatusDelServicio = "";
 
             if (e.CommandName == "Select")
             {
-                text = ((LinkButton)row.Cells[0].Controls[0]).Text;
-                tipo = ((LinkButton)row.Cells[1].Controls[0]).Text;
-                Session["folio_p"] = text;
+                numeroDeFolioDeServicio = ((LinkButton)filasDelDataGridView.Cells[0].Controls[0]).Text;
+                estatusDelServicio = ((LinkButton)filasDelDataGridView.Cells[1].Controls[0]).Text;
+                Session["folio_p"] = numeroDeFolioDeServicio;
                 Session["not_ase"] = "";
-                if (tipo.Equals("Asignado"))
+                if (estatusDelServicio.Equals("Asignado"))
                 {
-                    //Validacion de fecha 
-                    String fech = "";
-                    String Hoy = "";
-                    fech = row.Cells[4].Text;
-                    Hoy = DateTime.Now.ToString("dd/MM/yyyy");
-                    if (Hoy == fech)
-                    {
-                        Response.Redirect("FSR.aspx", true);
-                    }
-                    else
-                    {
-                        //En caso de que la fecha de servicio sea distint a la fecha en la que se quiere abrir el folio, lo rechazara
-                        Response.Write("<script>alert('Error: Fecha de servicio no coincide con el dia de hoy');</script>");
-                    }
+                    verificarSiServicioTieneFechaActual(filasDelDataGridView);
                 }
                 else
                 {
@@ -185,242 +170,13 @@ public partial class ServiciosAsignados : System.Web.UI.Page
             if (e.CommandName == "Select2")
             {
                 //Para el modo offline, genera un archivo con toda la informacion que ya hay del folio para que se llene en el aplicativo accediendo a esta 
-                text = ((LinkButton)row.Cells[0].Controls[0]).Text;
-                tipo = ((LinkButton)row.Cells[1].Controls[0]).Text;
-                Session["folio_p"] = text;
-                if (tipo.Equals("Asignado"))
+                numeroDeFolioDeServicio = ((LinkButton)filasDelDataGridView.Cells[0].Controls[0]).Text;
+                estatusDelServicio = ((LinkButton)filasDelDataGridView.Cells[1].Controls[0]).Text;
+                Session["folio_p"] = numeroDeFolioDeServicio;
+
+                if (estatusDelServicio.Equals("Asignado"))
                 {
-                    SLDocument sl = new SLDocument();
-                    System.Data.DataTable dt = new System.Data.DataTable();
-
-                    //Columnas (Claves)
-                    dt.Columns.Add("IdFSR", typeof(string));
-                    dt.Columns.Add("Folio", typeof(string));
-                    dt.Columns.Add("Cliente", typeof(string));
-                    dt.Columns.Add("Departamento", typeof(string));
-                    dt.Columns.Add("Direccion", typeof(string));
-                    dt.Columns.Add("Telefono", typeof(string));
-                    dt.Columns.Add("Localidad", typeof(string));
-                    dt.Columns.Add("N_Reportado", typeof(string));
-                    dt.Columns.Add("N_Responsable", typeof(string));
-                    dt.Columns.Add("Mail", typeof(string));
-                    dt.Columns.Add("TipoContrato", typeof(string));
-                    dt.Columns.Add("TipoProblema", typeof(string));
-                    dt.Columns.Add("TipoServicio", typeof(string));
-                    dt.Columns.Add("servicio", typeof(string));
-                    dt.Columns.Add("Ingeniero", typeof(string));
-                    dt.Columns.Add("IdIngeniero", typeof(string));
-                    dt.Columns.Add("mailIng", typeof(string));
-                    dt.Columns.Add("F_SolicitudServicio", typeof(string));
-                    dt.Columns.Add("FechaServicio", typeof(string));
-                    dt.Columns.Add("Equipo", typeof(string));
-                    dt.Columns.Add("Marca", typeof(string));
-                    dt.Columns.Add("Modelo", typeof(string));
-                    dt.Columns.Add("NoSerie", typeof(string));
-                    dt.Columns.Add("IdEquipo_C", typeof(string));
-                    dt.Columns.Add("Estatusid", typeof(string));
-                    dt.Columns.Add("Estatus", typeof(string));
-                    dt.Columns.Add("Observaciones", typeof(string));
-                    dt.Columns.Add("NoLlamada", typeof(string));
-                    dt.Columns.Add("Inicio_Servicio", typeof(string));
-                    dt.Columns.Add("Fin_Servicio", typeof(string));
-                    dt.Columns.Add("Dia", typeof(string));
-                    dt.Columns.Add("FallaReportada", typeof(string));
-                    dt.Columns.Add("HoraServicio", typeof(string));
-                    dt.Columns.Add("Confirmacion", typeof(string));
-                    dt.Columns.Add("Propuesta", typeof(string));
-                    dt.Columns.Add("Actividad", typeof(string));
-                    dt.Columns.Add("S_Confirmacion", typeof(string));
-                    dt.Columns.Add("Asesor1", typeof(string));
-                    dt.Columns.Add("Correoasesor1", typeof(string));
-                    dt.Columns.Add("CooreoIng", typeof(string));
-                    dt.Columns.Add("Proximo_Servicio", typeof(string));
-                    dt.Columns.Add("idcontrato", typeof(string));
-                    dt.Columns.Add("idservicio", typeof(string));
-                    dt.Columns.Add("idproblema", typeof(string));
-                    dt.Columns.Add("IdResp", typeof(string));
-                    dt.Columns.Add("Responsable", typeof(string));
-                    dt.Columns.Add("IdDocumenta", typeof(string));
-                    dt.Columns.Add("Documentador", typeof(string));
-                    dt.Columns.Add("Refaccion", typeof(string));
-                    dt.Columns.Add("Ingeniero_A1", typeof(string));
-                    dt.Columns.Add("IdIng_A1", typeof(string));
-                    dt.Columns.Add("mailIng_A1", typeof(string));
-                    dt.Columns.Add("Ingeniero_A2", typeof(string));
-                    dt.Columns.Add("IdIng_A2", typeof(string));
-                    dt.Columns.Add("mailIng_A2", typeof(string));
-                    dt.Columns.Add("F_InicioServicio", typeof(string));
-                    dt.Columns.Add("F_FinServicio", typeof(string));
-                    dt.Columns.Add("IdT_Servicio", typeof(string));
-                    dt.Columns.Add("OC", typeof(string));
-                    dt.Columns.Add("ArchivoAdjunto", typeof(string));
-                    dt.Columns.Add("DiaInicioServ", typeof(string));
-                    dt.Columns.Add("DiaFinServ", typeof(string));
-                    dt.Columns.Add("DiasServ", typeof(string));
-                    dt.Columns.Add("NotAsesor", typeof(string));
-                    dt.Columns.Add("Funcionando", typeof(string));
-                    dt.Columns.Add("FallaEncontrada", typeof(string));
-                    dt.Columns.Add("FechaFirmCliente", typeof(string));
-                    dt.Columns.Add("NombreCliente", typeof(string));
-
-                    //Registros (Valores)
-                    List<string> Valores = new List<string>();
-                   
-
-                    string query = "select * from  v_fsr where Folio = " + Session["folio_p"];
-                    DataRow informacionServicios = Conexion.getDataRow(query);
-
-                    //Para quitar los espaciados anteriores y posteriores
-                    char[] charsToTrim = {' '};
-
-                    
-                   
-                        Valores.Insert(0, informacionServicios["IdFSR"].ToString());
-                        Valores.Insert(1, informacionServicios["Folio"].ToString());
-                        Valores.Insert(2, informacionServicios["Cliente"].ToString());
-                        Valores.Insert(3, informacionServicios["Departamento"].ToString());
-                        Valores.Insert(4, informacionServicios["Direccion"].ToString());
-                        Valores.Insert(5, informacionServicios["Telefono"].ToString());
-                        Valores.Insert(6, informacionServicios["Localidad"].ToString());
-                        Valores.Insert(7, informacionServicios["N_Reportado"].ToString().Trim(charsToTrim));
-                        Valores.Insert(8, informacionServicios["N_Responsable"].ToString());
-                        Valores.Insert(9, informacionServicios["Mail"].ToString());
-                        Valores.Insert(10, informacionServicios["TipoContrato"].ToString());
-                        Valores.Insert(11, informacionServicios["TipoProblema"].ToString());
-                        Valores.Insert(12, informacionServicios["TipoServicio"].ToString());
-                        Valores.Insert(13, informacionServicios["servicio"].ToString());
-                        Valores.Insert(14, informacionServicios["Ingeniero"].ToString());
-                        Valores.Insert(15, informacionServicios["IdIngeniero"].ToString());
-                        Valores.Insert(16, informacionServicios["mailIng"].ToString());
-                        Valores.Insert(17, Convert.ToDateTime(informacionServicios["F_SolicitudServicio"].ToString()).ToString("yyyy-MM-dd HH:mm:ss.fff"));
-                        Valores.Insert(18, Convert.ToDateTime(informacionServicios["FechaServicio"].ToString()).ToString("yyyy-MM-dd"));
-                        Valores.Insert(19, informacionServicios["Equipo"].ToString().Trim(charsToTrim));
-                        Valores.Insert(20, informacionServicios["Marca"].ToString());
-                        Valores.Insert(21, informacionServicios["Modelo"].ToString());
-                        Valores.Insert(22, informacionServicios["NoSerie"].ToString());
-                        Valores.Insert(23, informacionServicios["IdEquipo_C"].ToString());
-                        Valores.Insert(24, informacionServicios["Estatusid"].ToString());
-                        Valores.Insert(25, informacionServicios["Estatus"].ToString());
-                        Valores.Insert(26, informacionServicios["Observaciones"].ToString());
-                        Valores.Insert(27, informacionServicios["NoLlamada"].ToString());
-                        Valores.Insert(28, "");
-                        Valores.Insert(29, "");
-                        Valores.Insert(30, informacionServicios["Dia"].ToString());
-                        Valores.Insert(31, informacionServicios["FallaReportada"].ToString());
-                        Valores.Insert(32, informacionServicios["HoraServicio"].ToString());
-                        Valores.Insert(33, informacionServicios["Confirmacion"].ToString());
-                        Valores.Insert(34, informacionServicios["Propuesta"].ToString());
-                        Valores.Insert(35, informacionServicios["Actividad"].ToString());
-                        Valores.Insert(36, informacionServicios["S_Confirmacion"].ToString());
-                        Valores.Insert(37, informacionServicios["Asesor1"].ToString());
-                        Valores.Insert(38, informacionServicios["Correoasesor1"].ToString());
-                        Valores.Insert(39, informacionServicios["CooreoIng"].ToString());
-                        Valores.Insert(40, "");
-                        Valores.Insert(41, informacionServicios["idcontrato"].ToString());
-                        Valores.Insert(42, informacionServicios["idservicio"].ToString());
-                        Valores.Insert(43, informacionServicios["idproblema"].ToString());
-                        Valores.Insert(44, informacionServicios["IdResp"].ToString());
-                        Valores.Insert(45, informacionServicios["Responsable"].ToString());
-                        Valores.Insert(46, informacionServicios["IdDocumenta"].ToString());
-                        Valores.Insert(47, informacionServicios["Documentador"].ToString());
-                        Valores.Insert(48, informacionServicios["Refaccion"].ToString());
-                        Valores.Insert(49, informacionServicios["Ingeniero_A1"].ToString());
-                        Valores.Insert(50, informacionServicios["IdIng_A1"].ToString());
-                        Valores.Insert(51, informacionServicios["mailIng_A1"].ToString());
-                        Valores.Insert(52, informacionServicios["Ingeniero_A2"].ToString());
-                        Valores.Insert(53, informacionServicios["IdIng_A2"].ToString());
-                        Valores.Insert(54, informacionServicios["mailIng_A2"].ToString());
-                        Valores.Insert(55, informacionServicios["F_InicioServicio"].ToString());
-                        Valores.Insert(56, informacionServicios["F_FinServicio"].ToString());
-                        Valores.Insert(57, informacionServicios["IdT_Servicio"].ToString());
-                        Valores.Insert(58, informacionServicios["OC"].ToString());
-                        Valores.Insert(59, informacionServicios["ArchivoAdjunto"].ToString());
-                        Valores.Insert(60, informacionServicios["DiaInicioServ"].ToString());
-                        Valores.Insert(61, informacionServicios["DiaFinServ"].ToString());
-                        Valores.Insert(62, informacionServicios["DiasServ"].ToString());
-                        Valores.Insert(63, informacionServicios["NotAsesor"].ToString());
-                        Valores.Insert(64, informacionServicios["Funcionando"].ToString());
-                        Valores.Insert(65, informacionServicios["FallaEncontrada"].ToString());
-                        Valores.Insert(66, "");
-                        Valores.Insert(67, informacionServicios["NombreCliente"].ToString());
-                    
-                    
-
-                    dt.Rows.Add(
-                        Valores[0],
-                        Valores[1],
-                        Valores[2],
-                        Valores[3],
-                        Valores[4],
-                        Valores[5],
-                        Valores[6],
-                        Valores[7],
-                        Valores[8],
-                        Valores[9],
-                        Valores[10],
-                        Valores[11],
-                        Valores[12],
-                        Valores[13],
-                        Valores[14],
-                        Valores[15],
-                        Valores[16],
-                        Valores[17],
-                        Valores[18],
-                        Valores[19],
-                        Valores[20],
-                        Valores[21],
-                        Valores[22],
-                        Valores[23],
-                        Valores[24],
-                        Valores[25],
-                        Valores[26],
-                        Valores[27],
-                        Valores[28],
-                        Valores[29],
-                        Valores[30],
-                        Valores[31],
-                        Valores[32],
-                        Valores[33],
-                        Valores[34],
-                        Valores[35],
-                        Valores[36],
-                        Valores[37],
-                        Valores[38],
-                        Valores[39],
-                        Valores[40],
-                        Valores[41],
-                        Valores[42],
-                        Valores[43],
-                        Valores[44],
-                        Valores[45],
-                        Valores[46],
-                        Valores[47],
-                        Valores[48],
-                        Valores[49],
-                        Valores[50],
-                        Valores[51],
-                        Valores[52],
-                        Valores[53],
-                        Valores[54],
-                        Valores[55],
-                        Valores[56],
-                        Valores[57],
-                        Valores[58],
-                        Valores[59],
-                        Valores[60],
-                        Valores[61],
-                        Valores[62],
-                        Valores[63],
-                        Valores[64],
-                        Valores[65],
-                        Valores[66],
-                        Valores[67]
-                        );
-
-                    sl.ImportDataTable(1, 1, dt, true);
-                    string filepath = HttpRuntime.AppDomainAppPath + "Docs\\" + Session["folio_p"].ToString() + ".xlsx";
-
-                    sl.SaveAs(filepath);
+                    generarDocumentoParaReporteServicio();
                     try
                     {
                         //Parte del codigo para pasar el archivo del servidor al equipo del ingeniero
@@ -450,6 +206,88 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         }
     }
 
+    private System.Data.DataTable generarReporteServiciosModoOffLine()
+    {
+        SLDocument documentoSl = new SLDocument();
+        System.Data.DataTable reporteServicio = new System.Data.DataTable();
+
+        string[] columnasParaReporteServicio = { "IdFSR", "Folio", "Cliente", "Departamento", "Direccion", "Telefono", "Localidad",
+                        "N_Reportado","N_Responsable","Mail","TipoContrato","TipoProblema","TipoServicio","servicio","Ingeniero",
+                    "mailIng","F_SolicitudServicio","FechaServicio","Equipo","Marca","Modelo","NoSerie","IdEquipo_C","Estatusid","Estatus","Observaciones",
+                    "NoLlamada","Inicio_Servicio","Fin_Servicio","Dia","FallaReportada","HoraServicio","Confirmacion","Propuesta","Actividad","S_Confirmacion",
+                    "Asesor1","Correoasesor1","CooreoIng","Proximo_Servicio","idcontrato","idservicio","idproblema","IdResp","Responsable","IdDocumenta","Documentador",
+                    "Refaccion","Ingeniero_A1","IdIng_A1","mailIng_A1","Ingeniero_A2","IdIng_A2","mailIng_A2","F_InicioServicio","F_FinServicio","IdT_Servicio","OC","ArchivoAdjunto",
+                    "DiaInicioServ","DiaFinServ", "DiasServ","NotAsesor","Funcionando","FallaEncontrada","FechaFirmCliente","NombreCliente"};
+
+        foreach (string columna in columnasParaReporteServicio)
+        {
+            reporteServicio.Columns.Add(columna, typeof(string));
+        }
+
+        List<string> valoresParaReporteServicio = new List<string>();
+        string query = "select * from  v_fsr where Folio = " + Session["folio_p"];
+        DataRow informacionServicios = Conexion.getDataRow(query);
+
+
+        for (int i = 0; i == 67; i++)
+        {
+            string valorColumna = columnasParaReporteServicio[i];
+            if (valorColumna.Equals("F_SolicitudServicio"))
+            {
+                valoresParaReporteServicio.Insert(i, Convert.ToDateTime(informacionServicios[valorColumna].ToString()).ToString("yyyy-MM-dd HH:mm:ss.fff"));
+
+            }
+            else if (valorColumna.Equals("FechaServicio"))
+            {
+                valoresParaReporteServicio.Insert(i, Convert.ToDateTime(informacionServicios[valorColumna].ToString()).ToString("yyyy-MM-dd"));
+
+            }
+            else if (i == 28 || i == 29 || i == 40 || i == 66)
+            {
+                valoresParaReporteServicio.Insert(i, "");
+            }
+            else
+            {
+                valoresParaReporteServicio.Insert(i, informacionServicios[valorColumna].ToString());
+                reporteServicio.Rows.Add(valoresParaReporteServicio[i]);
+            }
+
+
+        }
+
+        return reporteServicio;
+    }
+
+    private void verificarSiServicioTieneFechaActual(GridViewRow filasDelDataGridView)
+    {
+        //Validacion de fecha 
+        string fechaDelServicio = "";
+        string fechaDelDiaActual = "";
+        fechaDelServicio = filasDelDataGridView.Cells[4].Text;
+        fechaDelDiaActual = DateTime.Now.ToString("dd/MM/yyyy");
+
+        if (fechaDelDiaActual.Equals(fechaDelServicio))
+        {
+            Response.Redirect("FSR.aspx", true);
+        }
+        else
+        {
+            Response.Write("<script>alert('Error: Fecha de servicio no coincide con el dia de hoy');</script>");
+        }
+    }
+
+    private void generarDocumentoParaReporteServicio()
+    {
+        SLDocument documentoReporteServicio = new SLDocument();
+        System.Data.DataTable reporteServicio = generarReporteServiciosModoOffLine();
+
+        documentoReporteServicio.ImportDataTable(1, 1, reporteServicio, true);
+        string rutaReporteServicio = HttpRuntime.AppDomainAppPath + "Docs\\" + Session["folio_p"].ToString() + ".xlsx";
+
+        documentoReporteServicio.SaveAs(rutaReporteServicio);
+    }
+    
+
     public void pagina()
     {
         DownloadFolio(Session["folio_p"].ToString());
@@ -474,19 +312,19 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         }
         catch(Exception e)
         {
-            recreatePDF(folio);
+            recrearPDFParaFolioDeServicioFinalizado(folio);
         }
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
-    {//Cerrar sesión de usuario
+    protected void Btn_Salir_Click(object sender, EventArgs e)
+    {
         Session.Clear();
         Session.Abandon();
         Response.Redirect("./Sesion.aspx");
     }
 
-    protected void btnCalendario_Click(object sender, EventArgs e)
-    {//Esta función sirve para generar el calendario de servicios del ingeniero en formato pdf
+    protected void Btn_Descrgar_Calendario_De_Servicios_Click(object sender, EventArgs e)
+    {
         ServerReport serverReport = ReportViewer1.ServerReport;
 
         // Set the report server URL and report path
@@ -506,11 +344,11 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         string year = DateTime.Now.Year.ToString();
         string day = DateTime.Now.Day.ToString();
         string nombre = "Calendario_" + day + "-" + month + "-" + year + ".pdf";
-        CreatePDF(nombre);
+        CrearArchivoPDF(nombre);
     }
 
-    protected void recreatePDF(string folio)
-    {//Esta función sirve para crear el Folio de un servicio finalizado.
+    protected void recrearPDFParaFolioDeServicioFinalizado(string folio)
+    {
 
         ServerReport serverReport = ReportViewer1.ServerReport;
         // Set the report server URL and report path
@@ -529,12 +367,11 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         string month = DateTime.Now.Month.ToString();
         string year = DateTime.Now.Year.ToString();
         string nombre = "Folio:" + folio + "_" + year + ".pdf";
-        CreatePDF(nombre);
+        CrearArchivoPDF(nombre);
     }
 
-    private void CreatePDF(string nombre)
-    {//Genera el reporte y ejecuta la descarga del archivo en formato PDF
-        // Variables  
+    private void CrearArchivoPDF(string nombre)
+    {
         Warning[] warnings;
         string[] streamIds;
         string mimeType = string.Empty;
@@ -552,58 +389,57 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         Response.Flush(); // send it to the client to download  
     }
 
-    string coman="";
-    protected void ddlfiltro_SelectedIndexChanged(object sender, EventArgs e)
+    
+    protected void Tipo_De_Estatus_De_Servicio_SelectedIndexChanged(object sender, EventArgs e)
     {
-        //Filtro de folios dependiendo a su estado de FSR Estatus 
-        if(ddlfiltro.Text=="Asignado")
+        string query = "";
+        if(Estatus_de_servicio.Text=="Asignado")
         {
-            coman = "select *from V_FSR where Estatus='Asignado' and IdIngeniero=" + Session["idusuario"] +" order by folio desc";
-            sentencia();
+            query = "select *from V_FSR where Estatus='Asignado' and IdIngeniero=" + Session["idusuario"] +" order by folio desc";
+            consultarFoliosDeServicio(query);
         }
-        if (ddlfiltro.Text == "En Proceso")
+        if (Estatus_de_servicio.Text == "En Proceso")
         {
-            coman = "select *from V_FSR where Estatus='En Proceso' and IdIngeniero=" + Session["idusuario"]+" order by folio desc";
-            sentencia();
+            query = "select *from V_FSR where Estatus='En Proceso' and IdIngeniero=" + Session["idusuario"]+" order by folio desc";
+            consultarFoliosDeServicio(query);
         }
-        if (ddlfiltro.Text == "Finalizado")
+        if (Estatus_de_servicio.Text == "Finalizado")
         {
-            coman = "select *from v_fsr where estatus='Finalizado' and idingeniero=" + Session["idusuario"]+ " order by folio desc";
-            sentencia();
+            query = "select *from v_fsr where estatus='Finalizado' and idingeniero=" + Session["idusuario"]+ " order by folio desc";
+            consultarFoliosDeServicio(query);
         }
-        if (ddlfiltro.Text == "Todos")
+        if (Estatus_de_servicio.Text == "Todos")
         {
-            cargardatos();
+            query = "Select DISTINCT* from  v_fsr where idingeniero = " + Session["Idusuario"] + " order by folio desc";
+            consultarFoliosDeServicio(query);
         }
     }
-    public void sentencia()
+   
+
+    public void consultarFoliosDeServicio(string query)
     {
-        //Proceso de llenado del datagridview 
-        GridView1.DataSource = Conexion.getDataSet(coman);
-        GridView1.DataBind();
-        contador.Text = GridView1.Rows.Count.ToString();
+        Gridview_datos_de_servicio.DataSource = Conexion.getDataSet(query);
+        Gridview_datos_de_servicio.DataBind();
+        contador.Text = Gridview_datos_de_servicio.Rows.Count.ToString();
     }
 
-    protected void btndescargafolio_Click(object sender, EventArgs e)
+    protected void Btn_Descarga_Folio_De_Servicio_Finalizado_Click(object sender, EventArgs e)
     {
-        //pasa a la opcion de descargar el folio que se encuentre finalizado
         string _open = "window.open('DescargaFolio.aspx', '_newtab');";
         ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(), _open, true);
     }
 
-    protected void btnCalendario1_Click(object sender, EventArgs e)
+    protected void Btn_Ir_A_Calendario_Click(object sender, EventArgs e)
     {
-        //Ir a caldenario
         Response.Redirect("Calendario.aspx");
     }
 
-    protected void manual_Click(object sender, EventArgs e)
+    protected void Btn_Manual_De_Usuario_Click(object sender, EventArgs e)
     {
-        //descargar manual de usuario
         Response.Redirect(@"\Docs\Manual de Usuario SWF v3.pdf");
     }
 
-    protected void btninformacion_Click(object sender, EventArgs e)
+    protected void Btn_Ir_A_Seguimiento_De_Serviciod_Click(object sender, EventArgs e)
     {
         string _open = "window.open('Informacion.aspx', '_newtab');";
         ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(), _open, true);

@@ -58,22 +58,22 @@
                 <nap class="menu"> <!--Aqui se indica la navegacion de nuestra wep-->
                         
                        
-                       <asp:Button ID="btninformacion" runat="server" Text="Seguimiento de Servicios" class="dropbtn" UseSubmitBehavior="False" OnClick="btninformacion_Click"  /> 
+                       <asp:Button ID="btninformacion" runat="server" Text="Seguimiento de Servicios" class="dropbtn" UseSubmitBehavior="False" OnClick="Btn_Ir_A_Seguimiento_De_Serviciod_Click"  /> 
                       
                     
-                             <asp:Button ID="cg" runat="server" Text="C G" class="dropbtn" Width="70px" UseSubmitBehavior="False" OnClick="btnCalendario1_Click"/>
+                             <asp:Button ID="Btn_Calendario" runat="server" Text="C G" class="dropbtn" Width="70px" UseSubmitBehavior="False" OnClick="Btn_Ir_A_Calendario_Click"/>
                     
                     
-                             <asp:Button ID="manual" runat="server" Text="M U" class="dropbtn" Width="70px" UseSubmitBehavior="False" OnClick="manual_Click"/>
+                             <asp:Button ID="manual" runat="server" Text="M U" class="dropbtn" Width="70px" UseSubmitBehavior="False" OnClick="Btn_Manual_De_Usuario_Click"/>
                     
                     
-                             <asp:Button ID="btnCalendario" runat="server" Text="Descargar Calendario" class="dropbtn" UseSubmitBehavior="False" OnClick="btnCalendario_Click" />
+                             <asp:Button ID="btnCalendario" runat="server" Text="Descargar Calendario" class="dropbtn" UseSubmitBehavior="False" OnClick="Btn_Descrgar_Calendario_De_Servicios_Click" />
                     
                     
-                            <asp:Button ID="btndescargafolio" runat="server" Text="Descargar Folio" class="dropbtn" UseSubmitBehavior="False" OnClick="btndescargafolio_Click" />
+                            <asp:Button ID="btndescargafolio" runat="server" Text="Descargar Folio" class="dropbtn" UseSubmitBehavior="False" OnClick="Btn_Descarga_Folio_De_Servicio_Finalizado_Click" />
                    
                     
-                            <asp:Button ID="Button1" runat="server" Text="Salir" class="dropbtn"  UseSubmitBehavior="False" OnClick="Button1_Click" />
+                            <asp:Button ID="Button1" runat="server" Text="Salir" class="dropbtn"  UseSubmitBehavior="False" OnClick="Btn_Salir_Click" />
                     
 
                     <label for="check" class="esconder-menu">
@@ -96,7 +96,7 @@
                     <table style="width: 100%; height:35px;">
                         <tr>
                             <td class="auto-style9">Estatus del Servicio</td>
-                            <td class="auto-style12"><asp:DropDownList ID="ddlfiltro" runat="server" Width="177px" OnSelectedIndexChanged="ddlfiltro_SelectedIndexChanged" AutoPostBack="True">
+                            <td class="auto-style12"><asp:DropDownList ID="Estatus_de_servicio" runat="server" Width="177px" OnSelectedIndexChanged="Tipo_De_Estatus_De_Servicio_SelectedIndexChanged" AutoPostBack="True">
                                 <asp:ListItem></asp:ListItem>
                                 <asp:ListItem>Asignado</asp:ListItem>
                                 <asp:ListItem>En Proceso</asp:ListItem>
@@ -112,7 +112,7 @@
 
             <section class="contenido wrapper">
                 <div style="overflow-x:auto;width:100%; height:500px">
-                    <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False" Width="100%" Font-Size="9pt"  DataKeyNames="Folio" CellPadding="4"  ForeColor="#333333" GridLines="None" BorderStyle="Ridge" Font-Bold="False" CssClass="auto-style7" OnRowCommand="GridView1_OnRowComand">
+                    <asp:GridView ID="Gridview_datos_de_servicio" runat="server"  AutoGenerateColumns="False" Width="100%" Font-Size="9pt"  DataKeyNames="Folio" CellPadding="4"  ForeColor="#333333" GridLines="None" BorderStyle="Ridge" Font-Bold="False" CssClass="auto-style7" OnRowCommand="Gridview_datos_de_servicio_OnRowComand">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:ButtonField HeaderText="Folio" DataTextField="Folio" SortExpression="Folio" Visible="true" ButtonType="Link" ItemStyle-Width="10%"  CommandName="Select">
