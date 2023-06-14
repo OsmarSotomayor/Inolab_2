@@ -19,10 +19,11 @@ namespace INOLAB_OC
    
     public partial class Informacion : System.Web.UI.Page
     {
-        string area;
+
         const string estatusDeFolioAsignado = "Asignado";
         const string estatusDeFolioEnProceso = "En Proceso";
-
+        const string estatusDeFolioFinalizado = "Finalizado";
+        const string todosLosFolios = "Todos";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["idUsuario"] == null)
@@ -31,43 +32,30 @@ namespace INOLAB_OC
             }
             else
             {
-                //En caso de que sean los jefes de area de los ingenieros tendran acceso al boton de seguimiento por el area a la que representan
+                verificarSiUsuarioEsJefeDeSuArea();
                 lbluser.Text = Session["nameUsuario"].ToString();
-
-                if (Session["idUsuario"].ToString() == "54") //Gustavo
-                {
-                    // cg.Visible = true;
-                    lblcontador.Text = "Servicios Area Temperatura";
-                }
-                if (Session["idUsuario"].ToString() == "60") //Sergio
-                {
-                    // cg.Visible = true;
-                    lblcontador.Text = "Servicios Area Fisicoquímicos";
-                }
-                if (Session["idUsuario"].ToString() == "30") //Armando
-                {
-                    // cg.Visible = true;
-                    lblcontador.Text = "Servicios Area Analítica";
-                }
             }
         }
-        public void CargaDatos()
+      
+
+        public void verificarSiUsuarioEsJefeDeSuArea()
         {
-            if (Session["idUsuario"].ToString() == "54")
+            
+            if (Session["idUsuario"].ToString() == "54") //Gustavo
             {
-                datosAnalitica();
+                lblcontador.Text = "Servicios Area Temperatura";
             }
-            if (Session["idUsuario"].ToString() == "60")
+            if (Session["idUsuario"].ToString() == "60") //Sergio
             {
-                datosFisicoquimicos();
+                lblcontador.Text = "Servicios Area Fisicoquímicos";
             }
-            if (Session["idUsuario"].ToString() == "30")
+            if (Session["idUsuario"].ToString() == "30") //Armando
             {
-                datosTemperatura();
+                lblcontador.Text = "Servicios Area Analítica";
             }
         }
 
-        // VALIDACION DE AREA PARA MOSTRAR FSR
+        // VALIDACION DE AREA PARA MOSTRAR FOLIOS DEPENDIENDO DEL AREA
         public void datosAnalitica()
         {
                 //Carga los folios del ingeniero
@@ -75,8 +63,7 @@ namespace INOLAB_OC
                 GridView1.DataSource = Conexion.getDataSet(query);
                
                 GridView1.DataBind();
-                contador.Text = GridView1.Rows.Count.ToString();
-           
+                contador.Text = GridView1.Rows.Count.ToString(); 
         }
         public void datosTemperatura()
         {
@@ -101,33 +88,31 @@ namespace INOLAB_OC
       
         string consulta = "";
 
-        // filtro de estatus de los FSR
         protected void ddlfiltro_SelectedIndexChanged1(object sender, EventArgs e)
         {
-            //Filtro de folios dependiendo a su estado de FSR Estatus 
+            
             if (ddlfiltro.Text.Equals(estatusDeFolioAsignado))
             {
-                datosAnalitica();
-
                 consulta = "select *from V_FSR where Estatus='Asignado' and IdIngeniero=" + Session["idusuario"] + " order by folio desc";
-                llenarDataGridView();
+                consultarFoliosDeServicio(consulta);
             }
             if (ddlfiltro.Text.Equals(estatusDeFolioEnProceso))
             {
-                //comando = "select *from V_FSR where Estatus='En Proceso' and IdIngeniero=" + Session["idusuario"] + " order by folio desc";
-                //sentencia();
+                consulta = "select *from V_FSR where Estatus='En Proceso' and IdIngeniero=" + Session["idusuario"] + " order by folio desc";
+                consultarFoliosDeServicio(consulta);
             }
-            if (ddlfiltro.Text == "Finalizado")
+            if (ddlfiltro.Text.Equals(estatusDeFolioFinalizado))
             {
-                //comando = "select *from v_fsr where estatus='Finalizado' and idingeniero=" + Session["idusuario"] + " order by folio desc";
-                //sentencia();
+                consulta = "select *from v_fsr where estatus='Finalizado' and idingeniero=" + Session["idusuario"] + " order by folio desc";
+                consultarFoliosDeServicio(consulta);
             }
-            if (ddlfiltro.Text == "Todos")
+            if (ddlfiltro.Text.Equals(todosLosFolios))
             {
-                // cargardatos();
+                consulta = "select * from v_fsr where  idingeniero = " + Session["idusuario"] + "order by folio desc;";
+                consultarFoliosDeServicio(consulta);
             }
         }
-        public void llenarDataGridView()
+        public void consultarFoliosDeServicio(string consulta)
         {
             GridView1.DataSource = Conexion.getDataSet(consulta);
             GridView1.DataBind();
