@@ -49,22 +49,22 @@ public partial class FSR
     protected global::System.Web.UI.WebControls.Label Label1;
 
     /// <summary>
-    /// Control lbluser.
+    /// Control Nombre_de_usuario.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lbluser;
+    protected global::System.Web.UI.WebControls.Label Nombre_de_usuario;
 
     /// <summary>
-    /// Control labelestado.
+    /// Control Estatus_de_folio_servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label labelestado;
+    protected global::System.Web.UI.WebControls.Label Estatus_de_folio_servicio;
 
     /// <summary>
     /// Control sectionreport.
@@ -535,22 +535,22 @@ public partial class FSR
     protected global::System.Web.UI.WebControls.TextBox txtfalla;
 
     /// <summary>
-    /// Control btnfechas.
+    /// Control Btn_actualizar_fechas.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button btnfechas;
+    protected global::System.Web.UI.WebControls.Button Btn_actualizar_fechas;
 
     /// <summary>
-    /// Control btnacciones.
+    /// Control Btn_agregar_acciones.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button btnacciones;
+    protected global::System.Web.UI.WebControls.Button Btn_agregar_acciones;
 
     /// <summary>
     /// Control btndescarga.
@@ -715,13 +715,13 @@ public partial class FSR
     protected global::System.Web.UI.HtmlControls.HtmlGenericControl Button1id;
 
     /// <summary>
-    /// Control Button1.
+    /// Control Btn_Estatus_Servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button Button1;
+    protected global::System.Web.UI.WebControls.Button Btn_Estatus_Servicio;
 
     /// <summary>
     /// Control btnadjuntar.
@@ -760,13 +760,13 @@ public partial class FSR
     protected global::System.Web.UI.WebControls.Label fechaini;
 
     /// <summary>
-    /// Control datepicker1.
+    /// Control Fecha_inicio_servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox datepicker1;
+    protected global::System.Web.UI.WebControls.TextBox Fecha_inicio_servicio;
 
     /// <summary>
     /// Control horasini.
@@ -832,13 +832,13 @@ public partial class FSR
     protected global::System.Web.UI.WebControls.Label Label33;
 
     /// <summary>
-    /// Control actual1.
+    /// Control lbl_fechaYhora_inicio_servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label actual1;
+    protected global::System.Web.UI.WebControls.Label lbl_fechaYhora_inicio_servicio;
 
     /// <summary>
     /// Control Label34.
@@ -850,13 +850,13 @@ public partial class FSR
     protected global::System.Web.UI.WebControls.Label Label34;
 
     /// <summary>
-    /// Control actual2.
+    /// Control Lbl_fin_de_servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label actual2;
+    protected global::System.Web.UI.WebControls.Label Lbl_fin_de_servicio;
 
     /// <summary>
     /// Control Label28.
@@ -886,13 +886,13 @@ public partial class FSR
     protected global::System.Web.UI.WebControls.Label horasfin;
 
     /// <summary>
-    /// Control horafinal.
+    /// Control Hora_inicio_folio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList horafinal;
+    protected global::System.Web.UI.WebControls.DropDownList Hora_inicio_folio;
 
     /// <summary>
     /// Control Label29.
@@ -904,13 +904,13 @@ public partial class FSR
     protected global::System.Web.UI.WebControls.Label Label29;
 
     /// <summary>
-    /// Control minfinal.
+    /// Control Minuto_inicio_folio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList minfinal;
+    protected global::System.Web.UI.WebControls.DropDownList Minuto_inicio_folio;
 
     /// <summary>
     /// Control Label30.
@@ -940,13 +940,13 @@ public partial class FSR
     protected global::System.Web.UI.WebControls.Label Label31;
 
     /// <summary>
-    /// Control horafs.
+    /// Control Hora_fin_folio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList horafs;
+    protected global::System.Web.UI.WebControls.DropDownList Hora_fin_folio;
 
     /// <summary>
     /// Control Label32.
@@ -958,13 +958,13 @@ public partial class FSR
     protected global::System.Web.UI.WebControls.Label Label32;
 
     /// <summary>
-    /// Control horais.
+    /// Control Minuto_fin_folio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList horais;
+    protected global::System.Web.UI.WebControls.DropDownList Minuto_fin_folio;
 
     /// <summary>
     /// Control Button2.

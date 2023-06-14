@@ -119,7 +119,7 @@
             $("#fecha").datepicker();
         });
         $(function () {
-            $("#datepicker1").datepicker();
+            $("#Fecha_inicio_servicio").datepicker();
         });
         $(function () {
             $("#datepicker2").datepicker();
@@ -164,8 +164,8 @@
         <div id="headerone" class="auto-style1" runat="server">
             <div class="logo" style="height: 67px"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
                 <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo"  ></asp:Label>
-                <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo" ></asp:Label>
-                <asp:Label ID="labelestado" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" Visible="false" class="logo" ></asp:Label>
+                <asp:Label ID="Nombre_de_usuario" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo" ></asp:Label>
+                <asp:Label ID="Estatus_de_folio_servicio" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" Visible="false" class="logo" ></asp:Label>
                 <nav>
                                         
                         <button type="reset" class="dropbtn" id="Btn_Atras" onclick="go('atras')">Atras</button>
@@ -399,10 +399,10 @@
                 <tr>
                     <td>&nbsp;</td>
                     <td>
-                        <asp:Button runat="server" Text="Actualizar Fechas" BorderStyle="None" style="float:unset; background-color:teal;" Visible="false" ID="btnfechas" OnClick="btnfechas_Click" />
+                        <asp:Button runat="server" Text="Actualizar Fechas" BorderStyle="None" style="float:unset; background-color:teal;" Visible="false" ID="Btn_actualizar_fechas" OnClick="Actualizar_fechaYhora_Servicio_Click" />
                     </td>
                     <td>
-                        <asp:Button runat="server" Text="Actualizar Acciones" BorderStyle="None" style="float:unset; background-color:teal;" Visible="false" ID="btnacciones" OnClick="btnacciones_Click" />
+                        <asp:Button runat="server" Text="Actualizar Acciones" BorderStyle="None" style="float:unset; background-color:teal;" Visible="false" ID="Btn_agregar_acciones" OnClick="Actualizar_Acciones_Click" />
                     </td>
                     <td>
                         <asp:Button runat="server" Text="Descargar Folio" BorderStyle="None" style="float:unset;" Visible="false" ID="btndescarga" OnClick="btndescarga_Click" color="b"/>
@@ -431,8 +431,8 @@
                                 <asp:HiddenField id="responsableHF" runat="server" />
                                 
                                 <div runat="server" id="Button1id" class="footerbtn" >
-                                    <asp:Button runat="server" Text="Realizar servicio" BorderStyle="None" style="float:unset;" ID="Button1" OnClientClick="SubirDatos();" OnClick="Button1_Click"  />
-                                    <asp:Button ID="btnadjuntar" runat="server" OnClick="btnadjuntar_Click" Text="Adjuntar Archivos" />
+                                    <asp:Button runat="server" Text="Realizar servicio" BorderStyle="None" style="float:unset;" ID="Btn_Estatus_Servicio" OnClientClick="SubirDatos();" OnClick="Actualizar_Datos_Servicio_Click"  />
+                                    <asp:Button ID="btnadjuntar" runat="server" OnClick="Adjuntar_Archivos_Click" Text="Adjuntar Archivos" />
                                 </div>
                     </td>
                     <td>&nbsp;</td>
@@ -454,7 +454,7 @@
                     <tr>
                         <td class="auto-style6" colspan="2">
                             <asp:Label ID="fechaini" runat="server" Text="Fecha en la que se inicia el folio:"></asp:Label>
-                            <asp:TextBox ID="datepicker1" runat="server" autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
+                            <asp:TextBox ID="Fecha_inicio_servicio" runat="server" autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
                         </td>                           
                     </tr>
                     <tr>
@@ -553,7 +553,7 @@
                     </tr>
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Button runat="server" Text="Iniciar Folio" BorderStyle="None" style="float:right;" ID="Addbutton" OnClick="Iniciar_Click" />
+                            <asp:Button runat="server" Text="Iniciar Folio" BorderStyle="None" style="float:right;" ID="Addbutton" OnClick="Iniciar_Folio_De_Servicio_Click" />
                         </td>    
                     </tr>
                 </table>
@@ -568,13 +568,13 @@
                     <tr>
                         <td colspan="2">
                             <asp:Label ID="Label33" runat="server" Text="Fecha de inicio de servicio (Actual):" CssClass="auto-style7"></asp:Label>
-                            <asp:Label ID="actual1" runat="server" Text="Ejemplo 1" CssClass="auto-style8"></asp:Label>
+                            <asp:Label ID="lbl_fechaYhora_inicio_servicio" runat="server" Text="Ejemplo 1" CssClass="auto-style8"></asp:Label>
                         </td>
                     </tr>                    
                     <tr>
                         <td colspan="2">
                             <asp:Label ID="Label34" runat="server" Text="Fecha de fin de servicio (Actual):" CssClass="auto-style7"></asp:Label>
-                            <asp:Label ID="actual2" runat="server" Text="Ejemplo 2" CssClass="auto-style8"></asp:Label>
+                            <asp:Label ID="Lbl_fin_de_servicio" runat="server" Text="Ejemplo 2" CssClass="auto-style8"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -590,7 +590,7 @@
                     <tr>
                         <td class="auto-style6" colspan="2">
                             <asp:Label ID="horasfin" runat="server" Text="Hora de Inicio de Servicio:"></asp:Label>
-                            <asp:DropDownList ID="horafinal" runat="server" Enabled="True" Width="100px">
+                            <asp:DropDownList ID="Hora_inicio_folio" runat="server" Enabled="True" Width="100px">
                                             <asp:ListItem>00</asp:ListItem>
                                             <asp:ListItem>01</asp:ListItem>
                                             <asp:ListItem>02</asp:ListItem>
@@ -617,7 +617,7 @@
                                             <asp:ListItem>23</asp:ListItem>
                             </asp:DropDownList>
                             <asp:Label ID="Label29" runat="server" Text=":"></asp:Label>
-                            <asp:DropDownList ID="minfinal" runat="server" Enabled="True" Width="100px">
+                            <asp:DropDownList ID="Minuto_inicio_folio" runat="server" Enabled="True" Width="100px">
                                             <asp:ListItem>00</asp:ListItem>
                                             <asp:ListItem>01</asp:ListItem>
                                             <asp:ListItem>02</asp:ListItem>
@@ -694,7 +694,7 @@
                     <tr>
                         <td class="auto-style6" colspan="2">
                             <asp:Label ID="Label31" runat="server" Text="Hora de Fin de Servicio:"></asp:Label>
-                            <asp:DropDownList ID="horafs" runat="server" Enabled="True" Width="100px">
+                            <asp:DropDownList ID="Hora_fin_folio" runat="server" Enabled="True" Width="100px">
                                             <asp:ListItem>00</asp:ListItem>
                                             <asp:ListItem>01</asp:ListItem>
                                             <asp:ListItem>02</asp:ListItem>
@@ -721,7 +721,7 @@
                                             <asp:ListItem>23</asp:ListItem>
                             </asp:DropDownList>
                             <asp:Label ID="Label32" runat="server" Text=":"></asp:Label>
-                            <asp:DropDownList ID="horais" runat="server" Enabled="True" Width="100px">
+                            <asp:DropDownList ID="Minuto_fin_folio" runat="server" Enabled="True" Width="100px">
                                             <asp:ListItem>00</asp:ListItem>
                                             <asp:ListItem>01</asp:ListItem>
                                             <asp:ListItem>02</asp:ListItem>

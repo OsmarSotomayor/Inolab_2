@@ -166,16 +166,22 @@ header nav {
     z-index: 2;
 }
 
-#btnfechas {
+#Btn_actualizar_fechas {
     position: absolute;
     bottom: 5%;
-    
 }
 
-#btnacciones {
+
+#Btn_Estatus_Servicio {
+    background-color: teal;
+    position: relative;
+    bottom: 5%;
+}
+
+
+#Btn_agregar_acciones {
     position: absolute;
     bottom: 5%;
-    
 }
 
 #btndescarga {
@@ -184,11 +190,7 @@ header nav {
     
 }
 
-#Button1 {
-    background-color: teal;
-    position: relative;
-    bottom: 5%;
-}
+
 
 .Txt_Datos_Folio{
     width:300px;
