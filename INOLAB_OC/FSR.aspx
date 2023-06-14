@@ -336,7 +336,7 @@
                 <tr>
                     <td>
                         <asp:Label ID="Label23" runat="server" Text="Fecha de servicio:"></asp:Label><br />
-                        <asp:TextBox ID="datepicker" runat="server" Enabled="False" ReadOnly="True" OnTextChanged="datepicker_TextChanged" CssClass="Txt_Datos_Folio"></asp:TextBox>
+                        <asp:TextBox ID="datepicker" runat="server" Enabled="False" ReadOnly="True"  CssClass="Txt_Datos_Folio"></asp:TextBox>
                     </td>
                     <td>
                         <asp:Label ID="Label25" runat="server" Text="Hora:"></asp:Label><br/>

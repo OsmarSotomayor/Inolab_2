@@ -45,7 +45,7 @@
                         <div class="dropdown">
                         </div>
                         <div class="dropdown">                             
-                            <asp:Button ID="Button5" runat="server" Text="Salir" class="dropbtn" UseSubmitBehavior="False" OnClick="Button1_Click" Height="37px" />
+                            <asp:Button ID="Button5" runat="server" Text="Salir" class="dropbtn" UseSubmitBehavior="False" OnClick="Cerrar_sesion_Click" Height="37px" />
                         </div>
 
                         <div>
@@ -64,8 +64,8 @@
                                 <asp:ListItem Text="Noviembre" />
                                 <asp:ListItem Text="Diciembre" />
                             </asp:DropDownList>
-                            <asp:Button ID="Button2" runat="server" Text="⇐" Style="width:80px; height: 40px; margin-left:10px; margin-right:10px" OnClick="Antes_Click"/>
-                            <asp:Button ID="buscar" runat="server" Text="⇒" Style="width:80px; height: 40px; margin-left:10px; margin-right:10px" OnClick="Despues_Click"/>
+                            <asp:Button ID="Button2" runat="server" Text="⇐" Style="width:80px; height: 40px; margin-left:10px; margin-right:10px" OnClick="Verificar_semana_antes_de_fecha_consulta_Click"/>
+                            <asp:Button ID="buscar" runat="server" Text="⇒" Style="width:80px; height: 40px; margin-left:10px; margin-right:10px" OnClick="Verificar_semana_despues_de_fecha_consulta_Click"/>
                             
                         </div>
                     </nav>                
