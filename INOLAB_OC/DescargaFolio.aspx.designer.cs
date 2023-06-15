@@ -96,13 +96,13 @@ namespace INOLAB_OC
         protected global::System.Web.UI.WebControls.Label lblcontador;
 
         /// <summary>
-        /// Control GridView1.
+        /// Control GridViewServicios_Finalizados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView GridViewServicios_Finalizados;
 
         /// <summary>
         /// Control DSBrowser.

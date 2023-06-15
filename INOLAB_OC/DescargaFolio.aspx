@@ -69,7 +69,7 @@
           
         <section class="contenido wrapper">
             <div style="overflow-x:auto;width:100%; height:500px">
-            <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False" Width="100%" Font-Size="9pt"  DataKeyNames="Folio" CellPadding="4"  ForeColor="#333333" GridLines="None" BorderStyle="Ridge" Font-Bold="False" CssClass="auto-style7" OnRowCommand="GridView1_OnRowComand">
+            <asp:GridView ID="GridViewServicios_Finalizados" runat="server"  AutoGenerateColumns="False" Width="100%" Font-Size="9pt"  DataKeyNames="Folio" CellPadding="4"  ForeColor="#333333" GridLines="None" BorderStyle="Ridge" Font-Bold="False" CssClass="auto-style7" OnRowCommand="Servicios_Finalizados_OnRowComand">
             <AlternatingRowStyle BackColor="White" />
                 
             <Columns>

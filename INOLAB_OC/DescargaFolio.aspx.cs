@@ -23,7 +23,7 @@ namespace INOLAB_OC
             {
                 lbluser.Text = Session["nameUsuario"].ToString();
             }
-            cargardatos();
+            cargarDatosDeFoliosConEstatusFinalizado();
         }
 
         protected void Page_Init(object sender, EventArgs e)
@@ -116,16 +116,14 @@ namespace INOLAB_OC
             }
         }
 
-        private void cargardatos()
+        private void cargarDatosDeFoliosConEstatusFinalizado()
         {      
-                //Carga los folios del ingeniero
-                string query = "Select *from  v_fsr where idingeniero=" + Session["Idusuario"] + " and estatusid=3 order by folio desc";
-                GridView1.DataSource = Conexion.getDataSet(query);
-                GridView1.DataBind();
-           
+            string query = "Select *from  v_fsr where idingeniero=" + Session["Idusuario"] + " and estatusid=3 order by folio desc";
+            GridViewServicios_Finalizados.DataSource = Conexion.getDataSet(query);
+            GridViewServicios_Finalizados.DataBind(); 
         }
 
-        protected void GridView1_OnRowComand(object sender, GridViewCommandEventArgs e)
+        protected void Servicios_Finalizados_OnRowComand(object sender, GridViewCommandEventArgs e)
         {//Al darle clic al folio deseado este se almacena en la sesión y te redirige a la ventana de FSR
             try
             {
@@ -134,7 +132,7 @@ namespace INOLAB_OC
                 if (e.CommandName == "Select")
                 {
                     int index = int.Parse(e.CommandArgument.ToString());
-                    GridViewRow row = GridView1.Rows[index];
+                    GridViewRow row = GridViewServicios_Finalizados.Rows[index];
                     text = ((LinkButton)row.Cells[0].Controls[0]).Text;
                     tipo = row.Cells[1].Text;
                 }
@@ -146,7 +144,7 @@ namespace INOLAB_OC
                     //llama a la funcion de descargar folio en caso de que haya uno existente
                     //DownloadFolio(Session["folio_p"].ToString());
                     //como no queremos que nos tome el existente, siempre vamos a crear un folio en caso de que se encuentre finalizado pero queramos hacer cambios
-                    recreatePDF(Session["folio_p"].ToString());
+                    recrearFolioDeServicioFinalizadoPDF(Session["folio_p"].ToString());
                 }
                 else
                 {
@@ -182,13 +180,12 @@ namespace INOLAB_OC
             }
         }*/
 
-        protected void recreatePDF(string folio)
-        {//Esta función sirve para crear el Folio de un servicio finalizado.
-
-            ServerReport serverReport = ReportViewer1.ServerReport;
+        protected void recrearFolioDeServicioFinalizadoPDF(string folio)
+        {
+            ServerReport reporteServiciosFinalizados = ReportViewer1.ServerReport;
             // Set the report server URL and report path
-            serverReport.ReportServerUrl = new Uri("http://INOLABSERVER01/Reportes_Inolab");
-            serverReport.ReportPath = "/OC/FSR Servicio";
+            reporteServiciosFinalizados.ReportServerUrl = new Uri("http://INOLABSERVER01/Reportes_Inolab");
+            reporteServiciosFinalizados.ReportPath = "/OC/FSR Servicio";
 
             // Create the sales order number report parameter
             ReportParameter salesOrderNumber = new ReportParameter();
@@ -199,15 +196,13 @@ namespace INOLAB_OC
             ReportViewer1.ServerReport.SetParameters(new ReportParameter[] { salesOrderNumber });
             ReportViewer1.ShowParameterPrompts = false;
 
-            string month = DateTime.Now.Month.ToString();
-            string year = DateTime.Now.Year.ToString();
-            string nombre = "Folio:" + folio + "_" + year + ".pdf";
-            CreatePDF(nombre);
+            string año = DateTime.Now.Year.ToString();
+            string nombreDeReporte = "Folio:" + folio + "_" + año + ".pdf";
+            crearReportePDF(nombreDeReporte);
         }
 
-        private void CreatePDF(string nombre)
-        {//Genera el reporte y ejecuta la descarga del archivo en formato PDF
-         // Variables  
+        private void  crearReportePDF(string nombre)
+        {
             Warning[] warnings;
             string[] streamIds;
             string mimeType = string.Empty;
