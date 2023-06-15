@@ -8,11 +8,11 @@ body {
 }
 
 #headerone {
-    z-index: 2;
+    z-index: 2;     
 }
 
 #contenone {
-    z-index: 0;
+    z-index: 0;            
 }
 
 header {
@@ -142,7 +142,11 @@ header nav {
     color: #ffffff;
 }
 
-
+#Btn_ir_a_servicios_asignados {
+    background: #5DADE2;
+    width: 170px;
+    color: #ffffff;
+}
 
 
 

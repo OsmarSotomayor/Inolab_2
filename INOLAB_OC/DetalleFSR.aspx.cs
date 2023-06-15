@@ -15,55 +15,51 @@ public partial class DetalleFSR : Page
     const int FINALIZADO =3;
     protected void Page_Load(object sender, EventArgs e)
     {
+       agregarEncabezadosDePanel();
+       definirVisibilidadDeBotonesDependiendoEstatusFolio();
+       cargarAccionesDelIngeniero();
+       loadtable2();
+    }
+
+    public void agregarEncabezadosDePanel()
+    {
         if (Session["idUsuario"] == null)
         {
             Response.Redirect("./Sesion.aspx");
         }
         else
         {
-            //Linea para poner en titulo el numero del folio (ya sin error de repeticion del numero)
             titulo.Text = "Detalle de FSR N°. " + Session["folio_p"].ToString();
             lbluser.Text = Session["nameUsuario"].ToString();
-            
+
         }
-
-        //Linea de comandos para ocultar los elementos inecesarios, una vez que se est finalizado el folio (solo para hacer cambios a anexos, proximo servicio y observaciones)
-       
-        
-        string query = "SELECT Top 1 IdStatus FROM FSR where Folio= " + Session["folio_p"].ToString() + " and Id_Ingeniero =" + Session["idUsuario"].ToString() + ";";
-        
-        int status = Conexion.getScalar(query);
-    
-
-        if (status == FINALIZADO)
+    }
+    public void definirVisibilidadDeBotonesDependiendoEstatusFolio()
+    {
+        string consulta = "SELECT Top 1 IdStatus FROM FSR where Folio= " + Session["folio_p"].ToString() + " and Id_Ingeniero =" + Session["idUsuario"].ToString() + ";";
+        int estatusFolioDeServicio = Conexion.getScalar(consulta);
+        if (estatusFolioDeServicio == FINALIZADO)
         {
-            AddRef.Visible = false;
-            sirvebutton.Visible = true;
-            AddFalla.Visible = false;
-            vpbuttonid.Visible = false;
-            Btn_Ir_A_Servicios.Visible = true;
+            Btn_agregar_refacciones_a_servicio.Visible = false;
+            Checked_verificar_funcionamiento.Visible = true;
+            Btn_reportar_falla.Visible = false;
+            Btn_vista_previa_reportes.Visible = false;
+            Btn_ir_a_servicios_asignados.Visible = true;
         }
         else
         {
-            AddRef.Visible = true;
-            sirvebutton.Visible = true;
-            AddFalla.Visible = true;
-            vpbuttonid.Visible = true;
-            Btn_Ir_A_Servicios.Visible = true;
+            Btn_agregar_refacciones_a_servicio.Visible = true;
+            Checked_verificar_funcionamiento.Visible = true;
+            Btn_reportar_falla.Visible = false;
+            Btn_vista_previa_reportes.Visible = true;
+            Btn_ir_a_servicios_asignados.Visible = true;
         }
-
-        //Carga los datos de los anexos correspondientes al folio
-        cargardatos2();
-        loadtable2();
     }
-    private void cargardatos2()
-    {//Carga los folios del ingeniero
 
-        //Llena los datos de los acciones segun el folio
-        //Se actualiza el datagrid para mostrar todas las acciones
-        GridView1.DataSource = Conexion.getDataSet("Select *from  FSRAccion where idFolioFSR=" + Session["folio_p"]);
+    private void cargarAccionesDelIngeniero()
+    {
+        GridView1.DataSource = Conexion.getDataSet("Select * from  FSRAccion where idFolioFSR=" + Session["folio_p"]);
         GridView1.DataBind();
-
     }
     private void cargardatos()
     {
@@ -137,7 +133,7 @@ public partial class DetalleFSR : Page
                         contenone.Style.Add("filter", "blur(0)");
                         headerone.Style.Add("filter", "blur(0)");
                         footerid.Style.Add("display", "flex");
-                        cargardatos2();
+                        cargarAccionesDelIngeniero();
                     }
                     else
                     {
@@ -621,7 +617,7 @@ public partial class DetalleFSR : Page
         //Codigo para borrar la accion realizada
 
         Conexion.executeQuery("delete from FSRAccion where idFSRAccion =" + IDAccion.Text + ";");
-        cargardatos2();
+        cargarAccionesDelIngeniero();
 
         avisodel.Style.Add("display", "none");
         headerone.Style.Add("display", "block");
@@ -654,7 +650,7 @@ public partial class DetalleFSR : Page
         }
     }
 
-    protected void SA_Click(object sender, EventArgs e)
+    protected void Servicios_Asignados_Click(object sender, EventArgs e)
     {
         //Volver a servicios asignados
         Response.Redirect("ServiciosAsignados.aspx");

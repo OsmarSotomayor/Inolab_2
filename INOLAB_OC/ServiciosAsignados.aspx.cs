@@ -34,6 +34,8 @@ public partial class ServiciosAsignados : System.Web.UI.Page
                 Btn_Calendario.Visible = false;
             }
         }
+
+        btninformacion.Visible = false;
     }
 
     public bool validarSiUsuarioEsGefeDeArea()

@@ -58,13 +58,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Label lbluser;
 
     /// <summary>
-    /// Control Btn_Ir_A_Servicios.
+    /// Control Btn_ir_a_servicios_asignados.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button Btn_Ir_A_Servicios;
+    protected global::System.Web.UI.WebControls.Button Btn_ir_a_servicios_asignados;
 
     /// <summary>
     /// Control contenone.
@@ -598,13 +598,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Button observacionesbtn;
 
     /// <summary>
-    /// Control AddRef.
+    /// Control Btn_agregar_refacciones_a_servicio.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl AddRef;
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl Btn_agregar_refacciones_a_servicio;
 
     /// <summary>
     /// Control addrefbtn.
@@ -616,13 +616,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Button addrefbtn;
 
     /// <summary>
-    /// Control sirvebutton.
+    /// Control Checked_verificar_funcionamiento.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl sirvebutton;
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl Checked_verificar_funcionamiento;
 
     /// <summary>
     /// Control funciona.
@@ -643,13 +643,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.CheckBox CHECKED_ESTA_FUNCIONANDO;
 
     /// <summary>
-    /// Control AddFalla.
+    /// Control Btn_reportar_falla.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl AddFalla;
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl Btn_reportar_falla;
 
     /// <summary>
     /// Control addfallabtn.
@@ -661,13 +661,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Button addfallabtn;
 
     /// <summary>
-    /// Control vpbuttonid.
+    /// Control Btn_vista_previa_reportes.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl vpbuttonid;
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl Btn_vista_previa_reportes;
 
     /// <summary>
     /// Control vpbutton.

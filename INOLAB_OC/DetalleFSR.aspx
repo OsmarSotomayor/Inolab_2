@@ -129,7 +129,7 @@
                 </label>
                 
                 <nav class="menu">
-                        <asp:Button class="Btn_Header" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None"   ID="Btn_Ir_A_Servicios" OnClick="SA_Click"  />          
+                        <asp:Button class="Btn_Header" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None"   ID="Btn_ir_a_servicios_asignados" OnClick="Servicios_Asignados_Click"  />          
                         <button type="reset" class="Btn_Header" id="Btn_Atras" onclick="go('atras')">Atras</button>
                         <button type="reset" class="Btn_Header" id="Btn_Salir" onclick="go('salir')">Salir</button>
                         
@@ -402,20 +402,20 @@
             <div runat="server" id="obsbutton" class="footerbtn" >
                 <asp:Button runat="server" Text="Observaciones" BorderStyle="None" style="float:unset;" ID="observacionesbtn" OnClick="observacionesbtn_Click"  />
             </div>
-            <div runat="server" id="AddRef" class="footerbtn" >
+            <div runat="server" id="Btn_agregar_refacciones_a_servicio" class="footerbtn" >
                 <asp:Button runat="server" Text="Refacciones" BorderStyle="None" style="float:unset;" ID="addrefbtn" OnClick="addrefbtn_Click"  />
             </div>
-            <div runat="server" id="sirvebutton" class="footerbtn">
+            <div runat="server" id="Checked_verificar_funcionamiento" class="footerbtn">
                 <asp:Label runat="server" ID="funciona" Text="¿Funciona al 100%? "/>
                 <label class="switch"style="color:azure">
                     <asp:CheckBox ID="CHECKED_ESTA_FUNCIONANDO" runat="server" OnCheckedChanged="CHECKED_ESTA_FUNCIONANDO_CheckedChanged" AutoPostBack="true" />
                     <span class="slider round"></span>
                 </label>
             </div>
-            <div runat="server" id="AddFalla" class="footerbtn" >
+            <div runat="server" id="Btn_reportar_falla" class="footerbtn" >
                  <asp:Button runat="server" Text="Reportar Fallas" BorderStyle="None" style="float:unset;" ID="addfallabtn" OnClick="Btn_Fallas_Encontradas_Click"  />
             </div>
-            <div runat="server" id="vpbuttonid" class="footerbtn" >
+            <div runat="server" id="Btn_vista_previa_reportes" class="footerbtn" >    
                  <asp:Button runat="server" Text="Vista Previa" BorderStyle="None" style="float:unset;" ID="vpbutton"  OnClick="Btn_Vista_Previa_Click" />
             </div>
         </footer>
