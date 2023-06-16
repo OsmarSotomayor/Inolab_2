@@ -56,7 +56,7 @@
         $.datepicker.setDefaults($.datepicker.regional['es']);
 
         $(function () {
-            $("#datepicker").datepicker();
+            $("#Fecha_nueva_accion_realizada").datepicker();
         });
 
         $.datepicker.regional['es'] = {
@@ -129,7 +129,7 @@
                 </label>
                 
                 <nav class="menu">
-                        <asp:Button class="Btn_Header" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None"   ID="Btn_ir_a_servicios_asignados" OnClick="Servicios_Asignados_Click"  />          
+                        <asp:Button class="Btn_Header" runat="server" Text="Ir a Servicios Asignados" BorderStyle="None"   ID="Btn_ir_a_servicios_asignados" OnClick="Ir_a_servicios_asignados_Click"  />          
                         <button type="reset" class="Btn_Header" id="Btn_Atras" onclick="go('atras')">Atras</button>
                         <button type="reset" class="Btn_Header" id="Btn_Salir" onclick="go('salir')">Salir</button>
                         
@@ -145,7 +145,7 @@
                 <div class="form-style-2-heading">
                     <asp:Label ID="titulo" runat="server">Detalle de FSR</asp:Label>
                 </div>
-                <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False" Width="100%" Font-Size="9pt" DataKeyNames="idFSRAccion" CellPadding="4"  ForeColor="#333333" GridLines="None" BorderStyle="Ridge" Font-Bold="False" CssClass="auto-style7" OnRowCommand="GridView1_OnRowComand" >
+                <asp:GridView ID="GridView1" runat="server"  AutoGenerateColumns="False" Width="100%" Font-Size="9pt" DataKeyNames="idFSRAccion" CellPadding="4"  ForeColor="#333333" GridLines="None" BorderStyle="Ridge" Font-Bold="False" CssClass="auto-style7" OnRowCommand="GridView_de_acciones_realizadas_en_folio_OnRowComand" >
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:BoundField HeaderText="id" DataField="idFSRAccion" SortExpression="idFSRAccion" Visible="true">
@@ -178,7 +178,7 @@
                     </asp:GridView>
                 
                 <div id="botonnuevo" class="btnnuevo" >
-                    <asp:Button runat="server" Text="Nuevo Servicio" BorderStyle="None" style="float:right" ID="Button4" OnClick="Nuevo_Click" />
+                    <asp:Button runat="server" Text="Nueva Accion" BorderStyle="None" style="float:right" ID="Button4" OnClick="Agregar_nuevas_acciones_Click" />
                     
                 </div>
                 <div id="botonsa" class="btnnuevo" >
@@ -189,7 +189,7 @@
                             <td class="auto-style8">
                                 <asp:Label ID="proxs" runat="server" >Próximo Servicio</asp:Label>
                                 <asp:TextBox ID="datepicker1" runat="server" CssClass="auto-style7"></asp:TextBox> <br /> <br />
-                                <asp:Button ID="btnProxServicio" runat="server" Text="Agregar" Width="92px" AutoPostBack="True" OnClick="btnProxServicio_Click" />
+                                <asp:Button ID="btnProxServicio" runat="server" Text="Agregar" Width="92px" AutoPostBack="True" OnClick="Agrendar_proximo_servicio_Click" />
                             </td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -202,7 +202,7 @@
         <section class="seccion-nuevo-servicio"  id="seccion_nuevo_servicio" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf">
                 
-                    <asp:ImageButton Visible="true" ID="closeimg" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="closeimg_Click" />
+                    <asp:ImageButton Visible="true" ID="closeimg" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_ventana_agregar_nueva_accion_Click" />
                 
 
                 <table class="auto-style5" id="tabla_nuevo_servicio">
@@ -214,7 +214,7 @@
                     <tr>
                         <td class="auto-style6" colspan="2">
                             <asp:Label ID="lbl_fecha_nuevo_servicio" runat="server" Text="Fecha:" CssClass="lbl-nueva-accion"></asp:Label>
-                            <asp:TextBox ID="datepicker" runat="server" autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
+                            <asp:TextBox ID="Fecha_nueva_accion_realizada" runat="server" autocomplete="off" AutoCompleteType="Disabled"></asp:TextBox>
                         </td>                           
                     </tr>
                     <tr>
@@ -236,7 +236,7 @@
                     </tr>
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Button runat="server" Text="Agregar" BorderStyle="None" style="float:right;" ID="Addbutton" OnClick="Addbutton_Click" />
+                            <asp:Button runat="server" Text="Agregar" BorderStyle="None" style="float:right;" ID="Addbutton" OnClick="Agregar_nueva_actividad_al_reporte_Click" />
                         </td>    
                     </tr>
                 </table>
@@ -247,7 +247,7 @@
         <section class="centrar2"  id="observaciones" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf1">
                 <div class="buton" id="closebtndiv">
-                    <asp:ImageButton Visible="true" ID="closebtn1" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="closebtn1_Click"  />
+                    <asp:ImageButton Visible="true" ID="closebtn1" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_campo_observaciones_Click"  />
                 </div>
 
                 <table class="auto-style5">
@@ -263,8 +263,8 @@
                     </tr>            
                     <tr>
                         <td class="auto-style6" colspan="2">                            
-                            <asp:CheckBox id="Chck" runat="server" Text=" Notificar al Asesor" style="float:left;" OnCheckedChanged="Chck_CheckedChanged" />
-                            <asp:Button runat="server" Text="Guardar" BorderStyle="None" style="float:right;" ID="btnguardar" OnClick="btnguardar_Click"/>
+                            <asp:CheckBox id="Envio_de_notificacion_de_eliminacion_de_accion" runat="server" Text=" Notificar al Asesor" style="float:left;" OnCheckedChanged="Verificar_si_se_envio_notificacion_a_usuario_CheckedChanged" />
+                            <asp:Button runat="server" Text="Guardar" BorderStyle="None" style="float:right;" ID="btnguardar" OnClick="Actualizar_observaciones_Click"/>
                         </td>
                     </tr>
                 </table>
@@ -274,7 +274,7 @@
         <section class="centrar2"  id="FallaEncontrada" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf4">
                 <div class="buton" id="closebtndiv1">
-                    <asp:ImageButton Visible="true" ID="ImageButton3" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="closebtn2_Click"  />
+                    <asp:ImageButton Visible="true" ID="ImageButton3" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_campo_fallas_encontradas_Click"  />
                 </div>
 
                 <table  class="auto-style5">
@@ -290,7 +290,7 @@
                     </tr>                
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Button runat="server" Text="Guardar" BorderStyle="None" style="float:right;" ID="Button2" OnClick="btnguardarfalla_Click"/>
+                            <asp:Button runat="server" Text="Guardar" BorderStyle="None" style="float:right;" ID="Button2" OnClick="Actualizar_fallas_encontradas_Click"/>
                         </td>    
                     </tr>
                 </table>
@@ -300,7 +300,7 @@
         <section class="centrar2"  id="refacciones" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf2">
                 <div class="buton" id="closebtnref2">
-                    <asp:ImageButton Visible="true" ID="ImageButton2" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="closeimg1_Click" />
+                    <asp:ImageButton Visible="true" ID="ImageButton2" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_Ventana_Refacciones_Click" />
                 </div>
                 <div>
                 <!--Aquí va la lista de refacciones que ya se han agregado con anterioridad -->
@@ -316,7 +316,7 @@
                     </asp:Table> 
                             
                     <div id="botonnuevoRef" class="btnnuevoRef">
-                        <asp:Button runat="server" Text="Nuevo" BorderStyle="None" style="float:right" ID="btnNuevoR" OnClick="btnNuevoR_Click"/>
+                        <asp:Button runat="server" Text="Nuevo" BorderStyle="None" style="float:right" ID="btnNuevoR" OnClick="Mostrar_nueva_refaccion_Click"/>
                     </div>
                 </div>
             </div>
@@ -325,7 +325,7 @@
         <section class="seccion-agregar-refaccion"  id="SECCION_AGREGAR_REFACCION" runat="server" style="display: none;">
             
                 <div class="buton" id="closebtnref1">
-                    <asp:ImageButton Visible="true" ID="ImageButton1" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="closeimg2_Click" />
+                    <asp:ImageButton Visible="true" ID="ImageButton1" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_ventana_nueva_refaccion_Click" />
                 </div>
 
                     <table class="tabla-agregar-refaccion">
@@ -364,7 +364,7 @@
                         <tr>
 
                             <td class="tabla-agregar-refaccion-celda">
-                                <asp:Button runat="server" Text="Agregar Refaccion" BorderStyle="None" style="float:right;" ID="BTN_AGREGAR_REFACCION" OnClick="btnrefaccion_Click" />
+                                <asp:Button runat="server" Text="Agregar Refaccion" BorderStyle="None" style="float:right;" ID="BTN_AGREGAR_REFACCION" OnClick="Agregar_refaccion_a_base_de_datos_Click" />
                             </td>
 
                         </tr>
@@ -391,8 +391,8 @@
                                 Si la información anterior es correcta, dar click en "Borrar Acción". <asp:label ID="IDAccion" runat="server" Visible ="false"/>
                             </asp:Label></td></tr><tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Button runat="server" Text="Cancelar" BorderStyle="None" style="float:right; margin-left:5px" ID="Button5" OnClick="borrarnobtn_Click"/>
-                            <asp:Button runat="server" Text="Borrar Acción" BorderStyle="None" style="float:right; margin-left:5px" ID="Button3" OnClick="borrarsibtn_Click"/>
+                            <asp:Button runat="server" Text="Cancelar" BorderStyle="None" style="float:right; margin-left:5px" ID="Button5" OnClick="Cancelar_proceso_de_eliminar_accion_Click"/>
+                            <asp:Button runat="server" Text="Borrar Acción" BorderStyle="None" style="float:right; margin-left:5px" ID="Button3" OnClick="Borrar_accion_realizada_Click"/>
                         </td>
                     </tr>
                 </table>
@@ -400,15 +400,15 @@
         </section>
         <footer runat="server" id="footerid" class="footercl">
             <div runat="server" id="obsbutton" class="footerbtn" >
-                <asp:Button runat="server" Text="Observaciones" BorderStyle="None" style="float:unset;" ID="observacionesbtn" OnClick="observacionesbtn_Click"  />
+                <asp:Button runat="server" Text="Observaciones" BorderStyle="None" style="float:unset;" ID="observacionesbtn" OnClick="Buscar_observaciones_folio_servicio_Click"  />
             </div>
             <div runat="server" id="Btn_agregar_refacciones_a_servicio" class="footerbtn" >
-                <asp:Button runat="server" Text="Refacciones" BorderStyle="None" style="float:unset;" ID="addrefbtn" OnClick="addrefbtn_Click"  />
+                <asp:Button runat="server" Text="Refacciones" BorderStyle="None" style="float:unset;" ID="addrefbtn" OnClick="Mostrar_ventana_refacciones_Click"  />
             </div>
             <div runat="server" id="Checked_verificar_funcionamiento" class="footerbtn">
                 <asp:Label runat="server" ID="funciona" Text="¿Funciona al 100%? "/>
                 <label class="switch"style="color:azure">
-                    <asp:CheckBox ID="CHECKED_ESTA_FUNCIONANDO" runat="server" OnCheckedChanged="CHECKED_ESTA_FUNCIONANDO_CheckedChanged" AutoPostBack="true" />
+                    <asp:CheckBox ID="CHECKED_ESTA_FUNCIONANDO" runat="server" OnCheckedChanged="Verificacion_de_estatus_esta_o_no_funcionando_CheckedChanged" AutoPostBack="true" />
                     <span class="slider round"></span>
                 </label>
             </div>

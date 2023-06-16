@@ -166,13 +166,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.Label lbl_fecha_nuevo_servicio;
 
     /// <summary>
-    /// Control datepicker.
+    /// Control Fecha_nueva_accion_realizada.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox datepicker;
+    protected global::System.Web.UI.WebControls.TextBox Fecha_nueva_accion_realizada;
 
     /// <summary>
     /// Control horasD.
@@ -265,13 +265,13 @@ public partial class DetalleFSR
     protected global::System.Web.UI.WebControls.TextBox txtobservaciones;
 
     /// <summary>
-    /// Control Chck.
+    /// Control Envio_de_notificacion_de_eliminacion_de_accion.
     /// </summary>
     /// <remarks>
     /// Campo generado automáticamente.
     /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.CheckBox Chck;
+    protected global::System.Web.UI.WebControls.CheckBox Envio_de_notificacion_de_eliminacion_de_accion;
 
     /// <summary>
     /// Control btnguardar.

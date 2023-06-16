@@ -161,11 +161,10 @@ header nav {
     width: 250px;
     left: 43%;
 }
-#datepicker {
+#Fecha_nueva_accion_realizada {
     position: absolute;
     width: 250px;
     left: 43%;
-
 }
 #datepicker_nuevo_servicio {
     position: absolute;
@@ -434,7 +433,7 @@ header {
     }
 
 
-    #datepicker {
+    #Fecha_nueva_accion_realizada {
         width: 80px;
     }
 
