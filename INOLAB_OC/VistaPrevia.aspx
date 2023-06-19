@@ -188,7 +188,7 @@
                     </tr>            
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Button runat="server" Text="Estoy de acuerdo" BorderStyle="None" style="float:right;" ID="btnguardar" OnClick="AvisoPriv"/>
+                            <asp:Button runat="server" Text="Estoy de acuerdo" BorderStyle="None" style="float:right;" ID="btnguardar" OnClick="Btn_Aceptar_aviso_de_privacidad"/>
                         </td>
                     </tr>
                 </table>
@@ -214,7 +214,7 @@
                     </tr>            
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Button runat="server" Text="Estoy de acuerdo" BorderStyle="None" style="float:right;" ID="Button1" OnClick="Uladver"/>
+                            <asp:Button runat="server" Text="Estoy de acuerdo" BorderStyle="None" style="float:right;" ID="Button1" OnClick="Mostrar_ventana_de_firma_de_usuario"/>
                         </td>
                     </tr>
                 </table>
@@ -245,7 +245,7 @@
            </div>
             <div style="display: none;">
                 <input id="hidValue" type="hidden" runat="server" />
-                <asp:Button runat="server" id="hidebutton" OnClick="hidebutton_Click" />
+                <asp:Button runat="server" id="hidebutton" OnClick="Btn_guardar_firmar_Click" />
             </div>
         </section>
 
@@ -359,7 +359,7 @@
                     </tr>
                     <tr>
                         <td class="auto-style6" colspan="2">
-                            <asp:Button runat="server" Text="Finalizar" BorderStyle="None" style="float:right;" ID="Addbutton" OnClick="Finalizar_Click" />
+                            <asp:Button runat="server" Text="Finalizar" BorderStyle="None" style="float:right;" ID="Addbutton" OnClick="Finalizar_folio_Click" />
                         </td>    
                     </tr>
                 </table>
@@ -369,13 +369,13 @@
 
         <footer runat="server" id="footerid" class="footercl">
             <div runat="server" id="firmabutton" class="footerbtn" >
-                 <asp:Button runat="server" Text="Firma Usuario" BorderStyle="None" style="float:unset;" ID="firmarbtn" OnClick="firmarbtn_Click"  />
+                 <asp:Button runat="server" Text="Firma Usuario" BorderStyle="None" style="float:unset;" ID="firmarbtn" OnClick="Mostrar_pantalla_para_firma_de_documento_Click"  />
             </div>
             <div runat="server" id="firmaingbtn" class="footerbtn" >
                  <asp:Button runat="server" Text="Firma Ingeniero" BorderStyle="None" style="float:unset;" ID="firmaing" OnClick="firmaing_Click" />
             </div>
             <div runat="server" id="finbuttonid" class="footerbtn" >
-                 <asp:Button runat="server" Text="Finalizar" BorderStyle="None" style="float:unset;" ID="finalizarbtn" OnClick="finalizarbtn_Click"  />
+                 <asp:Button runat="server" Text="Finalizar" BorderStyle="None" style="float:unset;" ID="finalizarbtn" OnClick="Finalizar_reporte_Click"  />
             </div>
         </footer>
     </form>

@@ -290,7 +290,7 @@ namespace INOLAB_OC.Modelo
             conexion.Close();
         }
 
-       public static int insertarFirmaImagen(string nombre,string mimetype,string imagen)
+       public static int insertarFirmaImagen(string nombreDeImagen,string tipoDeImagen,string imagen)
         {
             initDatabase();
             try{
@@ -302,8 +302,8 @@ namespace INOLAB_OC.Modelo
                 firma.Parameters.Add("@nombre", SqlDbType.VarChar);
                 firma.Parameters.Add("@mime", SqlDbType.VarChar);
                 firma.Parameters.Add("@image", SqlDbType.VarBinary);
-                firma.Parameters["@nombre"].Value = nombre;
-                firma.Parameters["@mime"].Value = mimetype;
+                firma.Parameters["@nombre"].Value = nombreDeImagen;
+                firma.Parameters["@mime"].Value = tipoDeImagen;
                 firma.Parameters["@image"].Value = Convert.FromBase64String(imagen);
                 int escalar = (int)firma.ExecuteScalar();
 
