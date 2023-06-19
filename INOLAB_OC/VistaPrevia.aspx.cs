@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.IO;
 using INOLAB_OC.Modelo;
+using System.Web.Services.Description;
 
 public partial class VistaPrevia : Page
 {
@@ -208,14 +209,16 @@ public partial class VistaPrevia : Page
     protected void Finalizar_reporte_Click(object sender, EventArgs e)
     {
         int firmaUsuario = 0;
-        int firmaCliente = 0;
+        int firmaIngeniero = 0;
 
         firmaUsuario = verificarSiSeAgregoFirmaDeCliente();
-        firmaCliente = verificarSiSeAgregoFirmaDeIngeniero();
+        firmaIngeniero = verificarSiSeAgregoFirmaDeIngeniero();
 
-        if (firmaUsuario == 0 || firmaCliente == 0)
+        if (firmaUsuario <= 0 || firmaIngeniero <= 0)
         {
-
+            
+            Response.Write("<script>alert('Falta firma de cliente');</script>");
+            Response.Redirect("VistaPrevia.aspx");
         }
         else
         {
@@ -262,6 +265,7 @@ public partial class VistaPrevia : Page
         catch (Exception er)
         {
             Response.Write("<script>alert('Falta firma de Ingeniero');</script>");
+            
         }
         return firmaIngeniero;
     }

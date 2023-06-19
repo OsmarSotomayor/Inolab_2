@@ -12,6 +12,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.UI;
 using System.Diagnostics;
+using System.EnterpriseServices;
 
 namespace INOLAB_OC
 {
@@ -125,47 +126,46 @@ namespace INOLAB_OC
             Trace.Write(nombre);
         }
 
-        private void ActStatus()
+        private void actualizarEstatusDeCierreDeActividadEnSap()
         {
             try
             {
-                //Actualizacion a estado de cierre de actividad de SAP    
-                string updatestatus2 = "Update OCLG set OCLG.status = -3, OCLG.Closed = 'Y', OCLG.CloseDate =CAST('" +
+                
+                string actualizarEstatusOCLG = "Update OCLG set OCLG.status = -3, OCLG.Closed = 'Y', OCLG.CloseDate =CAST('" +
                     DateTime.Now.ToString("yyyy-MM-dd") + "' AS DATETIME) from OCLG INNER JOIN SCL5 ON OCLG.ClgCode=SCL5.ClgID where SCL5.U_FSR ='" + Session["folio_p"].ToString() + "'";           
-                ConexionInolab.executeQuery(updatestatus2);
+                ConexionInolab.executeQuery(actualizarEstatusOCLG);
                             
-                string updatestatus3 = "Update SCL5 set U_ESTATUS = 'Finalizado' where U_FSR ='" + Session["folio_p"].ToString() + "'";
-                ConexionInolab.executeQuery(updatestatus3);               
-
-                //Buscar el callid    
-                string callId = "Select SrvcCallId FROM SCL5 where U_FSR ='" + Session["folio_p"].ToString() + "'";               
-                string resultado = ConexionInolab.getText(callId);
+                string actualizarEstatusSCL5 = "Update SCL5 set U_ESTATUS = 'Finalizado' where U_FSR ='" + Session["folio_p"].ToString() + "'";
+                ConexionInolab.executeQuery(actualizarEstatusSCL5);               
+   
+                string consultaCallId = "Select SrvcCallId FROM SCL5 where U_FSR ='" + Session["folio_p"].ToString() + "'";               
+                string callId = ConexionInolab.getText(consultaCallId);
                                           
-                string resultado2 = ConexionInolab.getText("Select count (DISTINCT U_ESTATUS) FROM SCL5 where SrvcCallId = " + resultado.ToString());
-                //resultado2 el numero de valores que hay en estatus (Para que se cierre la llamada debe de ser "-1")
+                string numeroDeValoresEnEstatus = ConexionInolab.getText("Select count (DISTINCT U_ESTATUS) FROM SCL5 where SrvcCallId = " + callId.ToString());
+                //(Para que se cierre la llamada debe de ser "-1")
                 
                 //Hacer un ciclo while para identificar nulos? (usar visorder para pasar por todos)                               
-                string resultadoc = ConexionInolab.getText("Select count(*) FROM SCL5 where SrvcCallId = " + resultado.ToString());
+                string numeroDeValoresEnSLC5 = ConexionInolab.getText("Select count(*) FROM SCL5 where SrvcCallId = " + callId.ToString());
                 
                 bool nulo = false;
 
                 //Proceso de chequeo de todos los estatus asignados a los folios dentro de la llamada para poder cerrarla o dejarla abierta
-                for (int i = 1; i <= Convert.ToInt32(resultadoc); i++)
+                for (int i = 1; i <= Convert.ToInt32(numeroDeValoresEnSLC5); i++)
                 {
-                    string queryt = "Select U_ESTATUS FROM SCL5 where SrvcCallId = " + resultado.ToString() +
+                    string query = "Select U_ESTATUS FROM SCL5 where SrvcCallId = " + callId.ToString() +
                         "and VisOrder = " + i.ToString();                   
-                    string resultadot = ConexionInolab.getText(queryt);
+                    string estatusEnSCL5 = ConexionInolab.getText(query);
 
-                    if (resultadot != "Finalizado")
+                    if (estatusEnSCL5 != "Finalizado")
                     {
                         nulo = true;
                     }
                 }
 
                 //Despues del chequeo, si nulo == false, se cerrara la llamada debido a que todos los folios estan finalizados
-                if (resultado2 == "1" && nulo == false)
+                if (numeroDeValoresEnEstatus == "1" && nulo == false)
                 {
-                    ConexionInolab.executeQuery("Update OSCL set status = -1 where callID=" + resultado.ToString());
+                    ConexionInolab.executeQuery("Update OSCL set status = -1 where callID=" + callId.ToString());
                     
                 }
             }
@@ -175,63 +175,29 @@ namespace INOLAB_OC
             }
         }
 
-        private void SendMail(string filepath, string mail)
-        {//Envía el correo electrónico con la información del FSR y adjunto el archivo
-            //Envio del correo al cliente con su folio en estatus de Finalizado (hecho por paquito-cabeza [Incomprensible para mis conocimientos de C# :c])
-            try
+
+
+       
+
+        private string cuerpoDelCorreoElectronico(string folioDeServicio, string cliente)
+        {
+            string cuerpoDelCorreo = string.Empty;
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("./HTML/index2.html")))
             {
-                string to, bcc, from, subject;
-                Console.Write(mail);
-                to = "";           
-                SqlDataReader sqldr = Conexion.getSqlDataReader("select * from MailNotification;");
-
-                if (sqldr.HasRows)
-                {
-                    List<String> mails = new List<string>();
-                    while (sqldr.Read())
-                    {
-                        mails.Add(sqldr.GetValue(2).ToString());
-                    }
-                    bcc = String.Join(", ", mails);
-                }
-                else
-                {
-                    bcc = "notificaciones@inolab.com";
-                }
-
-                Conexion.cerrarConexion();
-                from = "notificaciones@inolab.com";
-                subject = "FSR folio " + Session["folio_p"];
-                MailMessage message = new MailMessage();
-                message.Bcc.Add(bcc);
-                message.From = new MailAddress(from);
-                message.Body = PopulateBody(Session["folio_p"].ToString(), "cliente");
-                message.IsBodyHtml = true;
-                message.Subject = subject;
-
-                Attachment attach = new Attachment(filepath);
-                message.Attachments.Add(attach);
-
-                SmtpClient client = new SmtpClient();
-                client.Port = 1025;
-                client.Host = "smtp.inolab.com";
-                client.EnableSsl = false;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential("notificaciones@inolab.com", "Notificaciones2021*");
-                client.Send(message);
-                message.Dispose();
-                client.Dispose();
+                cuerpoDelCorreo = reader.ReadToEnd();
+                reader.Dispose();
             }
-            catch (Exception ex)
-            {
-                Console.Write(ex.ToString());
-            }
+
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{folio}", folioDeServicio);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{cliente}", cliente);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{slogan}", "data:image/png;base64," + convertirImagenAStringBase64(Server.MapPath("./Imagenes/slogan.png")));
+
+            return cuerpoDelCorreo;
         }
 
         private string CreatePDF(string fileName)
-        {//Realiza la creación del PDF 
-         // Variables  
+        {
             Warning[] warnings;
             string[] streamIds;
             string mimeType = string.Empty;
@@ -258,57 +224,41 @@ namespace INOLAB_OC
             return filepath;
         }
 
-        private string PopulateBody(string folio, string cliente)
-        {//Realiza el replace en HTML para la creación del correo
-            string body = string.Empty;
-
-            using (StreamReader reader = new StreamReader(Server.MapPath("./HTML/index2.html")))
-            {
-                body = reader.ReadToEnd();
-                reader.Dispose();
-            }
-            //Parametros que requiere el body para representar de buena forma el HTML
-            body = body.Replace("{folio}", folio);
-            body = body.Replace("{cliente}", cliente);
-            body = body.Replace("{slogan}", "data:image/png;base64," + GetBase64StringForImage(Server.MapPath("./Imagenes/slogan.png")));
-
-            return body;
-        }
-
-        protected static string GetBase64StringForImage(string imgPath)
-        {//Convierte la imagen en base64
+        protected static string convertirImagenAStringBase64(string imgPath)
+        {
             byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
             string base64String = Convert.ToBase64String(imageBytes);
             return base64String;
         }
 
-        private void SendMail2(string mail)
-        {//Envía el correo electrónico con la información del FSR y adjunto el archivo
+        private void envioDeCorreoElectronicoConInformacionFSR(string mail)
+        {
             try
             {
-                //Asunto con el que se enviara el correo
-                string subject = "Notificación de observaciones Folio: " + Session["folio_p"].ToString();
+                string asuntoDelCorreoElectronico = "Notificación de observaciones Folio: " + Session["folio_p"].ToString();
 
                 //Datos y cuerpo del correo de a quien ira dirigido y de parte de quien 
-                MailAddress from = new MailAddress("notificaciones@inolab.com");
-                MailAddress to = new MailAddress(mail);
-                MailMessage message2 = new MailMessage(from, to);
-                message2.Bcc.Add("luisrosales@inolab.com");
-                message2.Body = PopulateBody2(Session["folio_p"].ToString());
-                message2.IsBodyHtml = true;
-                message2.Subject = subject;
+                MailAddress correoElectronicoEmisor = new MailAddress("notificaciones@inolab.com");
+                MailAddress correoElectronicoReceptor = new MailAddress(mail);
+                MailMessage mensajeDeCorreoElectronico = new MailMessage(correoElectronicoEmisor, correoElectronicoReceptor);
 
-                //Datos par dar permiso a enviar el mensaje con una cuenta con la que se cuente
-                SmtpClient client = new SmtpClient();
-                client.Port = 1025;
-                client.Host = "smtp.inolab.com";
-                client.EnableSsl = false;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("notificaciones@inolab.com", "Notificaciones2021*");
-                client.Send(message2);
-                message2.Dispose();
-                client.Dispose();
+                mensajeDeCorreoElectronico.Bcc.Add("luisrosales@inolab.com");
+                mensajeDeCorreoElectronico.Body = generarCuerpoDelCorreoVentas(Session["folio_p"].ToString());
+                mensajeDeCorreoElectronico.IsBodyHtml = true;
+                mensajeDeCorreoElectronico.Subject = asuntoDelCorreoElectronico;
+
+           
+                SmtpClient configuracionCorreoElectronico = new SmtpClient();
+                configuracionCorreoElectronico.Port = 1025;
+                configuracionCorreoElectronico.Host = "smtp.inolab.com";
+                configuracionCorreoElectronico.EnableSsl = false;
+                configuracionCorreoElectronico.DeliveryMethod = SmtpDeliveryMethod.Network;
+                configuracionCorreoElectronico.UseDefaultCredentials = false;
+                configuracionCorreoElectronico.Credentials = new System.Net.NetworkCredential("notificaciones@inolab.com", "Notificaciones2021*");
+                configuracionCorreoElectronico.Send(mensajeDeCorreoElectronico);
+                
+                mensajeDeCorreoElectronico.Dispose();
+                configuracionCorreoElectronico.Dispose();
             }
             catch (Exception ex)
             {
@@ -316,104 +266,82 @@ namespace INOLAB_OC
             }
         }
 
-        private string PopulateBody2(string folio)
+        private string generarCuerpoDelCorreoVentas(string folio)
         {//Realiza el replace en HTML para la creación del correo
-            //Cuerpo del correo para el/la ases@r de ventas con la informacion para la accion correspondiente
-            string body = string.Empty;
+            string cuerpoDelCorreo = string.Empty;
 
             using (StreamReader reader = new StreamReader(Server.MapPath("./HTML/index_not_ase.html")))
             {
-                body = reader.ReadToEnd();
+                cuerpoDelCorreo = reader.ReadToEnd();
                 reader.Dispose();
             }
       
-            //Consulta de los datos a la base de datos para colocarlos en el HTML
             string query = "Select top (1) Observaciones FROM FSR where Folio=" + Session["folio_p"].ToString();
-            string observ = Conexion.getText(query);
+            string observacionesDelFolio = Conexion.getText(query);
           
             string llamada = "Interna";
             try
             {
-             
                 string query2 = "Select top (1) SrvcCallId FROM SCL5 where U_FSR=" + Session["folio_p"].ToString();
                 llamada = ConexionInolab.getText(query2);
-             
             }
             catch (Exception es)
             {
                 Console.Write(es.ToString());
             }
-
+        
+            string cliente = Conexion.getText("Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString());      
+            string equipo = Conexion.getText("Select top (1) Equipo FROM FSR where Folio=" + Session["folio_p"].ToString());
+            string tipoDeServicio = Conexion.getText("Select top (1) TipoServicio FROM V_FSR where Folio=" + Session["folio_p"].ToString());       
             
-            string query3 = "Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString();        
-            string cliente = Conexion.getText(query3);
-                     
-            string query4 = "Select top (1) Equipo FROM FSR where Folio=" + Session["folio_p"].ToString();        
-            string equipo = Conexion.getText(query4);
-                     
-            string query5 = "Select top (1) TipoServicio FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-            string servicio = Conexion.getText(query5);
-                     
-            string query6 = "Select top (1) Ingeniero FROM V_FSR where Folio=" + Session["folio_p"].ToString();         
-            string ingeniero = Conexion.getText(query6);
-                       
-            string query7 = "Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString();           
-            string actividad = Conexion.getText(query7);
-                    
-            string query8 = "Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString();          
-            string OrdenVenta = Conexion.getText(query8);
-          
+            string ingeniero = Conexion.getText("Select top (1) Ingeniero FROM V_FSR where Folio=" + Session["folio_p"].ToString());          
+            string actividad = Conexion.getText("Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString());      
+            string OrdenVenta = Conexion.getText("Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString());
 
-            //Insercion de datos al HTML
-            body = body.Replace("{folio}", folio);
-            body = body.Replace("{slogan}", "data:image/png;base64," + GetBase64StringForImage(Server.MapPath("./Imagenes/slogan.png")));
-            body = body.Replace("{observaciones}", observ);
-            body = body.Replace("{n_llamada}", llamada);
-            body = body.Replace("{act_iv}", actividad);
-            body = body.Replace("{OrdenVenta}", OrdenVenta);
-            body = body.Replace("{cliente}", cliente);
-            body = body.Replace("{equipo}", equipo);
-            body = body.Replace("{servicio}", servicio);
-            body = body.Replace("{ingeniero}", ingeniero);
-            return body;
+
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{folio}", folio);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{slogan}", "data:image/png;base64," + convertirImagenAStringBase64(Server.MapPath("./Imagenes/slogan.png")));
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{observaciones}", observacionesDelFolio);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{n_llamada}", llamada);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{act_iv}", actividad);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{OrdenVenta}", OrdenVenta);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{cliente}", cliente);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{equipo}", equipo);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{servicio}", tipoDeServicio);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{ingeniero}", ingeniero);
+            return cuerpoDelCorreo;
         }
 
-        private void SendMail3(string filepath)
-        {//Envía el correo electrónico con la información del FSR y adjunto el archivo
-            //Cuerpo del correo que se le enviara a facturacion, en caso de que se requiera facturar (Servicios Puntuales nada más)
+        private void enviarCorreoElectronicoParaFacturacion(string filepath)
+        {
             try
             {
-                //Asunto del correo que se enviara
-                string subject = "Servicio Terminado. Folio: " + Session["folio_p"].ToString();
+                string asuntoDelCorreoElectronico = "Servicio Terminado. Folio: " + Session["folio_p"].ToString();
 
                 //Datos de a quein ira y de quien va dirigido el correo (me anexo como copia oculta para monitorear que se realice el proceso de forma correcta)
-                MailAddress from = new MailAddress("notificaciones@inolab.com");
-                MailAddress to = new MailAddress("facturacion@inolab.com");
-                MailMessage message3 = new MailMessage(from, to);
-                message3.Bcc.Add("luisrosales@inolab.com");
-                
-                //Intento de colocar a dos personas en copia oculta (No funciona)
-                //message3.Bcc.Add("luisrosales@inolab.com" + "ivivar@inolab.com");
+                MailAddress correoElectronicoEmisor = new MailAddress("notificaciones@inolab.com");
+                MailAddress correoElectronicoReceptor = new MailAddress("facturacion@inolab.com");
+                MailMessage mensajeDelCorreo = new MailMessage(correoElectronicoEmisor, correoElectronicoReceptor);
+               
+                mensajeDelCorreo.Bcc.Add("luisrosales@inolab.com");
+                mensajeDelCorreo.Body = cuerpoDelCorreoElectronicoParaFacturacion(Session["folio_p"].ToString());
+                mensajeDelCorreo.IsBodyHtml = true;
+                mensajeDelCorreo.Subject = asuntoDelCorreoElectronico;
 
-                message3.Body = PopulateBody3(Session["folio_p"].ToString());
-                message3.IsBodyHtml = true;
-                message3.Subject = subject;
+                Attachment folioQueSeEnviara = new Attachment(filepath);
+                mensajeDelCorreo.Attachments.Add(folioQueSeEnviara);
 
-                //Anexo del folio el cual sera enviado junto con el mensaje
-                Attachment attach = new Attachment(filepath);
-                message3.Attachments.Add(attach);
+                SmtpClient configuracionEmisor = new SmtpClient();
 
-                //Datos correspondientes al emisor para el envio del mensaje 
-                SmtpClient client = new SmtpClient();
-                client.Port = 1025;
-                client.Host = "smtp.inolab.com";
-                client.EnableSsl = false;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("notificaciones@inolab.com", "Notificaciones2021*");
-                client.Send(message3);
-                message3.Dispose();
-                client.Dispose();
+                configuracionEmisor.Port = 1025;
+                configuracionEmisor.Host = "smtp.inolab.com";
+                configuracionEmisor.EnableSsl = false;
+                configuracionEmisor.DeliveryMethod = SmtpDeliveryMethod.Network;
+                configuracionEmisor.UseDefaultCredentials = false;
+                configuracionEmisor.Credentials = new System.Net.NetworkCredential("notificaciones@inolab.com", "Notificaciones2021*");
+                configuracionEmisor.Send(mensajeDelCorreo);
+                mensajeDelCorreo.Dispose();
+                configuracionEmisor.Dispose();
             }
             catch (Exception ex)
             {
@@ -421,23 +349,22 @@ namespace INOLAB_OC
             }
         }
 
-        private string PopulateBody3(string folio)
-        {//Realiza el replace en HTML para la creación del correo
-            //Cuerpo de el correo para facturacion
-            string body = string.Empty;
+        private string cuerpoDelCorreoElectronicoParaFacturacion(string folio)
+        {
+            string cuerpoDelCorreo = string.Empty;
 
             using (StreamReader reader = new StreamReader(Server.MapPath("./HTML/index_not_fact.html")))
             {
-                body = reader.ReadToEnd();
+                cuerpoDelCorreo = reader.ReadToEnd();
                 reader.Dispose();
             }
 
             //En caso de ser llamada interna, no tendra datos en SAP (Este campo queda como "Interno")
-            string llamada = "Interna";
+            string tipoDeLLamada = "Interna";
             try
             {
-                string query2 = "Select top (1) SrvcCallId FROM SCL5 where U_FSR=" + Session["folio_p"].ToString();              
-                llamada = ConexionInolab.getText(query2);
+                string queryTipoDeLLamada = "Select top (1) SrvcCallId FROM SCL5 where U_FSR=" + Session["folio_p"].ToString();
+                tipoDeLLamada = ConexionInolab.getText(queryTipoDeLLamada);
              
             }
             catch (Exception es)
@@ -446,102 +373,145 @@ namespace INOLAB_OC
             }
             
             //Obtencion de datos para el correo
-           
-            string query3 = "Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString();
-            string cliente = Conexion.getText(query3);
-      
-            string query7 = "Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-            string actividad = Conexion.getText(query7);
-            
+            string cliente = Conexion.getText("Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString());
+            string actividad = Conexion.getText("Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString());
+            string OrdenVenta = Conexion.getText("Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString());
 
-            
-            string query8 = "Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-            string OrdenVenta = Conexion.getText(query8);
-            
-
-            //Insercion de datos para el HTML
-            body = body.Replace("{folio}", folio);
-            body = body.Replace("{slogan}", "data:image/png;base64," + GetBase64StringForImage(Server.MapPath("./Imagenes/slogan.png")));
-            body = body.Replace("{n_llamada}", llamada);
-            body = body.Replace("{act_iv}", actividad);
-            body = body.Replace("{OrdenVenta}", OrdenVenta);
-            body = body.Replace("{cliente}", cliente);
-            return body;
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{folio}", folio);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{slogan}", "data:image/png;base64," + convertirImagenAStringBase64(Server.MapPath("./Imagenes/slogan.png")));
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{n_llamada}", tipoDeLLamada);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{act_iv}", actividad);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{OrdenVenta}", OrdenVenta);
+            cuerpoDelCorreo = cuerpoDelCorreo.Replace("{cliente}", cliente);
+            return cuerpoDelCorreo;
         }
+
+        
         protected void Timer1_Tick(object sender, EventArgs e)
         {
             Timer1.Enabled = false;
             //Realiza el update de los datos en FSR y sollicita la creación del PDF para mandarlo por correo electrónico 
-            
-                //Obtiene el Mail de el cliente
           
                 string correoDeCliente = Conexion.getText("select Mail from FSR where Folio = " + Session["folio_p"].ToString() + " and IdFirmaImg is not null;");
                 if (!correoDeCliente.Equals("") || correoDeCliente != null)
                 {
-                    string mail = correoDeCliente;
+                    string correoElectronicoCliente = correoDeCliente;
                     
 
                     //Actualizacion de estatus de el FSR con los datos correspondientes
-
                     Conexion.updateHorasDeServicio(Session["folio_p"], Session["idUsuario"]);
+                    actualizarDatosEnSap();
 
-                    //Proceso de SAP
-                    try
-                    {
-                        //Conseguir la clave CLGcode de el folio                     
-                        string clgcode = "Select ClgID FROM SCL5 where U_FSR = " + Session["folio_p"];                       
-                        int clg = ConexionInolab.getScalar(clgcode);            
-                        string folio = Session["folio_p"].ToString();
+                    string actualizacionDeEstatusFolioAFinalizado = "UPDATE FSR SET IdStatus = 3 WHERE Folio = " + Session["folio_p"].ToString() + " and IdStatus = 2;";
+                    Conexion.executeQuery(actualizacionDeEstatusFolioAFinalizado);
 
-                        //Se hace el update de la concatenacion de Folio y Estatus
-                        ConexionInolab.executeQuery(" UPDATE OCLG SET tel = '" + Session["folio_p"] + " Finalizado' where ClgCode=" + clg.ToString() + ";");
-                        
-                    }
-                    catch (Exception es)
-                    {
-                        Console.Write(es.ToString());
-                    }
-
-                    //Actualizacion del estatus del folio a Finalizado
-                    string queryUpdateStatus = "UPDATE FSR SET IdStatus = 3 WHERE Folio = " + Session["folio_p"].ToString() + " and IdStatus = 2;";
-                    Conexion.executeQuery(queryUpdateStatus);
-                    
-
-                    //Se actualiza el estado en SAP de la llamada
-                    ActStatus();
+                    actualizarEstatusDeCierreDeActividadEnSap();
 
                     ReportViewer1.ServerReport.Refresh();
                     string path = CreatePDF(Session["folio_p"].ToString());
-                    //Notificacion al Asesor
-                    if (Session["not_ase"].ToString() == "Si")
-                    {
-                        string query = "Select top (1) Correoasesor1 FROM V_FSR where Folio=" + Session["folio_p"].ToString();
-                        string asesorm = Conexion.getText(query);
+                    notificarAlAsesorDeVentasDadosDeFolioServicio();
 
-                        SendMail2(asesorm);
-                    }
-
-                    //Notificacion a Facturacion
-                    //Codigo para verificar el tipo de contrato:
-
-                   
-                    string query2 = "Select top (1) IdT_Contrato FROM FSR where Folio=" + Session["folio_p"].ToString();
-                    string TCon = Conexion.getText(query2);
-                    
-
-                    //Codigo para en caso de ser Servicio puntual mandar correo al asesor
-                    if (TCon == "7")
-                    {
-                        SendMail3(path);
-                    }
-                    SendMail(path, mail);
+                    verificarElTipoDeContrato(path, correoElectronicoCliente);
+                    envioDeCorreoElectronicoConInformacionFSR(path, correoElectronicoCliente);
                     Response.Redirect("ServiciosAsignados.aspx");
                 }
                 else
                 {
                     Response.Redirect("VistaPrevia.aspx");
                 }
-            
+ 
+        }
+
+        private void actualizarDatosEnSap()
+        {
+            try
+            {                   
+                string clgId = ConexionInolab.getText("Select ClgID FROM SCL5 where U_FSR = " + Session["folio_p"]);
+                string folio = Session["folio_p"].ToString();
+
+                //Se hace el update de la concatenacion de Folio y Estatus
+                ConexionInolab.executeQuery(" UPDATE OCLG SET tel = '" + Session["folio_p"] + " Finalizado' where ClgCode= " + clgId + ";");
+            }
+            catch (Exception es)
+            {
+                Console.Write(es.ToString());
+            }
+        }
+
+        private void verificarElTipoDeContrato(string path, string correoElectronicoCliente)
+        {
+            string idContrato = Conexion.getText("Select top (1) IdT_Contrato FROM FSR where Folio=" + Session["folio_p"].ToString());
+            string servicioPuntual = "7";
+
+            if (idContrato.Equals(servicioPuntual))
+            {
+                enviarCorreoElectronicoParaFacturacion(path);
+            }
+           
+        }
+
+        private void notificarAlAsesorDeVentasDadosDeFolioServicio()
+        {
+            if (Session["not_ase"].ToString() == "Si")
+            {
+                string correoElectronicoAsesor = Conexion.getText("Select top (1) Correoasesor1 FROM V_FSR where Folio=" + Session["folio_p"].ToString());
+                envioDeCorreoElectronicoConInformacionFSR(correoElectronicoAsesor);
+            }
+        }
+
+        private void envioDeCorreoElectronicoConInformacionFSR(string filepath, string mail)
+        {
+            //Envio del correo al cliente con su folio en estatus de Finalizado (hecho por paquito-cabeza [Incomprensible para mis conocimientos de C# :c])
+            try
+            {
+                string to, correoDestinatario, correoElectronicoEmisor, folioDeServico;
+                Console.Write(mail);
+                to = "";
+                SqlDataReader notificacionesDelEmail = Conexion.getSqlDataReader("select * from MailNotification;");
+
+                if (notificacionesDelEmail.HasRows)
+                {
+                    List<String> mails = new List<string>();
+                    while (notificacionesDelEmail.Read())
+                    {
+                        mails.Add(notificacionesDelEmail.GetValue(2).ToString());
+                    }
+                    correoDestinatario = String.Join(", ", mails);
+                }
+                else
+                {
+                    correoDestinatario = "notificaciones@inolab.com";
+                }
+
+                Conexion.cerrarConexion();
+                correoElectronicoEmisor = "notificaciones@inolab.com";
+                folioDeServico = "FSR folio " + Session["folio_p"];
+                MailMessage message = new MailMessage();
+
+                message.Bcc.Add(correoDestinatario);
+                message.From = new MailAddress(correoElectronicoEmisor);
+                message.Body = cuerpoDelCorreoElectronico(Session["folio_p"].ToString(), "cliente");
+                message.IsBodyHtml = true;
+                message.Subject = folioDeServico;
+
+                Attachment attach = new Attachment(filepath);
+                message.Attachments.Add(attach);
+
+                SmtpClient configuracionDeCorreoEmisor = new SmtpClient();
+                configuracionDeCorreoEmisor.Port = 1025;
+                configuracionDeCorreoEmisor.Host = "smtp.inolab.com";
+                configuracionDeCorreoEmisor.EnableSsl = false;
+                configuracionDeCorreoEmisor.DeliveryMethod = SmtpDeliveryMethod.Network;
+                configuracionDeCorreoEmisor.UseDefaultCredentials = false;
+                configuracionDeCorreoEmisor.Credentials = new NetworkCredential("notificaciones@inolab.com", "Notificaciones2021*");
+                configuracionDeCorreoEmisor.Send(message);
+                message.Dispose();
+                configuracionDeCorreoEmisor.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
         }
     }
 }
