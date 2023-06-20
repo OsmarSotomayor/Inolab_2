@@ -116,9 +116,9 @@
                 </label>
 
             <nav class="menu">
-                <asp:Button ID="btnRegistroFunnel" runat="server" Text="Registro Funnel" class="boton"  visible="True" OnClick="btnRegFunnel_Click"  /> 
-                <asp:Button ID="btnInforme_A" runat="server" Text="Estadisticas" class="boton" visible="True"  Target="_blank" OnClick="btnInforme_A_Click"  />     
-                <asp:Button ID="Button1" runat="server" Text="Cotizaciones" class="boton" OnClick="Button1_Click"  />
+                <asp:Button ID="btnRegistroFunnel" runat="server" Text="Registro Funnel" class="boton"  visible="True" OnClick="Ir_a_registro_funnel_Click"  /> 
+                <asp:Button ID="btnInforme_A" runat="server" Text="Estadisticas" class="boton" visible="True"  Target="_blank" OnClick="Ir_a_grafica_funnel_Click"  />     
+                <asp:Button ID="Button1" runat="server" Text="Cotizaciones" class="boton" OnClick="Ir_a_reporte_cotizaciones_Click"  />
                 <asp:Button ID="Btn_VolverMenuPrincipal" runat="server" Text="Volver a menu principal" class="boton" OnClick="Btn_MenuPrincipal"   />
             
                 <label for="check" class="esconder-menu">
@@ -136,7 +136,7 @@
                         <td class="chosen-rtl">
                             <label for="field1"><span>Tipo de Registro</span></label></td>
                         <td>
-                            <label for="field1"><asp:DropDownList ID="ddlTipoRegistro" class="mercado" runat="server" OnSelectedIndexChanged="ddlTipoRegistro_SelectedIndexChanged" AutoPostBack="True" style="height: 20px">
+                            <label for="field1"><asp:DropDownList ID="ddlTipoRegistro" class="mercado" runat="server" OnSelectedIndexChanged="Seleccionar_tipo_de_registro_SelectedIndexChanged" AutoPostBack="True" style="height: 20px">
                                 <asp:ListItem Value=""></asp:ListItem>
                                     <asp:ListItem>Llamada</asp:ListItem>
                                     <asp:ListItem>Visita</asp:ListItem>     
@@ -156,7 +156,7 @@
                             <label for="field1">
                             <strong>
                             <asp:Label ID="lblHora" runat="server" Text="Hora"></asp:Label>
-                            <asp:DropDownList ID="ddlhora" class="mercado" runat="server" OnSelectedIndexChanged="ddlTipoRegistro_SelectedIndexChanged" AutoPostBack="True" style="height: 20px">
+                            <asp:DropDownList ID="ddlhora" class="mercado" runat="server" OnSelectedIndexChanged="Seleccionar_tipo_de_registro_SelectedIndexChanged" AutoPostBack="True" style="height: 20px">
                                 <asp:ListItem Value=""></asp:ListItem>
                                     <asp:ListItem>08:00</asp:ListItem>
                                     <asp:ListItem>08:30</asp:ListItem>
@@ -216,13 +216,13 @@
                         </tr>
                         <tr>
                             <td class="chosen-rtl">
-             <asp:Button ID="btnUpdate" runat="server" Text="Actualizar" class="otroboton" Visible="false" OnClick="btnUpdate_Click" />         
+             <asp:Button ID="btnUpdate" runat="server" Text="Actualizar" class="otroboton" Visible="false" OnClick="Actualizar_datos_del_registro_Click" />         
         
-             <asp:Button ID="btnGuardar" runat="server" Text="Guardar" class="otroboton" OnClick="btnGuardar_Click" />         
+             <asp:Button ID="btnGuardar" runat="server" Text="Guardar" class="otroboton" OnClick="Guardar_nuevo_registro_Click" />         
         
                             </td>
                             <td>
-             <asp:Button ID="btnClean" runat="server" Text="Limpiar Registros" class="otroboton" OnClick="btnClean_Click"/>         
+             <asp:Button ID="btnClean" runat="server" Text="Limpiar Registros" class="otroboton" OnClick="Limpiar_datos_del_registro_Click"/>         
         
                             </td>
                         </tr>
@@ -251,7 +251,7 @@
                         </tr>
                         <tr>
                             <td  colspan="3">
-                                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" AutoPostBack="False" CellPadding="4" CssClass="auto-style7" DataKeyNames="IdLlamada" Font-Bold="False" Font-Size="9pt" ForeColor="#333333" GridLines="None"  style="margin-top: 0" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" AutoPostBack="False" CellPadding="4" CssClass="auto-style7" DataKeyNames="IdLlamada" Font-Bold="False" Font-Size="9pt" ForeColor="#333333" GridLines="None"  style="margin-top: 0" Width="100%" OnSelectedIndexChanged="Seleccionar_registro_SelectedIndexChanged">
                                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                     <Columns>
                                         <asp:CommandField ButtonType="Button" ShowSelectButton="True">

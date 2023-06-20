@@ -11,12 +11,15 @@ using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.IO;
+using System.Diagnostics;
 using INOLAB_OC.Modelo;
 
 namespace INOLAB_OC
 {
+    
     public partial class CRM_2 : System.Web.UI.Page
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["idUsuario"] == null)
@@ -122,7 +125,7 @@ namespace INOLAB_OC
 
         // definine la clasificacion para la consulta sql
 
-        protected void ddlTipoRegistro_SelectedIndexChanged(object sender, EventArgs e)
+        protected void Seleccionar_tipo_de_registro_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlTipoRegistro.Text == "Llamada")
             {
@@ -137,13 +140,12 @@ namespace INOLAB_OC
             }
         }
 
-        // BOTON GUARDA UN NUEVO REGISTRO
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        protected void Guardar_nuevo_registro_Click(object sender, EventArgs e)
         {
-            GuardaLlamada();
+            GuardarNuevoRegistro();
         }
-        // FUNCION PARA GUARDAR NUEVO REGISTRO
-        public void GuardaLlamada()
+
+        public void GuardarNuevoRegistro()
         {
             if (ddlTipoRegistro.Text == "")
             {
@@ -156,20 +158,11 @@ namespace INOLAB_OC
                 return;
             }
 
-
-            DateTime validafecha = DateTime.Parse(datepicker.Text);     //fecha a validar
-            DateTime hoy = DateTime.Today;                              // fecha al dia de hoy
-
-            if (validafecha < hoy)
-            {
-                Response.Write("<script>alert('El Campo Fecha Llamada/Visita no puede ser menor al día de Hoy.');</script>");
-                return;
-            }
-          
+            validarQueFechaDeRegistroNoSeaAnteriorAlDiaDeHoy();
 
             string TipoRegistro = ddlTipoRegistro.Text;
             string textoCliente = txtcliente.Text;
-            DateTime date = Convert.ToDateTime(datepicker.Text);
+            DateTime date = Convert.ToDateTime(datepicker.Text); //La configuracion de region de fecha y hora debe estar en español latinoamerica
             string textoComentario = txtcomentario.Text;
             string user = lbluser.Text;
             string textoObjetivo = txtobjetivo.Text;
@@ -182,18 +175,28 @@ namespace INOLAB_OC
            
         }
 
-        //REDIRECCIONA A REGISTRO DE FUNNEL
-        protected void btnRegFunnel_Click(object sender, EventArgs e)
+        public void validarQueFechaDeRegistroNoSeaAnteriorAlDiaDeHoy()
+        {
+            DateTime fechaDeLRegistro = DateTime.Parse(datepicker.Text);
+            DateTime fechaDelDiaDeHoy = DateTime.Today;
+
+            if (fechaDeLRegistro < fechaDelDiaDeHoy)
+            {
+                Response.Write("<script>alert('El Campo Fecha Llamada/Visita no puede ser menor al día de Hoy.');</script>");
+                return;
+            }
+        }
+
+
+        protected void Ir_a_registro_funnel_Click(object sender, EventArgs e)
         {
             Response.Redirect("CRM_3.aspx");
         }
-        //REDIRECCIONA A GRAFICA FUNNEL
-        protected void btnInforme_A_Click(object sender, EventArgs e)
+        protected void Ir_a_grafica_funnel_Click(object sender, EventArgs e)
         {
             Response.Redirect("CRM_1.aspx");
         }
-        // ABRE EL REPORTEADOR DE COTIZACIONES
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void Ir_a_reporte_cotizaciones_Click(object sender, EventArgs e)
         {
             Response.Redirect("http://inolabserver01/Reportes_Inolab/Pages/ReportViewer.aspx?%2fComercial%2fCOTIZACION-EQUIPO&rs:Command=Render");
         }
@@ -203,100 +206,69 @@ namespace INOLAB_OC
             Response.Redirect("CRM_1.aspx");
         }
 
-        //VALIDACION DE FECHA PARA NO GUARDAR UN DIA ANTERIOR A HOY
-        public void ValidaFecha()
+        int idLlamada;
+        protected void Seleccionar_registro_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DateTime validafecha = DateTime.Parse(datepicker.Text);     //fecha a validar
-            DateTime hoy = DateTime.Today;                              // fecha al dia de hoy
-
-            if (validafecha < hoy)
-            {
-                Response.Write("<script>alert('La Fecha en el Registro de Llamada/Visita no puede ser menor al día de Hoy');</script>");
-                return;
-            }
-        }
-        //MUESTRA TODOS LOS DATOS X ASESOR
-        private void Datos()
-        {
-            //Carga los resgistros del ASESOR
-               
-          string query = "Select* from  Llamada_Vista where asesor='" + lbluser.Text + "' and FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4)";
-          GridView1.DataSource = ConexionComercial.getDataSet(query);
-          GridView1.DataBind();
+            idLlamada = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
+            btnUpdate.Visible = true;
+            btnGuardar.Visible = false;
+            traerDatosDeLaLlamada();
         }
 
-        int registro;
-        //consulta para traer los datos del grid a los textbox y editar
         // Pendiente de modificar
-        public void leer()
-        {   
-            DataRow datosLLamada = ConexionComercial.getDataRow("select * from llamada_vista where idllamada = " + registro + " and asesor='" + lbluser.Text + "'");
+        public void traerDatosDeLaLlamada()
+        {
+            DataRow datosLLamada = ConexionComercial.getDataRow("select * from llamada_vista where idllamada = " + idLlamada + " and asesor='" + lbluser.Text + "'");
 
             txtcliente.Text = datosLLamada["Cliente"].ToString();
             ddlTipoRegistro.Text = datosLLamada["Tipo"].ToString();
             datepicker.Text = datosLLamada["Fechallamada"].ToString();
             txtobjetivo.Text = datosLLamada["Objetivo"].ToString();
             txtcomentario.Text = datosLLamada["Comentario"].ToString();
-            lblREGISTRO.Text=datosLLamada["IdLlamada"].ToString();
-            
-        }
-        //LIMPIA LOS REGISTROS
-        public void Clean()
-        {
-            ddlTipoRegistro.Text = "";
-            txtcliente.Text = null;
-            datepicker.Text = null;
-            txtcomentario.Text = null;
-            btnUpdate.Visible = false;
-            btnGuardar.Visible = true;
-            txtobjetivo.Text="";
+            lblREGISTRO.Text = datosLLamada["IdLlamada"].ToString();
+
         }
 
-
-        //SELECCIONA EL REGISTRIO DEL GRID PARA LLENARLOS EN LOS TEXTBOX
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            registro = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
-            btnUpdate.Visible = true;
-            btnGuardar.Visible = false;
-            leer();
-        }
-        //CARGA DATOS DEACUERDO EL TIPO DE REGISTRO
-        private void cargardatos(string classs)
-        {
-            //Carga los resgistros del ingeniero
-            string query = "Select* from  Llamada_vista where FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4) and tipo ='" + ddlTipofiltro.Text + "' and asesor='" + lbluser.Text + "'";
-            GridView1.DataSource = ConexionComercial.getDataSet(query);
-            GridView1.DataBind();
-            
-        }
-        string clas;
         protected void ddlTipofiltro_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlTipofiltro.Text == "Llamada")
             {
-                clas = ddlTipofiltro.Text;
-                cargardatos(clas);
+                cargardatosDeAcuerdoAlTipoDeRegistro(ddlTipofiltro.Text);
             }
             if (ddlTipofiltro.Text == "Visita")
             {
-                clas = ddlTipofiltro.Text;
-                cargardatos(clas);
+                cargardatosDeAcuerdoAlTipoDeRegistro(ddlTipofiltro.Text);
             }
             if (ddlTipofiltro.Text == "Todo")
             {
-                clas = ddlTipofiltro.Text;
-                Datos();
+                mostrarTodosLosDatosDelAsesor();
             }
             lblcontador.Text = GridView1.Rows.Count.ToString();
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        private void cargardatosDeAcuerdoAlTipoDeRegistro(string tipoDeRegistro)
         {
-            Update();
+            string query = "Select * from  Llamada_vista where FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4) and tipo ='" + tipoDeRegistro + "' and asesor='" + lbluser.Text + "'";
+            GridView1.DataSource = ConexionComercial.getDataSet(query);
+            GridView1.DataBind();
+
         }
 
-        public void Update()
+        private void mostrarTodosLosDatosDelAsesor()
+        {
+            string query = "Select * from  Llamada_Vista where asesor='" + lbluser.Text + "' and FechaLlamada between DATEADD(wk,DATEDIFF(wk,0,getdate()),0) and dateadd(wk,datediff(wk,0,getdate()),4)";
+            GridView1.DataSource = ConexionComercial.getDataSet(query);
+            GridView1.DataBind();
+        }
+
+
+
+        protected void Actualizar_datos_del_registro_Click(object sender, EventArgs e)
+        {
+            actualizarDatosDelRegistroLlamadaOVisita();
+        }
+
+        public void actualizarDatosDelRegistroLlamadaOVisita()
         {
             if (ddlTipoRegistro.Text == "")
             {
@@ -309,33 +281,40 @@ namespace INOLAB_OC
                 return;
             }
 
+            validarQueFechaDeRegistroNoSeaAnteriorAlDiaDeHoy();
+            actualizarNuevosDatosDeRegistroEnBBD();
+        }
 
-            DateTime validafecha = DateTime.Parse(datepicker.Text);     //fecha a validar
-            DateTime hoy = DateTime.Today;                              // fecha al dia de hoy
-
-            if (validafecha < hoy)
-            {
-                Response.Write("<script>alert('El Campo Fecha Llamada/Visita no puede ser menor al día de Hoy.');</script>");
-                return;
-            }
-
+        private void actualizarNuevosDatosDeRegistroEnBBD()
+        {
             Int32 registro = Convert.ToInt32(lblREGISTRO.Text);
-            DateTime fecha = Convert.ToDateTime(datepicker.Text);
-            string textoCliente= txtcliente.Text;
-            string textoComentario = txtcomentario.Text;
-            string ddlRegistro = ddlTipoRegistro.Text;
-            string textoObjetivo= txtobjetivo.Text;
+            DateTime fechaDeRegistro = Convert.ToDateTime(datepicker.Text);
+            string nombreDelCliente = txtcliente.Text;
+            string comentarioDeRegistro = txtcomentario.Text;
+            string tipoDeRegistro = ddlTipoRegistro.Text;
+            string textoObjetivo = txtobjetivo.Text;
 
-            ConexionComercial.executeStoreProcedureStp_Update_Plan(registro, fecha, textoCliente,
-                textoComentario, ddlRegistro, textoObjetivo);
-            
+            ConexionComercial.executeStoreProcedureStp_Update_Plan(registro, fechaDeRegistro, nombreDelCliente,
+                comentarioDeRegistro, tipoDeRegistro, textoObjetivo);
+
             Response.Write("<script language=javascript>if(confirm('Registro Actualizado Exitosamente')==true){ location.href='CRM_2.aspx'} else {location.href='CRM_2.aspx'}</script>");
         }
 
-        protected void btnClean_Click(object sender, EventArgs e)
+        protected void Limpiar_datos_del_registro_Click(object sender, EventArgs e)
         {
             btnUpdate.Visible = false;
-            Clean();
+            limpiarLosDatosDelRegistro();
         }
+        public void limpiarLosDatosDelRegistro()
+        {
+            ddlTipoRegistro.Text = "";
+            txtcliente.Text = null;
+            datepicker.Text = null;
+            txtcomentario.Text = null;
+            btnUpdate.Visible = false;
+            btnGuardar.Visible = true;
+            txtobjetivo.Text = "";
+        }
+
     }
 }
