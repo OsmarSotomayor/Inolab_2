@@ -130,13 +130,11 @@ C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\Microsoft.ReportVie
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\Microsoft.ReportViewer.WebForms.DLL
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\SpreadsheetLight.dll
-C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\Microsoft.SqlServer.Types.dll
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\ExcelDataReader.pdb
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\ExcelDataReader.xml
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\ExcelDataReader.DataSet.pdb
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\ExcelDataReader.DataSet.xml
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\SpreadsheetLight.xml
-C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\bin\es\Microsoft.SqlServer.Types.resources.dll
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.AssemblyReference.cache
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CoreCompileInputs.cache
 C:\Users\Omar Sotomayor\Source\Repos\INOLAB_OC\INOLAB_OC\obj\Debug\INOLAB_OC.csproj.CopyComplete

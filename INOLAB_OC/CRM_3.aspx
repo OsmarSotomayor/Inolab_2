@@ -112,8 +112,8 @@
             </label >
 
             <nav class="menu">
-                <asp:Button ID="btnPlan" runat="server" Text="Plan de Trabajo" class="boton"  visible="True" OnClick="btnPlan_Click" />      
-                <asp:Button ID="Button1" runat="server" Text="Cotizaciones" class="boton" OnClick="Button1_Click"  />
+                <asp:Button ID="btnPlan" runat="server" Text="Plan de Trabajo" class="boton"  visible="True" OnClick="Volver_a_plan_de_trabajo_Click" />      
+                <asp:Button ID="Button1" runat="server" Text="Cotizaciones" class="boton" OnClick="Ir_a_cotizaciones_Click"  />
                 <asp:Button ID="BtnMenuPrincipal" runat="server" Text="Menu Principal" class="boton" OnClick="Btn_MenuPrincipal_Click"  />
 
                 <label for="check" class="esconder-menu">
@@ -297,9 +297,9 @@
                         <tr>
                             <td colspan="11">
                                 <asp:TextBox ID="txtestatus" class="mercado" runat="server" Height="99px" Width="1035px" TextMode="MultiLine"></asp:TextBox>
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar Registro" class="boton"  visible="True" CssClass="auto-style5" OnClick="btnGuardar_Click" /> 
-                <asp:Button ID="btnactualiza" runat="server" Text="Actualizar Registro" class="boton"  visible="False" CssClass="auto-style5" OnClick="btnactualiza_Click"/>             
-                <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar Registros" class="boton"  visible="True" CssClass="auto-style5" OnClick="btnLimpiar_Click" /> 
+                <asp:Button ID="btnGuardar" runat="server" Text="Guardar Registro" class="boton"  visible="True" CssClass="auto-style5" OnClick="Guardar_nuevo_registro_Click" /> 
+                <asp:Button ID="btnactualiza" runat="server" Text="Actualizar Registro" class="boton"  visible="False" CssClass="auto-style5" OnClick="Actualizar_registro_Click"/>             
+                <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar Registros" class="boton"  visible="True" CssClass="auto-style5" OnClick="Limpiar_datos_Click" /> 
                             </td>
                         </tr>
                         <tr>

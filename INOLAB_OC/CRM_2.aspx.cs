@@ -212,11 +212,11 @@ namespace INOLAB_OC
             idLlamada = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
             btnUpdate.Visible = true;
             btnGuardar.Visible = false;
-            traerDatosDeLaLlamada();
+            traerTodosLosRegistrosDeVendedor();
         }
 
         // Pendiente de modificar
-        public void traerDatosDeLaLlamada()
+        public void traerTodosLosRegistrosDeVendedor()
         {
             DataRow datosLLamada = ConexionComercial.getDataRow("select * from llamada_vista where idllamada = " + idLlamada + " and asesor='" + lbluser.Text + "'");
 
