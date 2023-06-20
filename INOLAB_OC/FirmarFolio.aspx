@@ -190,14 +190,14 @@
         </div>    
         <div style="display: none;">
             <input id="hidValue" type="hidden" runat="server" />
-               <asp:Button runat="server" id="hidebutton" OnClick="hidebutton_Click" />
+               <asp:Button runat="server" id="hidebutton" OnClick="Almacenar_la_firma_Click" />
         </div>
     </section>
             
         <footer runat="server" id="footerid" class="footercl">
             <div runat="server" id="firmabutton" class="footerbtn" >
                 <h3 style="text-align:center; color:white;">Datos Guardados correctamente!</h3>
-                <asp:Button runat="server" Text="Continuar..." BorderStyle="None" style="float:unset; text-decoration:underline;" ID="firmarbtn" OnClick="firmarbtn_Click"  />
+                <asp:Button runat="server" Text="Continuar..." BorderStyle="None" style="float:unset; text-decoration:underline;" ID="firmarbtn" OnClick="Mostrar_pantalla_para_firmar_documento_Click"  />
             </div>
         </footer>
     </form>
