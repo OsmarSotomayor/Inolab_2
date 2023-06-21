@@ -8,9 +8,9 @@
     <title></title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/EncabezadoInformacion.css" />
-    <link rel="stylesheet" href="CSS/drop.css" />
+    <link rel="stylesheet" href="../../CSS/EstiloVista.css" />
+    <link rel="stylesheet" href="../../CSS/EncabezadoInformacion.css" />
+    <link rel="stylesheet" href="../../CSS/drop.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
 
@@ -45,7 +45,7 @@
       <form id="form1" runat="server">
             <header class="header2">
                 <div class="wrapper">
-                    <div class="logo"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
+                    <div class="logo"><img src="../../Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>         
                     <asp:Label ID="label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White" class="logo" Width="65px"></asp:Label>
                     <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
                     <nav>

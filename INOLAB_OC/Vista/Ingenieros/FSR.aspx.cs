@@ -51,7 +51,7 @@ public partial class FSR : Page
     {
         if (Session["idUsuario"] == null)
         {
-            Response.Redirect("./Sesion.aspx");
+            Response.Redirect("/Vista/Sesion.aspx");
         }
         else
         {

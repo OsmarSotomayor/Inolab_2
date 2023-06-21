@@ -10,9 +10,10 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/EncabezadoFirmaFolio.css" />
-    <link rel="stylesheet" href="CSS/drop.css"  />
+    <link rel="stylesheet" href="../../CSS/EstiloVista.css" />
+    <link rel="stylesheet" href="../../CSS/EncabezadoFirmaFolio.css" />
+    <link rel="stylesheet" href="../../CSS/drop.css"  />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
 
@@ -26,7 +27,7 @@
         {            
             if (clicked == "salir")
             {
-                window.location.href = "./Sesion.aspx";
+                window.location.href = "/Vista/Sesion.aspx";
                 return false;
             }   
             if (clicked == "atras") {
@@ -139,7 +140,7 @@
     <form id="form1" runat="server">    
      <header class="header2" runat="server" id="headerid">
         <div id="headerone" class="auto-style1" runat="server">
-            <div class="logo" style="height: 67px"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
+            <div class="logo" style="height: 67px"><img src="../../Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
                 <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" ></asp:Label>
                 <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
                 <nav>

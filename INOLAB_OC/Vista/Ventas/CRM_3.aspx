@@ -12,10 +12,11 @@
     <title>Registro Funnel</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/EncabezadoCRM_3.css" />
+    <link rel="stylesheet" href="../../CSS/EstiloVista.css" />
+    <link rel="stylesheet" href="../../CSS/EncabezadoCRM_3.css" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
@@ -101,11 +102,10 @@
 
      <header class="header2">
         
-        <div class="logo" style="height: 70px"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
+        <div class="logo" style="height: 70px"><img src="../../Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
             <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" Width="65px" Height="68px" ></asp:Label>
             <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo" Height="69px"></asp:Label>
             <asp:Label ID="lbliduser" runat="server" Text="id" Font-Bold="True" ForeColor="White" class="logo" Height="69px" Visible="false" ></asp:Label>
-            
             <input type="checkbox" id="check" />
             <label for="check" class="mostrar-menu">
                     &#8801
@@ -328,7 +328,7 @@
                                 <asp:TextBox ID="txtfecha1" runat="server" TextMode="Date" Visible="false">01/01/2023</asp:TextBox>
                                 &nbsp;<asp:Label ID="lblfecha2" runat="server" Text="   a   " Font-Bold="True" Visible="false"></asp:Label>
                                 &nbsp;<asp:TextBox ID="txtfecha2" runat="server" TextMode="Date" Visible="false">31/12/2090</asp:TextBox>
-                                <asp:Button ID="btnfiltrar" runat="server" Text="Filtrar" class="boton"  visible="False" CssClass="auto-style5" OnClick="btnfiltrar_Click" /> 
+                                <asp:Button ID="btnfiltrar" runat="server" Text="Filtrar" class="boton"  visible="False" CssClass="auto-style5" OnClick="Filtrar_registros_Click" /> 
                             </td>
                         </tr>
                         <tr>

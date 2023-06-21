@@ -17,7 +17,7 @@ public partial class Calendario : Page
     {
         if (Session["idUsuario"] == null)
         {
-            Response.Redirect("./Sesion.aspx");
+            Response.Redirect("/Vista/Sesion.aspx");
         }
         else
         {

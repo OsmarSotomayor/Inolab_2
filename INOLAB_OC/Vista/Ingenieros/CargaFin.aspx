@@ -11,12 +11,12 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/EncabezadoComun.css" />
-    <link rel="stylesheet" href="CSS/drop.css"/>
+    <link rel="stylesheet" href="../../CSS/EstiloVista.css" />
+    <link rel="stylesheet" href="../../CSS/EncabezadoComun.css" />
+    <link rel="stylesheet" href="../../CSS/drop.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"/>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
@@ -45,7 +45,7 @@
     <form id="form1" runat="server">
         <header class="header2" style="position:relative" runat="server" id="headerid">
             <div id="headerone" class="auto-style1" runat="server">
-                <div class="logo" style="height: 67px"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
+                <div class="logo" style="height: 67px"><img src="../../Imagenes/LOGO_Blanco_Lineas.png"  class="logo"/></div>
                 <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" ></asp:Label>
                 <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
             </div>

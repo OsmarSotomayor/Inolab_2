@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" id="bootstrap-css" />
     <!------ Include the above in your HEAD tag ---------->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" id="Link1" />
+    <link href="../CSS/stilos.css" rel="stylesheet" />
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -36,7 +37,7 @@
             <div class="middle">
                 <div id="login">
                     <form id="Form1" runat="server">
-                        <img src="Imagenes/LOGO_Blanco_.png" class="auto-style1"/><img src="Imagenes/slogan.png"  class="auto-style2"/>
+                        <img src="../Imagenes/LOGO_Blanco_.png" class="auto-style1"/><img src="../Imagenes/slogan.png"  class="auto-style2"/>
                         <br/><br/>
                         <fieldset class="clearfix">
                             <p><span class="fa fa-user" style="margin-right:0;"> </span>
@@ -51,7 +52,7 @@
                             </p>
                             <div>
                                 <span style="width:100%"; display: block; margin:auto;" >
-                                <asp:Button class="boton" ID="btnSesion" runat="server" Text="Inicio de Sesión" OnClick="Btn_Init_Sesion_Click"   ></asp:Button></span>
+                                <asp:Button class="boton" ID="btnSesion" runat="server" Text="Inicio de Sesión" OnClick="Inicio_De_Sesion_Click"   ></asp:Button></span>
                                 <asp:Label runat="server" Text="Label" ID="lblip" Visible="False"></asp:Label>
                             </div>
                         </fieldset>

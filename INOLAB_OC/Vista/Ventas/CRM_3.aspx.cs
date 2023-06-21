@@ -204,9 +204,9 @@ namespace INOLAB_OC
 
         protected void Limpiar_datos_Click(object sender, EventArgs e)
         {
-            limpiarValoresDatos();
+            limpiarValoresDeDatos();
         }
-        public void limpiarValoresDatos()
+        public void limpiarValoresDeDatos()
         {
             txtcliente.Text = null;
             ddlClas_save.Text = null;
@@ -254,7 +254,7 @@ namespace INOLAB_OC
                 modelo, valor, status, user, contacto, localidad, origen, tipoVenta);
 
             Response.Write("<script language=javascript>if(confirm('Registro Actualizado Exitosamente')==true){ location.href='CRM_3.aspx'} else {location.href='CRM_3.aspx'}</script>");
-            limpiarValoresDatos();
+            limpiarValoresDeDatos();
         }
        
         protected void Volver_a_plan_de_trabajo_Click(object sender, EventArgs e)
@@ -270,10 +270,10 @@ namespace INOLAB_OC
 
         protected void Btn_MenuPrincipal_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CRM_1.aspx");
+            Response.Redirect("./CRM_1.aspx");
         }
 
-        protected void btnfiltrar_Click(object sender, EventArgs e)
+        protected void Filtrar_registros_Click(object sender, EventArgs e)
         {
             if(ddlClasificacion.Text=="Todo")
             {
@@ -289,7 +289,6 @@ namespace INOLAB_OC
 
         public void filtrarPorFechaDeCierre()
         {
-            //Carga los resgistros del ingeniero
             string query = "Select * from  funnel where asesor='" + lbluser.Text + "'and fechacierre between '" + txtfecha1.Text + "' and '" + txtfecha2.Text + "'";
             GridView1.DataSource = ConexionComercial.getDataSet(query);
             GridView1.DataBind();
@@ -298,7 +297,6 @@ namespace INOLAB_OC
 
         public void filtrarPorClasificacion()
         {
-            //Carga los resgistros del ingeniero
             string query = "Select * from  funnel where asesor='" + lbluser.Text + "'and clasificacion='" + ddlClasificacion.Text + "' and fechacierre between '" + txtfecha1.Text + "' and '" + txtfecha2.Text + "'";
             GridView1.DataSource = ConexionComercial.getDataSet(query);
             GridView1.DataBind();

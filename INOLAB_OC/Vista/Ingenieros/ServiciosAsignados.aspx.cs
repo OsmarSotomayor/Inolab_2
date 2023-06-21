@@ -85,8 +85,6 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         {
             get
             {
-                // Use the default Windows user.  Credentials will be
-                // provided by the NetworkCredentials property.
                 return null;
             }
         }
@@ -95,13 +93,6 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         {
             get
             {
-                /* Read the user information from the Web.config file.  
-                 By reading the information on demand instead of 
-                 storing it, the credentials will not be stored in 
-                 session, reducing the vulnerable surface area to the
-                 Web.config file, which can be secured with an ACL.
-
-                 User name */
                 string userName =
                     ConfigurationManager.AppSettings
                         ["MyReportViewerUser"];
@@ -110,7 +101,6 @@ public partial class ServiciosAsignados : System.Web.UI.Page
                     throw new Exception(
                         "Missing user name from web.config file");
 
-                // Password
                 string password =
                     ConfigurationManager.AppSettings
                         ["MyReportViewerPassword"];
@@ -119,7 +109,7 @@ public partial class ServiciosAsignados : System.Web.UI.Page
                     throw new Exception(
                         "Missing password from web.config file");
 
-                // Domain
+
                 string domain =
                     ConfigurationManager.AppSettings
                         ["MyReportViewerDomain"];
@@ -208,11 +198,8 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         }
     }
 
-   
-
     private void verificarSiServicioTieneFechaActual(GridViewRow filasDelDataGridView)
     {
-        //Validacion de fecha 
         string fechaDelServicio = "";
         string fechaDelDiaActual = "";
         fechaDelServicio = filasDelDataGridView.Cells[4].Text;
@@ -297,7 +284,7 @@ public partial class ServiciosAsignados : System.Web.UI.Page
     {
         Session.Clear();
         Session.Abandon();
-        Response.Redirect("./Sesion.aspx");
+        Response.Redirect("../Sesion.aspx");
     }
 
     protected void Btn_Descrgar_Calendario_De_Servicios_Click(object sender, EventArgs e)

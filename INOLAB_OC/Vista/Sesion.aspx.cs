@@ -13,9 +13,8 @@ namespace INOLAB_OC
         const string directorArtemio = "7";
         protected void Page_Load(object sender, EventArgs e)
         {
-  
-            string IP = Request.ServerVariables["REMOTE_ADDR"];
-            lblip.Text = IP.ToString();   
+          string IP = Request.ServerVariables["REMOTE_ADDR"];
+          lblip.Text = IP.ToString();   
         }
 
       
@@ -39,21 +38,20 @@ namespace INOLAB_OC
                 {
                     Response.Write("<script>alert('Ingreso de " + dataUser["Nombre"].ToString() + " " + dataUser["Apellidos"].ToString() + "');</script>");
                 }
-                string nombreDeUsuario = dataUser["Nombre"].ToString(), idAarea = dataUser["IdArea"].ToString(), idRollUser = dataUser["IdRol"].ToString(), nombreDeUsuarioAbreviado = dataUser["Usuario"].ToString();
+                string nombreDeUsuario = dataUser["Nombre"].ToString(), idArea = dataUser["IdArea"].ToString(), idRollUser = dataUser["IdRol"].ToString(), nombreDeUsuarioAbreviado = dataUser["Usuario"].ToString();
                 
-                //Asignacion de variables globales 
                 Session["valor"] = nombreDeUsuario;
-                Session["idar"] = idAarea;
+                Session["idar"] = idArea;
                 Session["idr"] = idRollUser;
                 Session["Usuario"] = nombreDeUsuarioAbreviado;
 
 
-                if (idAarea == areaServiciosIngenieria)
+                if (idArea.Equals(areaServiciosIngenieria))
                 {
-                    //Accede a servicios asignados mientras sea idar = 6
                     Session["idUsuario"] = dataUser["idUsuario"].ToString();
                     Session["nameUsuario"] = dataUser["Nombre"].ToString();
-                    Response.Redirect("ServiciosAsignados.aspx");
+                    Response.Redirect("../Vista/Ingenieros/ServiciosAsignados.aspx");
+                    
                 }
                 else
                 {
@@ -61,22 +59,20 @@ namespace INOLAB_OC
                     //Para el caso de que sea Liz la que ingrese, se le mostraran los calendarios de servicios que hay de todos los ingenieros correspondiendo a su area
                     Session["idUsuario"] = dataUser["idUsuario"].ToString();
                     Session["nameUsuario"] = dataUser["Nombre"].ToString();
+
                     if (Session["idUsuario"].ToString() == "8")
                     {
-                        //Form de seleccion de calendario
-                        Response.Redirect("CalSel.aspx");
+                        Response.Redirect("../CalSel.aspx");
 
                     }
-                    //Usado para las paginas que dependan al departamento que vengan
-                    //if (idr == "2" && idar=="2")
-                    if (idAarea == areaVentas)
+                    if (idArea == areaVentas)
                     {
                         if(Session["idUsuario"].ToString() == directorArtemio)
                         {
-                            Response.Redirect("CRM_4.aspx");
+                            Response.Redirect("../Vista/Ventas/CRM_4.aspx");
                         }
-                        //Response.Redirect("Servicio_OC1.aspx");
-                        Response.Redirect("CRM_1.aspx");
+                        Response.Redirect("../Vista/Ventas/CRM_1.aspx");
+          
                     }
 
                 }
@@ -87,7 +83,7 @@ namespace INOLAB_OC
             }
         }
 
-        protected void Btn_Init_Sesion_Click(object sender, EventArgs e)
+        protected void Inicio_De_Sesion_Click(object sender, EventArgs e)
         {
             ingresarAlAreaCorrespondiente();
         }

@@ -12,45 +12,22 @@ using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.IO;
 
+
 namespace INOLAB_OC
 {
-    public partial class CRM_1 : System.Web.UI.Page
+    public partial class CRM_4 : System.Web.UI.Page
     {
-
-        const string usuarioArtemio = "7";
-        string ligaReporte;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
             if (Session["idUsuario"] == null)
             {
                 Response.Redirect("./Sesion.aspx");
             }
 
-            Lbl_nombre_usuario.Text = Session["nameUsuario"].ToString();
-            Lbl_id_usuario.Text = Session["idUsuario"].ToString();
+            lbluser.Text = Session["nameUsuario"].ToString();
+            lbliduser.Text = Session["idUsuario"].ToString();
             ReportViewer1.ServerReport.Refresh();
-
-            if(Lbl_id_usuario.Text.Equals(usuarioArtemio)) 
-            {
-                Btn_plan_de_trabajo.Visible = false;
-                Btn_registro_funnel_ventas.Visible = false;
-                Btn_reporte_cotizaciones.Visible = false;
-                ligaReporte = "/Comercial/Funnel-Direccion";
-            }
-            else
-            {
-                Btn_plan_de_trabajo.Visible = true;
-                Btn_registro_funnel_ventas.Visible = true;
-                Btn_reporte_cotizaciones.Visible = true;
-                ligaReporte = "/Comercial/FunnelxAsesor";
-            }                      
-
-
         }
-
-        
-
         // COMIENZO DE REPORTEADOR
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -64,18 +41,17 @@ namespace INOLAB_OC
 
                 // Set the report server URL and report path
                 serverReport.ReportServerUrl = new Uri("http://INOLABSERVER01/Reportes_Inolab");
-                serverReport.ReportPath = "/Comercial/FunnelxAsesor";
-                //serverReport.ReportPath = Reporte;
+                serverReport.ReportPath = "/Comercial/Funnel-Direccion";
 
                 // Create the sales order number report parameter
-                ReportParameter asesor_v = new ReportParameter();
-                asesor_v.Name = "asesor";
-                asesor_v.Values.Add(Session["nameUsuario"].ToString());
-                //asesor_v.Values.Add(Session["folio_p"].ToString());
+                //ReportParameter asesor_v = new ReportParameter();
+                //asesor_v.Name = "asesor";
+                //asesor_v.Values.Add(Session["nameUsuario"].ToString());
+                ////asesor_v.Values.Add(Session["folio_p"].ToString());
 
-                // Set the report parameters for the report
-                ReportViewer1.ServerReport.SetParameters(new ReportParameter[] { asesor_v });
-                ReportViewer1.ShowParameterPrompts = false;
+                //// Set the report parameters for the report
+                //ReportViewer1.ServerReport.SetParameters(new ReportParameter[] { asesor_v });
+                //ReportViewer1.ShowParameterPrompts = false;
             }
         }
         [Serializable]
@@ -141,32 +117,11 @@ namespace INOLAB_OC
             }
         }
 
-        
-        protected void Btn_Plan_De_Trabajo_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("CRM_2.aspx");
-        }
-
-       
-        protected void Btn_Registro_Funnel_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("CRM_3.aspx");
-        }
-
-        
-        protected void Btn_Reporte_Cotizaciones_Click(object sender, EventArgs e)
-        {
-           // Response.Redirect("http://inolabserver01/Reportes_Inolab/Pages/ReportViewer.aspx?%2fComercial%2fCOTIZACION-EQUIPO&rs:Command=Render");
-
-            string abrirReporteCotizaciones = "window.open('http://inolabserver01/Reportes_Inolab/Pages/ReportViewer.aspx?%2fComercial%2fCOTIZACION-EQUIPO&rs:Command=Render', '_newtab');";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(), abrirReporteCotizaciones, true);
-        }
-
-        protected void Btn_Salir_Click(object sender, EventArgs e)
+        protected void Salir_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Session.Abandon();
-            Response.Redirect("./Sesion.aspx");
+            Response.Redirect("../Sesion.aspx");
         }
     }
 }

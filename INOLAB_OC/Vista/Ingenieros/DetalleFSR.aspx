@@ -8,9 +8,11 @@
     <title></title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="CSS/EstiloVista.css" />
-    <link rel="stylesheet" href="CSS/EncabezadoDetalleFSR.css" />
-    <link rel="stylesheet" href="CSS/drop.css" />
+    <link rel="stylesheet" href="../../CSS/EstiloVista.css" />
+    <link rel="stylesheet" href="../../CSS/EncabezadoDetalleFSR.css" />
+    <link rel="stylesheet" href="../../CSS/drop.css" />
+    
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
 
@@ -23,7 +25,7 @@
         {            
             if (clicked == "salir")
             {
-                window.location.href = "./Sesion.aspx";
+                window.location.href = "/Vista/Sesion.aspx";
                 return false;
             }   
             if (clicked == "atras") {
@@ -119,7 +121,7 @@
 
         <header class="header2">
             <div id="headerone" class="auto-style1" runat="server">
-            <div class="logo" style="height: 67px"><img src="Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
+            <div class="logo" style="height: 67px"><img src="../../Imagenes/LOGO_Blanco_Lineas.png" class="logo"/></div>
                 <asp:Label ID="Label1" runat="server" Text="Usuario: " Font-Bold="True" ForeColor="White"  class="logo" ></asp:Label>
                 <asp:Label ID="lbluser" runat="server" Text="usuario" Font-Bold="True" ForeColor="White" class="logo"></asp:Label>
                 
@@ -202,8 +204,8 @@
         <section class="seccion-nuevo-servicio"  id="seccion_nuevo_servicio" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf">
                 
-                    <asp:ImageButton Visible="true" ID="closeimg" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_ventana_agregar_nueva_accion_Click" />
-                
+                    <asp:ImageButton Visible="true" ID="closeimg" runat="server" ImageAlign="Right" ImageUrl="../../Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_ventana_agregar_nueva_accion_Click" />
+               
 
                 <table class="auto-style5" id="tabla_nuevo_servicio">
                     <tr>
@@ -247,7 +249,7 @@
         <section class="centrar2"  id="observaciones" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf1">
                 <div class="buton" id="closebtndiv">
-                    <asp:ImageButton Visible="true" ID="closebtn1" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_campo_observaciones_Click"  />
+                    <asp:ImageButton Visible="true" ID="closebtn1" runat="server" ImageAlign="Right" ImageUrl="../../Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_campo_observaciones_Click"  />
                 </div>
 
                 <table class="auto-style5">
@@ -274,7 +276,7 @@
         <section class="centrar2"  id="FallaEncontrada" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf4">
                 <div class="buton" id="closebtndiv1">
-                    <asp:ImageButton Visible="true" ID="ImageButton3" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_campo_fallas_encontradas_Click"  />
+                    <asp:ImageButton Visible="true" ID="ImageButton3" runat="server" ImageAlign="Right" ImageUrl="../../Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_campo_fallas_encontradas_Click"  />
                 </div>
 
                 <table  class="auto-style5">
@@ -300,7 +302,7 @@
         <section class="centrar2"  id="refacciones" runat="server" style="display: none;">
             <div class="drop2" style="background-color: RGBA(255,255,255,1); padding:30px;" id="sectionf2">
                 <div class="buton" id="closebtnref2">
-                    <asp:ImageButton Visible="true" ID="ImageButton2" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_Ventana_Refacciones_Click" />
+                    <asp:ImageButton Visible="true" ID="ImageButton2" runat="server" ImageAlign="Right" ImageUrl="../../Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_Ventana_Refacciones_Click" />
                 </div>
                 <div>
                 <!--Aquí va la lista de refacciones que ya se han agregado con anterioridad -->
@@ -325,7 +327,7 @@
         <section class="seccion-agregar-refaccion"  id="SECCION_AGREGAR_REFACCION" runat="server" style="display: none;">
             
                 <div class="buton" id="closebtnref1">
-                    <asp:ImageButton Visible="true" ID="ImageButton1" runat="server" ImageAlign="Right" ImageUrl="Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_ventana_nueva_refaccion_Click" />
+                    <asp:ImageButton Visible="true" ID="ImageButton1" runat="server" ImageAlign="Right" ImageUrl="../../Imagenes/closeimg.png" Width="30px" Height="30px" OnClick="Cerrar_ventana_nueva_refaccion_Click" />
                 </div>
 
                     <table class="tabla-agregar-refaccion">
