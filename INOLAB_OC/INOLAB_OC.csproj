@@ -90,7 +90,7 @@
     <Content Include="anexos.aspx" />
     <Content Include="Vista\Ingenieros\Calendario.aspx" />
     <Content Include="Calendario_Areas.aspx" />
-    <Content Include="CalSel.aspx" />
+    <Content Include="Vista\Ingenieros\CalSel.aspx" />
     <Content Include="Vista\Ingenieros\CargaFin.aspx" />
     <Content Include="ConfirmacionServicio.aspx" />
     <Content Include="Cotizacion.aspx" />
@@ -125,7 +125,6 @@
     <Content Include="CSS\EstiloVistaConfirmacion.css" />
     <Content Include="ejemplo1.aspx" />
     <Content Include="ejemplosubir.aspx" />
-    <Content Include="experimento.aspx" />
     <Content Include="Vista\Ingenieros\FirmarFolio.aspx" />
     <Content Include="Folios.aspx" />
     <Content Include="FormatoFecha.js" />
@@ -153,7 +152,6 @@
     <Content Include="Vista\Sesion.aspx" />
     <Content Include="SubiendoArchivos.aspx" />
     <Content Include="SubirArchivos.aspx" />
-    <Content Include="test.aspx" />
     <Content Include="upload.html" />
     <Content Include="uploadify-master\change-log.txt" />
     <Content Include="uploadify-master\check-exists.php" />
@@ -213,11 +211,11 @@
     <Compile Include="Calendario_Areas.aspx.designer.cs">
       <DependentUpon>Calendario_Areas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CalSel.aspx.cs">
+    <Compile Include="Vista\Ingenieros\CalSel.aspx.cs">
       <DependentUpon>CalSel.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CalSel.aspx.designer.cs">
+    <Compile Include="Vista\Ingenieros\CalSel.aspx.designer.cs">
       <DependentUpon>CalSel.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vista\Ingenieros\CargaFin.aspx.cs">
@@ -318,13 +316,6 @@
     <Compile Include="ejemplosubir.aspx.designer.cs">
       <DependentUpon>ejemplosubir.aspx</DependentUpon>
     </Compile>
-    <Compile Include="experimento.aspx.cs">
-      <DependentUpon>experimento.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="experimento.aspx.designer.cs">
-      <DependentUpon>experimento.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Vista\Ingenieros\FirmarFolio.aspx.cs">
       <DependentUpon>FirmarFolio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -419,13 +410,6 @@
     </Compile>
     <Compile Include="SubirArchivos.aspx.designer.cs">
       <DependentUpon>SubirArchivos.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="test.aspx.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="test.aspx.designer.cs">
-      <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="Upload1.ashx.cs">
       <DependentUpon>Upload1.ashx</DependentUpon>

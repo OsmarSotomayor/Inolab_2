@@ -62,8 +62,7 @@ namespace INOLAB_OC
 
                     if (Session["idUsuario"].ToString() == "8")
                     {
-                        Response.Redirect("../CalSel.aspx");
-
+                        Response.Redirect("../Vista/Ingenieros/CalSel.aspx");
                     }
                     if (idArea == areaVentas)
                     {
