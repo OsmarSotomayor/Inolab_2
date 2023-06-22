@@ -90,7 +90,5 @@ namespace INOLAB_OC
             Controlador_Sesion.loggearUsuario(txtUsuario.Text, lblip.Text);
         }
 
-
-
     }
 }
