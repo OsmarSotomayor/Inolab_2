@@ -4,6 +4,7 @@ using System.Data;
 using System.Diagnostics;
 using INOLAB_OC.Controlador;
 using INOLAB_OC.Modelo;
+using INOLAB_OC.Entidades;
 
 namespace INOLAB_OC
 {
@@ -33,9 +34,9 @@ namespace INOLAB_OC
                 Session["fecha1"] = "";
                 Session["fecha2"] = "";
 
-                Log();
-                
-                DataRow  dataUser = Controlador_Sesion.optenerDatosDeUsuario(txtUsuario.Text, txtPass.Text);
+                registrarInicioDeSesionDeUsuario();
+
+                DataRow  dataUser = C_Sesion.optenerDatosDeUsuario(txtUsuario.Text, txtPass.Text);
                 
                 if ((txtUsuario.Text == dataUser["Usuario"].ToString()) || (txtPass.Text == dataUser["Password_"].ToString()))
                 {
@@ -85,9 +86,13 @@ namespace INOLAB_OC
             }
         }
 
-        public void Log()
+        private void registrarInicioDeSesionDeUsuario()
         {
-            Controlador_Sesion.loggearUsuario(txtUsuario.Text, lblip.Text);
+            E_Usuario usuario = new E_Usuario();
+            usuario.NombreDeUsuario = txtUsuario.Text;
+            usuario.IP = lblip.Text;
+
+            C_Sesion.loggearUsuario(usuario);
         }
 
     }

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using INOLAB_OC.Entidades;
 using INOLAB_OC.Modelo;
 
 namespace INOLAB_OC.Controlador
 {
-    public class Controlador_Sesion
+    public class C_Sesion
     {
         public static DataRow optenerDatosDeUsuario(string usuario, string contraseña)
         {
@@ -15,9 +16,9 @@ namespace INOLAB_OC.Controlador
             return datosDelUsuario;
         }
 
-        public static void loggearUsuario(string usuario, string ip)
+        public static void loggearUsuario(E_Usuario usuario)
         {
-            LogicaConexion.executeStoreProcedureLogWeb(usuario,ip);
+            LogicaConexion.executeStoreProcedureLogWeb(usuario);
         }
     }
 }
