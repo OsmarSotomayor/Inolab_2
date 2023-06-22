@@ -48,7 +48,8 @@
                                 <asp:ListItem>Fisicoquímico</asp:ListItem>
                                 <asp:ListItem>Temperatura</asp:ListItem>
                                 </asp:DropDownList>
-                                <asp:Button class="boton" ID="btnSesion" runat="server" Width="300px" Text="Ir a Calendario" OnClick="Iniciar_sesion_en_calendario_area_Click" ></asp:Button></span>
+                                <asp:Button class="boton" ID="btnSesion" runat="server" Width="300px" Text="Ir a Calendario" OnClick="Iniciar_sesion_en_calendario_area_Click" ></asp:Button><br />
+                                <asp:Button  runat="server" ID="Btn_volver_a_inicio_sesion" Text="Volver a Inicio de Sesion " Width="300px" OnClick="Volder_a_inicio_de_sesion_Click" />
                             </div>
                         </fieldset>
                         <div class="clearfix">

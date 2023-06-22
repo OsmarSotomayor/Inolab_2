@@ -192,6 +192,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BrowserDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Controlador\Controlador_Session.cs" />
+    <Compile Include="Modelo\LogicaConexion.cs" />
     <Compile Include="Vista\Ingenieros\Calendario.aspx.cs">
       <DependentUpon>Calendario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -415,7 +417,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Adjuntos\" />
-    <Folder Include="Controlador\" />
     <Folder Include="Folio\" />
     <Folder Include="uploads\" />
   </ItemGroup>

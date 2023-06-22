@@ -56,5 +56,10 @@ namespace INOLAB_OC
                 Response.Redirect("Calendario_Areas.aspx");
             }
         }
+
+        protected void  Volder_a_inicio_de_sesion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Vista/Sesion.aspx");
+        }
     }
 }

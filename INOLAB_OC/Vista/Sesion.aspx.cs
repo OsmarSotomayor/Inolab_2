@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
-using INOLAB_OC.Modelo;
 using System.Diagnostics;
+using INOLAB_OC.Controlador;
+using INOLAB_OC.Modelo;
 
 namespace INOLAB_OC
 {
@@ -10,18 +11,20 @@ namespace INOLAB_OC
     {
         const string areaVentas = "2";
         const string areaServiciosIngenieria = "6";
-        const string directorArtemio = "7";
+        const string ceoArtemio = "7";
+        const string usuarioElizabethHuazo = "8";
         protected void Page_Load(object sender, EventArgs e)
         {
           string IP = Request.ServerVariables["REMOTE_ADDR"];
-          lblip.Text = IP.ToString();   
+          lblip.Text = IP.ToString();
+
         }
 
-      
-        public void Log()
+        protected void Inicio_De_Sesion_Click(object sender, EventArgs e)
         {
-            Conexion.executeStoreProcedureLogWeb(txtUsuario.Text, lblip.Text);
+            ingresarAlAreaCorrespondiente();
         }
+
         public void ingresarAlAreaCorrespondiente()
         {
             try
@@ -32,7 +35,7 @@ namespace INOLAB_OC
 
                 Log();
                 
-                DataRow dataUser = Conexion.getDataRow("select  Usuario, Password_,Nombre, Apellidos,idarea,idrol,IdUsuario from Usuarios where usuario='" + txtUsuario.Text + "' and password_='" + txtPass.Text + "'");
+                DataRow  dataUser = Controlador_Sesion.optenerDatosDeUsuario(txtUsuario.Text, txtPass.Text);
                 
                 if ((txtUsuario.Text == dataUser["Usuario"].ToString()) || (txtPass.Text == dataUser["Password_"].ToString()))
                 {
@@ -55,23 +58,23 @@ namespace INOLAB_OC
                 }
                 else
                 {
-                    
-                    //Para el caso de que sea Liz la que ingrese, se le mostraran los calendarios de servicios que hay de todos los ingenieros correspondiendo a su area
                     Session["idUsuario"] = dataUser["idUsuario"].ToString();
                     Session["nameUsuario"] = dataUser["Nombre"].ToString();
 
-                    if (Session["idUsuario"].ToString() == "8")
+                    if (Session["idUsuario"].ToString().Equals(usuarioElizabethHuazo))
                     {
                         Response.Redirect("../Vista/Ingenieros/CalSel.aspx");
                     }
                     if (idArea == areaVentas)
                     {
-                        if(Session["idUsuario"].ToString() == directorArtemio)
+                        if(Session["idUsuario"].ToString() == ceoArtemio)
                         {
                             Response.Redirect("../Vista/Ventas/CRM_4.aspx");
                         }
-                        Response.Redirect("../Vista/Ventas/CRM_1.aspx");
-          
+                        else
+                        {
+                            Response.Redirect("../Vista/Ventas/CRM_1.aspx");
+                        }
                     }
 
                 }
@@ -82,10 +85,11 @@ namespace INOLAB_OC
             }
         }
 
-        protected void Inicio_De_Sesion_Click(object sender, EventArgs e)
+        public void Log()
         {
-            ingresarAlAreaCorrespondiente();
+            Controlador_Sesion.loggearUsuario(txtUsuario.Text, lblip.Text);
         }
+
 
 
     }

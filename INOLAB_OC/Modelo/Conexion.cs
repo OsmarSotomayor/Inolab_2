@@ -29,8 +29,7 @@ namespace INOLAB_OC.Modelo
         private static bool databaseProduction = false;
         private static bool databaseTest = true;
 
-       
-        private static void initDatabase()
+        private Conexion()
         {
             if (databaseTest)
             {
@@ -39,7 +38,8 @@ namespace INOLAB_OC.Modelo
                 user = "ventas";
                 password = "V3ntas_17";
             }
-            else {
+            else
+            {
                 source = "INOLABSERVER03";
                 catalog = "Browser";
                 user = "ventas";
@@ -49,11 +49,39 @@ namespace INOLAB_OC.Modelo
             conexion = new SqlConnection(conexionString);
         }
 
-      
+        private static void iniciarBaseDeDatos()
+        {
+            if (databaseTest)
+            {
+                source = "INOLABSERVER03";
+                catalog = "BrowserPruebas";
+                user = "ventas";
+                password = "V3ntas_17";
+            }
+            else
+            {
+                source = "INOLABSERVER03";
+                catalog = "Browser";
+                user = "ventas";
+                password = "V3ntas_17";
+            }
+            string conexionString = @"Data Source=" + source + ";Initial Catalog=" + catalog + ";Persist Security Info=True;User ID=" + user + ";Password= " + password + "";
+            conexion = new SqlConnection(conexionString);
+        }
+
+        public static SqlConnection crearConexionABrowser()
+        {
+            iniciarBaseDeDatos();
+            string conexionString = @"Data Source=" + source + ";Initial Catalog=" + catalog + ";Persist Security Info=True;User ID=" + user + ";Password= " + password + "";
+            conexion = new SqlConnection(conexionString);
+            return conexion;
+        }
+
+
 
         public static bool executeQuery(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 SqlCommand comand = new SqlCommand(query, conexion);
@@ -73,7 +101,7 @@ namespace INOLAB_OC.Modelo
 
         public static int getScalar(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 SqlCommand comand = new SqlCommand(query,conexion);
@@ -94,7 +122,7 @@ namespace INOLAB_OC.Modelo
 
         public static string getText(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 DataSet table = new DataSet();
@@ -122,7 +150,7 @@ namespace INOLAB_OC.Modelo
 
         public static object getObject(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 conexion.Open();
@@ -144,7 +172,7 @@ namespace INOLAB_OC.Modelo
 
         public static bool isThereSomeInformation(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 DataSet table = new DataSet();
@@ -164,7 +192,7 @@ namespace INOLAB_OC.Modelo
 
         public static DataTable getDataTable(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 DataSet table = new DataSet();
@@ -185,7 +213,7 @@ namespace INOLAB_OC.Modelo
 
         public static DataRow getDataRow(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 DataSet tabla = new DataSet();
@@ -206,7 +234,7 @@ namespace INOLAB_OC.Modelo
 
         public static DataSet getDataSet(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 conexion.Open();
@@ -230,7 +258,7 @@ namespace INOLAB_OC.Modelo
 
         public static DateTime getDateTime(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             DateTime error = DateTime.Now;
             try
             {
@@ -255,7 +283,7 @@ namespace INOLAB_OC.Modelo
 
         public static int getNumberOfRowsAfected(string query)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 conexion.Open();
@@ -276,7 +304,7 @@ namespace INOLAB_OC.Modelo
 
         public static void executeStoreProcedureLogWeb(string usuario, string ip)
         {
-            initDatabase();
+            iniciarBaseDeDatos();
             SqlCommand comando = new SqlCommand("LogWeb", conexion);
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@usuario", SqlDbType.VarChar);
@@ -292,8 +320,9 @@ namespace INOLAB_OC.Modelo
 
        public static int insertarFirmaImagen(string nombreDeImagen,string tipoDeImagen,string imagen)
         {
-            initDatabase();
-            try{
+            iniciarBaseDeDatos();
+            try
+            {
                 conexion.Open();
                 SqlCommand firma = new SqlCommand("Insert into FirmaImg(ImageName,MimeType,ImageBits)" +
                     " values(@nombre,@mime,@image);" +
@@ -320,7 +349,7 @@ namespace INOLAB_OC.Modelo
 
       public static SqlDataReader getSqlDataReader(string query)
          {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 conexion.Open();
@@ -344,7 +373,7 @@ namespace INOLAB_OC.Modelo
 
       public static void updateHorasDeServicio(object folio, object idUsuario)
       {
-            initDatabase();
+            iniciarBaseDeDatos();
             try
             {
                 conexion.Open();
