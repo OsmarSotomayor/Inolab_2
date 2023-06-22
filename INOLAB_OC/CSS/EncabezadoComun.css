@@ -157,3 +157,8 @@ header nav {
     height: 50px;
 }
 
+#Btn_Salir_Calendario_Areas{
+    position:absolute;
+    top:10px;
+}
+

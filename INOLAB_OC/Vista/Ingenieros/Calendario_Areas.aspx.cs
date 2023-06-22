@@ -15,6 +15,11 @@ namespace INOLAB_OC
         string Area = "";
         protected void Page_Load(object sender, EventArgs e)
         {
+         verificarCorrectoInicioDeSession();
+        }
+
+        private void verificarCorrectoInicioDeSession()
+        {
             if (Session["idUsuario"] == null)
             {
                 Response.Redirect("./Sesion.aspx");
@@ -26,6 +31,7 @@ namespace INOLAB_OC
             }
         }
         //Conexion a base de datos (Para la base de datos de pruebas cambiar a BrowserPruebas)
+        
         SqlConnection con = new SqlConnection(@"Data Source=INOLABSERVER03;Initial Catalog=Browser;Persist Security Info=True;User ID=ventas;Password=V3ntas_17");
 
         protected void Page_Init(object sender, EventArgs e)
