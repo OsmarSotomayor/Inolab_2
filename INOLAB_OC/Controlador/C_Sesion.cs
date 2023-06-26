@@ -18,6 +18,7 @@ namespace INOLAB_OC.Controlador
 
         public static void loggearUsuario(E_Usuario usuario)
         {
+
             LogicaConexion.executeStoreProcedureLogWeb(usuario);
         }
     }
