@@ -22,6 +22,8 @@ namespace INOLAB_OC
             //    lblidarea.Text = Request.Params["idar"];
             //    lblrol.Text = Request.Params["idr"];
             //}
+            //testgit
+            //cambio
 
             if (Session["valor"] == null)
             {
