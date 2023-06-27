@@ -7,7 +7,7 @@ using INOLAB_OC.Modelo;
 using INOLAB_OC.Entidades;
 
 namespace INOLAB_OC
-{
+{   //COMENTARIO DE RAMA OMAR_DEVELOP
     public partial class Sesion : System.Web.UI.Page
     {
         const string areaVentas = "2";
