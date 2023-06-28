@@ -196,7 +196,6 @@
     <Compile Include="Controlador\C_Sesion.cs" />
     <Compile Include="Entidades\E_Servicio.cs" />
     <Compile Include="Entidades\E_Usuario.cs" />
-    <Compile Include="Funcionalidad\Funcionalidad.cs" />
     <Compile Include="Modelo\LogicaConexion.cs" />
     <Compile Include="Vista\Ingenieros\Calendario.aspx.cs">
       <DependentUpon>Calendario.aspx</DependentUpon>
@@ -419,11 +418,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Adjuntos\" />
-    <Folder Include="Folio\" />
-    <Folder Include="uploads\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
