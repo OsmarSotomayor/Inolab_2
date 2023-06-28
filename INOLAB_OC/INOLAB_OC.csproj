@@ -88,44 +88,37 @@
   <ItemGroup>
     <Content Include="Adjuntar.aspx" />
     <Content Include="anexos.aspx" />
-    <Content Include="Vista\Ingenieros\Calendario.aspx" />
-    <Content Include="Vista\Ingenieros\Calendario_Areas.aspx" />
-    <Content Include="Vista\Ingenieros\CalSel.aspx" />
-    <Content Include="Vista\Ingenieros\CargaFin.aspx" />
+    <Content Include="Calendario.aspx" />
+    <Content Include="Calendario_Areas.aspx" />
+    <Content Include="CalSel.aspx" />
+    <Content Include="CargaFin.aspx" />
     <Content Include="ConfirmacionServicio.aspx" />
     <Content Include="Cotizacion.aspx" />
-    <Content Include="Vista\Ventas\CRM_1.aspx" />
-    <Content Include="Vista\Ventas\CRM_2.aspx" />
-    <Content Include="Vista\Ventas\CRM_3.aspx" />
-    <Content Include="Vista\Ventas\CRM_4.aspx" />
+    <Content Include="CRM_1.aspx" />
+    <Content Include="CRM_2.aspx" />
+    <Content Include="CRM_3.aspx" />
+    <Content Include="CRM_4.aspx" />
     <Content Include="CSS\drop.css" />
     <Content Include="CSS\Encabezado.css" />
-    <Content Include="CSS\EncabezadoCalendario.css" />
-    <Content Include="CSS\EncabezadoComun.css" />
-    <Content Include="CSS\EncabezadoCRM_1.css" />
-    <Content Include="CSS\EncabezadoCRM_2.css" />
-    <Content Include="CSS\EncabezadoCRM_3.css" />
-    <Content Include="CSS\EncabezadoDescargaFolio.css" />
-    <Content Include="CSS\EncabezadoDetalleFSR.css" />
-    <Content Include="CSS\EncabezadoFirmaFolio.css" />
-    <Content Include="CSS\EncabezadoFSR.css" />
-    <Content Include="CSS\EncabezadoInformacion.css" />
-    <Content Include="CSS\EncabezadoVistaPrevia.css" />
     <Content Include="CSS\EstiloVista.css" />
     <Content Include="CSS\main.css" />
     <Content Include="CSS\stilos.css" />
     <Content Include="CSS\uploadify.css" />
-    <Content Include="Vista\Ingenieros\DescargaFolio.aspx" />
+    <Content Include="DescargaFolio.aspx" />
     <Content Include="Detalle Registro1.aspx" />
-    <Content Include="Vista\Ingenieros\DetalleFSR.aspx" />
+    <Content Include="DetalleFSR.aspx" />
     <Content Include="Detalles Registro Equipo1.aspx" />
     <Content Include="Docs\0.pdf" />
+    <Content Include="ejemplo.aspx" />
     <Content Include="CSS\EncabezadoConfirmacion.css" />
     <Content Include="CSS\EstiloVistaConfirmacion.css" />
-    <Content Include="Vista\Ingenieros\FirmarFolio.aspx" />
+    <Content Include="ejemplo1.aspx" />
+    <Content Include="ejemplosubir.aspx" />
+    <Content Include="experimento.aspx" />
+    <Content Include="FirmarFolio.aspx" />
     <Content Include="Folios.aspx" />
     <Content Include="FormatoFecha.js" />
-    <Content Include="Vista\Ingenieros\FSR.aspx" />
+    <Content Include="FSR.aspx" />
     <Content Include="HTML\index.html" />
     <Content Include="HTML\index2.html" />
     <Content Include="HTML\index_not_ase.html" />
@@ -136,17 +129,19 @@
     <Content Include="Imagenes\LOGO_Blanco_Lineas.png" />
     <Content Include="Imagenes\slogan.png" />
     <Content Include="images\cancel.png" />
-    <Content Include="Vista\Ingenieros\Informacion.aspx" />
+    <Content Include="Informacion.aspx" />
+    <Content Include="Principal.aspx" />
     <Content Include="Registros1.aspx" />
     <Content Include="Registro_Equipos1.aspx" />
     <Content Include="Reporte.aspx" />
     <Content Include="scripts\jquery-1.3.2.min.js" />
     <Content Include="scripts\jquery.uploadify.js" />
     <Content Include="scripts\uploader.swf" />
-    <Content Include="Vista\Ingenieros\ServiciosAsignados.aspx" />
+    <Content Include="ServiciosAsignados.aspx" />
     <Content Include="Servicio_OC1.aspx" />
-    <Content Include="Vista\Sesion.aspx" />
+    <Content Include="Sesion.aspx" />
     <Content Include="SubiendoArchivos.aspx" />
+    <Content Include="SubirArchivos.aspx" />
     <Content Include="upload.html" />
     <Content Include="uploadify-master\change-log.txt" />
     <Content Include="uploadify-master\check-exists.php" />
@@ -167,7 +162,7 @@
     <Content Include="uploadify-master\uploadifive-image-only.php" />
     <Content Include="uploadify-master\uploadifive.css" />
     <Content Include="uploadify-master\uploadifive.php" />
-    <Content Include="Vista\Ingenieros\VistaPrevia.aspx" />
+    <Content Include="VistaPrevia.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -192,37 +187,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BrowserDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Controlador\C_ServiciosAsignados.cs" />
-    <Compile Include="Controlador\C_Sesion.cs" />
-    <Compile Include="Entidades\E_Servicio.cs" />
-    <Compile Include="Entidades\E_Usuario.cs" />
-    <Compile Include="Modelo\LogicaConexion.cs" />
-    <Compile Include="Vista\Ingenieros\Calendario.aspx.cs">
-      <DependentUpon>Calendario.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Vista\Ingenieros\Calendario.aspx.designer.cs">
+    <Compile Include="Calendario.aspx.cs">
       <DependentUpon>Calendario.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\Calendario_Areas.aspx.cs">
+    <Compile Include="Calendario.aspx.designer.cs">
+      <DependentUpon>Calendario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Calendario_Areas.aspx.cs">
       <DependentUpon>Calendario_Areas.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vista\Ingenieros\Calendario_Areas.aspx.designer.cs">
+    <Compile Include="Calendario_Areas.aspx.designer.cs">
       <DependentUpon>Calendario_Areas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\CalSel.aspx.cs">
-      <DependentUpon>CalSel.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Vista\Ingenieros\CalSel.aspx.designer.cs">
+    <Compile Include="CalSel.aspx.cs">
       <DependentUpon>CalSel.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\CargaFin.aspx.cs">
+    <Compile Include="CalSel.aspx.designer.cs">
+      <DependentUpon>CalSel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CargaFin.aspx.cs">
       <DependentUpon>CargaFin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vista\Ingenieros\CargaFin.aspx.designer.cs">
+    <Compile Include="CargaFin.aspx.designer.cs">
       <DependentUpon>CargaFin.aspx</DependentUpon>
     </Compile>
     <Compile Include="ConfirmacionServicio.aspx.cs">
@@ -239,39 +225,34 @@
     <Compile Include="Cotizacion.aspx.designer.cs">
       <DependentUpon>Cotizacion.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ventas\CRM_1.aspx.cs">
-      <DependentUpon>CRM_1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Vista\Ventas\CRM_1.aspx.designer.cs">
+    <Compile Include="CRM_1.aspx.cs">
       <DependentUpon>CRM_1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ventas\CRM_2.aspx.cs">
+    <Compile Include="CRM_1.aspx.designer.cs">
+      <DependentUpon>CRM_1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CRM_2.aspx.cs">
       <DependentUpon>CRM_2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vista\Ventas\CRM_2.aspx.designer.cs">
+    <Compile Include="CRM_2.aspx.designer.cs">
       <DependentUpon>CRM_2.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ventas\CRM_3.aspx.cs">
-      <DependentUpon>CRM_3.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Vista\Ventas\CRM_3.aspx.designer.cs">
+    <Compile Include="CRM_3.aspx.cs">
       <DependentUpon>CRM_3.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ventas\CRM_4.aspx.cs">
-      <DependentUpon>CRM_4.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="CRM_3.aspx.designer.cs">
+      <DependentUpon>CRM_3.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ventas\CRM_4.aspx.designer.cs">
+    <Compile Include="CRM_4.aspx.cs">
       <DependentUpon>CRM_4.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\DescargaFolio.aspx.cs">
+    <Compile Include="CRM_4.aspx.designer.cs">
+      <DependentUpon>CRM_4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DescargaFolio.aspx.cs">
       <DependentUpon>DescargaFolio.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vista\Ingenieros\DescargaFolio.aspx.designer.cs">
+    <Compile Include="DescargaFolio.aspx.designer.cs">
       <DependentUpon>DescargaFolio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Detalle Registro1.aspx.cs">
@@ -281,11 +262,10 @@
     <Compile Include="Detalle Registro1.aspx.designer.cs">
       <DependentUpon>Detalle Registro1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\DetalleFSR.aspx.cs">
+    <Compile Include="DetalleFSR.aspx.cs">
       <DependentUpon>DetalleFSR.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vista\Ingenieros\DetalleFSR.aspx.designer.cs">
+    <Compile Include="DetalleFSR.aspx.designer.cs">
       <DependentUpon>DetalleFSR.aspx</DependentUpon>
     </Compile>
     <Compile Include="Detalles Registro Equipo1.aspx.cs">
@@ -295,11 +275,34 @@
     <Compile Include="Detalles Registro Equipo1.aspx.designer.cs">
       <DependentUpon>Detalles Registro Equipo1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\FirmarFolio.aspx.cs">
-      <DependentUpon>FirmarFolio.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="ejemplo.aspx.cs">
+      <DependentUpon>ejemplo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\FirmarFolio.aspx.designer.cs">
+    <Compile Include="ejemplo.aspx.designer.cs">
+      <DependentUpon>ejemplo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ejemplo1.aspx.cs">
+      <DependentUpon>ejemplo1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ejemplo1.aspx.designer.cs">
+      <DependentUpon>ejemplo1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ejemplosubir.aspx.cs">
+      <DependentUpon>ejemplosubir.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ejemplosubir.aspx.designer.cs">
+      <DependentUpon>ejemplosubir.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="experimento.aspx.cs">
+      <DependentUpon>experimento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="experimento.aspx.designer.cs">
+      <DependentUpon>experimento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FirmarFolio.aspx.cs">
+      <DependentUpon>FirmarFolio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FirmarFolio.aspx.designer.cs">
       <DependentUpon>FirmarFolio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Folios.aspx.cs">
@@ -309,23 +312,24 @@
     <Compile Include="Folios.aspx.designer.cs">
       <DependentUpon>Folios.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\FSR.aspx.cs">
-      <DependentUpon>FSR.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Vista\Ingenieros\FSR.aspx.designer.cs">
+    <Compile Include="FSR.aspx.cs">
       <DependentUpon>FSR.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\Informacion.aspx.cs">
-      <DependentUpon>Informacion.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="FSR.aspx.designer.cs">
+      <DependentUpon>FSR.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\Informacion.aspx.designer.cs">
+    <Compile Include="Informacion.aspx.cs">
       <DependentUpon>Informacion.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modelo\Conexion.cs" />
-    <Compile Include="Modelo\ConexionComercial.cs" />
-    <Compile Include="Modelo\ConexionInolab.cs" />
+    <Compile Include="Informacion.aspx.designer.cs">
+      <DependentUpon>Informacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Principal.aspx.cs">
+      <DependentUpon>Principal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Principal.aspx.designer.cs">
+      <DependentUpon>Principal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registros1.aspx.cs">
       <DependentUpon>Registros1.aspx</DependentUpon>
@@ -348,11 +352,10 @@
     <Compile Include="Reporte.aspx.designer.cs">
       <DependentUpon>Reporte.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\ServiciosAsignados.aspx.cs">
+    <Compile Include="ServiciosAsignados.aspx.cs">
       <DependentUpon>ServiciosAsignados.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vista\Ingenieros\ServiciosAsignados.aspx.designer.cs">
+    <Compile Include="ServiciosAsignados.aspx.designer.cs">
       <DependentUpon>ServiciosAsignados.aspx</DependentUpon>
     </Compile>
     <Compile Include="Servicio_OC1.aspx.cs">
@@ -362,11 +365,10 @@
     <Compile Include="Servicio_OC1.aspx.designer.cs">
       <DependentUpon>Servicio_OC1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Sesion.aspx.cs">
+    <Compile Include="Sesion.aspx.cs">
       <DependentUpon>Sesion.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vista\Sesion.aspx.designer.cs">
+    <Compile Include="Sesion.aspx.designer.cs">
       <DependentUpon>Sesion.aspx</DependentUpon>
     </Compile>
     <Compile Include="SubiendoArchivos.aspx.cs">
@@ -376,14 +378,19 @@
     <Compile Include="SubiendoArchivos.aspx.designer.cs">
       <DependentUpon>SubiendoArchivos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SubirArchivos.aspx.cs">
+      <DependentUpon>SubirArchivos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubirArchivos.aspx.designer.cs">
+      <DependentUpon>SubirArchivos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Upload1.ashx.cs">
       <DependentUpon>Upload1.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Ingenieros\VistaPrevia.aspx.cs">
+    <Compile Include="VistaPrevia.aspx.cs">
       <DependentUpon>VistaPrevia.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vista\Ingenieros\VistaPrevia.aspx.designer.cs">
+    <Compile Include="VistaPrevia.aspx.designer.cs">
       <DependentUpon>VistaPrevia.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
