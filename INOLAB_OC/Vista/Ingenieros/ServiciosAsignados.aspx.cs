@@ -315,22 +315,19 @@ public partial class ServiciosAsignados : System.Web.UI.Page
     {
 
         ServerReport serverReport = ReportViewer1.ServerReport;
-        // Set the report server URL and report path
         serverReport.ReportServerUrl = new Uri("http://INOLABSERVER01/Reportes_Inolab");
         serverReport.ReportPath = "/OC/FSR Servicio";
 
-        // Create the sales order number report parameter
         ReportParameter salesOrderNumber = new ReportParameter();
         salesOrderNumber.Name = "folio";
         salesOrderNumber.Values.Add(folio);
 
-        // Set the report parameters for the report
+
         ReportViewer1.ServerReport.SetParameters(new ReportParameter[] { salesOrderNumber });
         ReportViewer1.ShowParameterPrompts = false;
 
-        string month = DateTime.Now.Month.ToString();
-        string year = DateTime.Now.Year.ToString();
-        string nombre = "Folio:" + folio + "_" + year + ".pdf";
+        string año = DateTime.Now.Year.ToString();
+        string nombre = "Folio:" + folio + "_" + año + ".pdf";
         CrearArchivoPDF(nombre);
     }
 

@@ -13,6 +13,8 @@ using System.Web;
 using System.Web.UI;
 using System.Diagnostics;
 using System.EnterpriseServices;
+using INOLAB_OC.Controlador;
+using INOLAB_OC.Entidades;
 
 namespace INOLAB_OC
 {
@@ -396,21 +398,18 @@ namespace INOLAB_OC
                 if (!correoDeCliente.Equals("") || correoDeCliente != null)
                 {
                     string correoElectronicoCliente = correoDeCliente;
-                    
-
+                     
                     //Actualizacion de estatus de el FSR con los datos correspondientes
                     Conexion.updateHorasDeServicio(Session["folio_p"], Session["idUsuario"]);
                     actualizarDatosEnSap();
-
-                    string actualizacionDeEstatusFolioAFinalizado = "UPDATE FSR SET IdStatus = 3 WHERE Folio = " + Session["folio_p"].ToString() + " and IdStatus = 2;";
-                    Conexion.executeQuery(actualizacionDeEstatusFolioAFinalizado);
-
+                    
+                    C_CargaFin.cambiarEstatusDeFolioAFinalizado(Session["folio_p"].ToString());
                     actualizarEstatusDeCierreDeActividadEnSap();
-
+                     
                     ReportViewer1.ServerReport.Refresh();
                     string path = CreatePDF(Session["folio_p"].ToString());
                     notificarAlAsesorDeVentasDadosDeFolioServicio();
-
+                     
                     verificarElTipoDeContrato(path, correoElectronicoCliente);
                     envioDeCorreoElectronicoConInformacionFSR(path, correoElectronicoCliente);
                     Response.Redirect("ServiciosAsignados.aspx");

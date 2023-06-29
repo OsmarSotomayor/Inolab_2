@@ -7,10 +7,15 @@ namespace INOLAB_OC.Entidades
 {
     public class E_Servicio
     {
-        public string IdFolio {get; set;}
+        public int IdFSR {get; set;}
 
-        public string Folio { get; set;}    
+        public int Folio { get; set;}    
 
-        public string Cliente { get; set;}
+        public string idCliente { get; set;}
+
+        public string Inicio_Servicio { get; set;}
+
+        public string Fin_Servicio { get; set;}
+
     }
 }

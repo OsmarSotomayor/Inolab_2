@@ -192,6 +192,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BrowserDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Controlador\C_CargaFin.cs" />
     <Compile Include="Controlador\C_ServiciosAsignados.cs" />
     <Compile Include="Controlador\C_Sesion.cs" />
     <Compile Include="Entidades\E_Servicio.cs" />
