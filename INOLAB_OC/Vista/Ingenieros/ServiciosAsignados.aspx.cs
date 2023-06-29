@@ -366,7 +366,7 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         }
         if (Estatus_de_servicio.Text == "Finalizado")
         {
-            query = "select *from v_fsr where estatus='Finalizado' and idingeniero=" + Session["idusuario"]+ " order by folio desc";
+            query = "select * from v_fsr where estatus='Finalizado' and idingeniero=" + Session["idusuario"]+ " order by folio desc";
             consultarFoliosDeServicio(query);
         }
         if (Estatus_de_servicio.Text == "Todos")
