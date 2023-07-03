@@ -95,8 +95,8 @@ namespace INOLAB_OC
             E_Usuario usuario = new E_Usuario();
             usuario.NombreDeUsuario = txtUsuario.Text;
             usuario.IP = lblip.Text;
-
-            C_Sesion.loggearUsuario(usuario);
+            controladorSesion.loggearUsuario(usuario);
+            
         }
 
     }

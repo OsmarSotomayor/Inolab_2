@@ -11,6 +11,9 @@ namespace INOLAB_OC.Modelo.Browser
 {
     public interface IBrowserRepository
     {
-        DataRow OptenerDatosDeUsuario(E_Usuario usuario); 
+        DataRow OptenerDatosDeUsuario(E_Usuario usuario);
+
+        void executeStoreProcedureLogWeb(E_Usuario usuario);
+
     }
 }
