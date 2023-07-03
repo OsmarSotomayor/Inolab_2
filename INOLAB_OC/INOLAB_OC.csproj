@@ -192,13 +192,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BrowserDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Controlador\C_CargaFin.cs" />
-    <Compile Include="Controlador\C_FSR.cs" />
-    <Compile Include="Controlador\C_ServiciosAsignados.cs" />
+    <Compile Include="Controlador\Ingenieros\C_CargaFin.cs" />
+    <Compile Include="Controlador\Ingenieros\C_FSR.cs" />
+    <Compile Include="Controlador\Ingenieros\C_ServiciosAsignados.cs" />
     <Compile Include="Controlador\C_Sesion.cs" />
     <Compile Include="Entidades\E_Servicio.cs" />
     <Compile Include="Entidades\E_Usuario.cs" />
-    <Compile Include="Modelo\LogicaConexion.cs" />
+    <Compile Include="Modelo\Browser\BrowserRepository.cs" />
+    <Compile Include="Modelo\Browser\IBrowserRepository.cs" />
+    <Compile Include="Modelo\Browser\LogicaConexion.cs" />
     <Compile Include="Vista\Ingenieros\Calendario.aspx.cs">
       <DependentUpon>Calendario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -325,9 +327,9 @@
     <Compile Include="Vista\Ingenieros\Informacion.aspx.designer.cs">
       <DependentUpon>Informacion.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modelo\Conexion.cs" />
-    <Compile Include="Modelo\ConexionComercial.cs" />
-    <Compile Include="Modelo\ConexionInolab.cs" />
+    <Compile Include="Modelo\Browser\Conexion.cs" />
+    <Compile Include="Modelo\Comercial\ConexionComercial.cs" />
+    <Compile Include="Modelo\Inolab\ConexionInolab.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registros1.aspx.cs">
       <DependentUpon>Registros1.aspx</DependentUpon>
@@ -420,7 +422,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controlador\Ventas\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
