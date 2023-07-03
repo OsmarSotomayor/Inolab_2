@@ -33,7 +33,6 @@ namespace INOLAB_OC
         {
             try
             {
-                //Fechas para el calendario
                 Session["fecha1"] = "";
                 Session["fecha2"] = "";
 

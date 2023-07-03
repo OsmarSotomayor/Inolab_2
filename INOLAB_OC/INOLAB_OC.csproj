@@ -86,14 +86,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Adjuntar.aspx" />
-    <Content Include="anexos.aspx" />
     <Content Include="Vista\Ingenieros\Calendario.aspx" />
     <Content Include="Vista\Ingenieros\Calendario_Areas.aspx" />
     <Content Include="Vista\Ingenieros\CalSel.aspx" />
     <Content Include="Vista\Ingenieros\CargaFin.aspx" />
-    <Content Include="ConfirmacionServicio.aspx" />
-    <Content Include="Cotizacion.aspx" />
     <Content Include="Vista\Ventas\CRM_1.aspx" />
     <Content Include="Vista\Ventas\CRM_2.aspx" />
     <Content Include="Vista\Ventas\CRM_3.aspx" />
@@ -116,14 +112,11 @@
     <Content Include="CSS\stilos.css" />
     <Content Include="CSS\uploadify.css" />
     <Content Include="Vista\Ingenieros\DescargaFolio.aspx" />
-    <Content Include="Detalle Registro1.aspx" />
     <Content Include="Vista\Ingenieros\DetalleFSR.aspx" />
-    <Content Include="Detalles Registro Equipo1.aspx" />
     <Content Include="Docs\0.pdf" />
     <Content Include="CSS\EncabezadoConfirmacion.css" />
     <Content Include="CSS\EstiloVistaConfirmacion.css" />
     <Content Include="Vista\Ingenieros\FirmarFolio.aspx" />
-    <Content Include="Folios.aspx" />
     <Content Include="FormatoFecha.js" />
     <Content Include="Vista\Ingenieros\FSR.aspx" />
     <Content Include="HTML\index.html" />
@@ -137,16 +130,11 @@
     <Content Include="Imagenes\slogan.png" />
     <Content Include="images\cancel.png" />
     <Content Include="Vista\Ingenieros\Informacion.aspx" />
-    <Content Include="Registros1.aspx" />
-    <Content Include="Registro_Equipos1.aspx" />
-    <Content Include="Reporte.aspx" />
     <Content Include="scripts\jquery-1.3.2.min.js" />
     <Content Include="scripts\jquery.uploadify.js" />
     <Content Include="scripts\uploader.swf" />
     <Content Include="Vista\Ingenieros\ServiciosAsignados.aspx" />
-    <Content Include="Servicio_OC1.aspx" />
     <Content Include="Vista\Sesion.aspx" />
-    <Content Include="SubiendoArchivos.aspx" />
     <Content Include="upload.html" />
     <Content Include="uploadify-master\change-log.txt" />
     <Content Include="uploadify-master\check-exists.php" />
@@ -173,20 +161,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adjuntar.aspx.cs">
-      <DependentUpon>Adjuntar.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Adjuntar.aspx.designer.cs">
-      <DependentUpon>Adjuntar.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="anexos.aspx.cs">
-      <DependentUpon>anexos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="anexos.aspx.designer.cs">
-      <DependentUpon>anexos.aspx</DependentUpon>
-    </Compile>
     <Compile Include="BrowserDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -229,20 +203,6 @@
     <Compile Include="Vista\Ingenieros\CargaFin.aspx.designer.cs">
       <DependentUpon>CargaFin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ConfirmacionServicio.aspx.cs">
-      <DependentUpon>ConfirmacionServicio.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ConfirmacionServicio.aspx.designer.cs">
-      <DependentUpon>ConfirmacionServicio.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Cotizacion.aspx.cs">
-      <DependentUpon>Cotizacion.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Cotizacion.aspx.designer.cs">
-      <DependentUpon>Cotizacion.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Vista\Ventas\CRM_1.aspx.cs">
       <DependentUpon>CRM_1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -278,13 +238,6 @@
     <Compile Include="Vista\Ingenieros\DescargaFolio.aspx.designer.cs">
       <DependentUpon>DescargaFolio.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Detalle Registro1.aspx.cs">
-      <DependentUpon>Detalle Registro1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Detalle Registro1.aspx.designer.cs">
-      <DependentUpon>Detalle Registro1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Vista\Ingenieros\DetalleFSR.aspx.cs">
       <DependentUpon>DetalleFSR.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -292,26 +245,12 @@
     <Compile Include="Vista\Ingenieros\DetalleFSR.aspx.designer.cs">
       <DependentUpon>DetalleFSR.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Detalles Registro Equipo1.aspx.cs">
-      <DependentUpon>Detalles Registro Equipo1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Detalles Registro Equipo1.aspx.designer.cs">
-      <DependentUpon>Detalles Registro Equipo1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Vista\Ingenieros\FirmarFolio.aspx.cs">
       <DependentUpon>FirmarFolio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Vista\Ingenieros\FirmarFolio.aspx.designer.cs">
       <DependentUpon>FirmarFolio.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Folios.aspx.cs">
-      <DependentUpon>Folios.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Folios.aspx.designer.cs">
-      <DependentUpon>Folios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vista\Ingenieros\FSR.aspx.cs">
       <DependentUpon>FSR.aspx</DependentUpon>
@@ -331,27 +270,6 @@
     <Compile Include="Modelo\Comercial\ConexionComercial.cs" />
     <Compile Include="Modelo\Inolab\ConexionInolab.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registros1.aspx.cs">
-      <DependentUpon>Registros1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Registros1.aspx.designer.cs">
-      <DependentUpon>Registros1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Registro_Equipos1.aspx.cs">
-      <DependentUpon>Registro_Equipos1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Registro_Equipos1.aspx.designer.cs">
-      <DependentUpon>Registro_Equipos1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reporte.aspx.cs">
-      <DependentUpon>Reporte.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reporte.aspx.designer.cs">
-      <DependentUpon>Reporte.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Vista\Ingenieros\ServiciosAsignados.aspx.cs">
       <DependentUpon>ServiciosAsignados.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -359,29 +277,12 @@
     <Compile Include="Vista\Ingenieros\ServiciosAsignados.aspx.designer.cs">
       <DependentUpon>ServiciosAsignados.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Servicio_OC1.aspx.cs">
-      <DependentUpon>Servicio_OC1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Servicio_OC1.aspx.designer.cs">
-      <DependentUpon>Servicio_OC1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Vista\Sesion.aspx.cs">
       <DependentUpon>Sesion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Vista\Sesion.aspx.designer.cs">
       <DependentUpon>Sesion.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SubiendoArchivos.aspx.cs">
-      <DependentUpon>SubiendoArchivos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SubiendoArchivos.aspx.designer.cs">
-      <DependentUpon>SubiendoArchivos.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Upload1.ashx.cs">
-      <DependentUpon>Upload1.ashx</DependentUpon>
     </Compile>
     <Compile Include="Vista\Ingenieros\VistaPrevia.aspx.cs">
       <DependentUpon>VistaPrevia.aspx</DependentUpon>
@@ -409,9 +310,6 @@
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\WEB-INOLAB.pubxml" />
     <Content Include="scripts\uploader.fla" />
-    <Content Include="Upload.ashx" />
-    <Content Include="UploadVB.ashx" />
-    <Content Include="Upload1.ashx" />
     <Content Include="uploadify-master\.gitignore" />
     <Content Include="uploadify-master\LICENSE" />
     <Content Include="uploadify-master\Sample\.DS_Store" />
