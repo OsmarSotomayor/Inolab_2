@@ -167,13 +167,15 @@
       <DependentUpon>BrowserDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Controlador\Ingenieros\C_CargaFin.cs" />
-    <Compile Include="Controlador\Ingenieros\C_FSR.cs" />
-    <Compile Include="Controlador\Ingenieros\C_ServiciosAsignados.cs" />
+    <Compile Include="Controlador\C_FSR.cs" />
+    <Compile Include="Controlador\C_ServiciosAsignados.cs" />
     <Compile Include="Controlador\C_Sesion.cs" />
     <Compile Include="Entidades\E_Servicio.cs" />
     <Compile Include="Entidades\E_Usuario.cs" />
     <Compile Include="Modelo\Browser\BrowserRepository.cs" />
     <Compile Include="Modelo\Browser\IBrowserRepository.cs" />
+    <Compile Include="Modelo\Inolab\IInolabRepository.cs" />
+    <Compile Include="Modelo\Inolab\InolabRepository.cs" />
     <Compile Include="Vista\Ingenieros\Calendario.aspx.cs">
       <DependentUpon>Calendario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -319,9 +321,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controlador\Ventas\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

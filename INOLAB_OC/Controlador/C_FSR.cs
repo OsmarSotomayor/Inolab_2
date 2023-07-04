@@ -96,5 +96,10 @@ namespace INOLAB_OC.Controlador
             DataRow informacionServicio = _browserRepository.consultarInformacionDeFolioPorFolioYUsuario(usuario, folio);
             return informacionServicio;
         }
+
+        public string consultalValorDeCampo(string folio, string idUsuario, string campo)
+        {
+           return _browserRepository.consultarValorDeCampo(folio, idUsuario, campo);
+        }
     }
 }

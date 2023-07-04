@@ -142,6 +142,14 @@ namespace INOLAB_OC.Modelo.Browser
             return fechaInicioDeFolio;
         }
 
-       
+        public string consultarValorDeCampo(string folio, string idIngeniero, string campo)
+        {
+            string _campo = campo;
+            string query = "SELECT "+ _campo + " From FSR WHERE Folio = '"+folio+ "' AND Id_Ingeniero = '" + idIngeniero + "';";
+            return Conexion.getText(query);
+
+        }
+
+
     }
 }

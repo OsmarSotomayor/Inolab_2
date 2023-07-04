@@ -8,6 +8,9 @@ using INOLAB_OC.Modelo;
 using INOLAB_OC;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 using System.Diagnostics;
+using INOLAB_OC.Modelo.Browser;
+using INOLAB_OC.Controlador;
+
 public partial class DetalleFSR : Page
 {
     int q;
@@ -15,9 +18,12 @@ public partial class DetalleFSR : Page
     const int FINALIZADO =3;
     const string sinFechaAsignada = "";
     const string sinAccionRegistrada = "";
+    static BrowserRepository repositorio = new BrowserRepository();
+    C_FSR controladorFSR;
     protected void Page_Load(object sender, EventArgs e)
     {
-       agregarEncabezadosDePanel();
+        controladorFSR = new C_FSR(repositorio, Session["nameUsuario"].ToString());
+        agregarEncabezadosDePanel();
        definirVisibilidadDeBotonesDependiendoEstatusFolio();
        cargarAccionesDelIngeniero();
        llenarInformacionDeRefaccionesActuales();
@@ -131,7 +137,7 @@ public partial class DetalleFSR : Page
                 
                 DateTime fechaDeSolicitudDeServicio = Conexion.getDateTime("SELECT FechaServicio FROM FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
                 //Comparacion de fechas (no puede hacerlo si la fecha es anterior a la fecha de servicio) funcionalidad pendiente
-
+                
                     string fechaNuevaAccion, horasDedicadasEnNuevaAccion, nuevaAccionRealizada;
                     fechaNuevaAccion = Fecha_nueva_accion_realizada.Text;
                     horasDedicadasEnNuevaAccion = txthorasD.Text;
@@ -196,7 +202,7 @@ public partial class DetalleFSR : Page
         try
         {
             
-            string observacionesDeFolioServicio = Conexion.getText("select Observaciones from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            string observacionesDeFolioServicio = controladorFSR.consultalValorDeCampo(Session["folio_p"].ToString(), Session["idUsuario"].ToString(), "Observaciones".ToString());
 
             if (observacionesDeFolioServicio != null)
             {

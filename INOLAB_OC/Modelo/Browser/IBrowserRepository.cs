@@ -32,5 +32,7 @@ namespace INOLAB_OC.Modelo.Browser
         DateTime consultarFechaInicioDeFolio(string folio, string idIngeniero, string campoDondeSeConsulta);
 
         DateTime consultarFechaFinDeFolio(string folio, string idIngeniero, string campoDondeSeConsulta);
+
+        string consultarValorDeCampo(string folio, string idIngeniero, string campo);
     }
 }
