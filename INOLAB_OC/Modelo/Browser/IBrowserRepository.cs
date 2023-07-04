@@ -12,8 +12,12 @@ namespace INOLAB_OC.Modelo.Browser
     public interface IBrowserRepository
     {
         DataRow OptenerDatosDeUsuario(E_Usuario usuario);
-
         void executeStoreProcedureLogWeb(E_Usuario usuario);
+        DataSet consultarFolioServicioPorEstatus(E_Servicio servicio, string idUsuario);
+
+        DataSet consultarTodosLosFoliosDeServicio(string idUsuario);
+
+        DataRow consultarInformacionDeFolioPorFolio(string folio);
 
     }
 }

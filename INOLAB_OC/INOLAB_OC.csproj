@@ -174,7 +174,6 @@
     <Compile Include="Entidades\E_Usuario.cs" />
     <Compile Include="Modelo\Browser\BrowserRepository.cs" />
     <Compile Include="Modelo\Browser\IBrowserRepository.cs" />
-    <Compile Include="Modelo\Browser\LogicaConexion.cs" />
     <Compile Include="Vista\Ingenieros\Calendario.aspx.cs">
       <DependentUpon>Calendario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

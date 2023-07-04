@@ -16,9 +16,15 @@ using DocumentFormat.OpenXml.Drawing.Charts;
 using INOLAB_OC;
 using INOLAB_OC.Modelo;
 using INOLAB_OC.Controlador;
+using INOLAB_OC.Modelo.Browser;
+using INOLAB_OC.Entidades;
+using System.Web.Services.Description;
 
 public partial class ServiciosAsignados : System.Web.UI.Page
 {
+    static BrowserRepository repositorio = new BrowserRepository();
+    C_ServiciosAsignados controladorServiciosAsignados = new C_ServiciosAsignados(repositorio);
+    E_Servicio servicio = new E_Servicio();
     protected void Page_Load(object sender, EventArgs e)
     { 
         if (Session["idUsuario"] == null) { 
@@ -246,7 +252,7 @@ public partial class ServiciosAsignados : System.Web.UI.Page
         }
 
         List<string> valoresParaReporteServicio = new List<string>();
-        DataRow informacionServicios = C_ServiciosAsignados.InformacionDeFolioParaReporteServicios(Session["folio_p"].ToString());
+        DataRow informacionServicios = controladorServiciosAsignados.consultarInformacionDeFolioParaReporteServicios(Session["folio_p"].ToString());
 
 
         for (int i = 0; i == 67; i++)
@@ -353,33 +359,38 @@ public partial class ServiciosAsignados : System.Web.UI.Page
     
     protected void Tipo_De_Estatus_De_Servicio_SelectedIndexChanged(object sender, EventArgs e)
     {
-        string query = "";
         if(Estatus_de_servicio.Text=="Asignado")
         {
-            query = "select *from V_FSR where Estatus='Asignado' and IdIngeniero=" + Session["idusuario"] +" order by folio desc";
-            consultarFoliosDeServicio(query);
+            servicio.Estatus = "Asignado";
+            consultarFoliosDeServicio(servicio, Session["idusuario"].ToString());
         }
         if (Estatus_de_servicio.Text == "En Proceso")
         {
-            query = "select *from V_FSR where Estatus='En Proceso' and IdIngeniero=" + Session["idusuario"]+" order by folio desc";
-            consultarFoliosDeServicio(query);
+            servicio.Estatus = "En Proceso";
+            consultarFoliosDeServicio(servicio, Session["idusuario"].ToString());
         }
         if (Estatus_de_servicio.Text == "Finalizado")
         {
-            query = "select * from v_fsr where estatus='Finalizado' and idingeniero=" + Session["idusuario"]+ " order by folio desc";
-            consultarFoliosDeServicio(query);
+            servicio.Estatus = "Finalizado";
+            consultarFoliosDeServicio(servicio, Session["idusuario"].ToString());
         }
         if (Estatus_de_servicio.Text == "Todos")
         {
-            query = "Select DISTINCT* from  v_fsr where idingeniero = " + Session["Idusuario"] + " order by folio desc";
-            consultarFoliosDeServicio(query);
+            consultarTodosLosFoliosDeServicio(Session["idusuario"].ToString());
         }
     }
    
 
-    public void consultarFoliosDeServicio(string query)
+    public void consultarFoliosDeServicio(E_Servicio entidadServicio, string idUsuario)
     {
-        Gridview_datos_de_servicio.DataSource = Conexion.getDataSet(query);
+        Gridview_datos_de_servicio.DataSource = controladorServiciosAsignados.consultarFolioServicioPorEstatus(entidadServicio, idUsuario);
+        Gridview_datos_de_servicio.DataBind();
+        contador.Text = Gridview_datos_de_servicio.Rows.Count.ToString();
+    }
+
+    private void consultarTodosLosFoliosDeServicio(string idUsuario)
+    {
+        Gridview_datos_de_servicio.DataSource = controladorServiciosAsignados.consultarTodosLosFoliosDeIngeniero(idUsuario);
         Gridview_datos_de_servicio.DataBind();
         contador.Text = Gridview_datos_de_servicio.Rows.Count.ToString();
     }
