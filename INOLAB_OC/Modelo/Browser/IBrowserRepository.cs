@@ -19,5 +19,18 @@ namespace INOLAB_OC.Modelo.Browser
 
         DataRow consultarInformacionDeFolioPorFolio(string folio);
 
+        DataRow consultarInformacionDeFolioPorFolioYUsuario(string usuario, string folio);
+
+        string consultarInicioDeServicio(string folio);
+
+        void actualizarDatosDeServicio(E_Servicio folioServicioFSR, string idUsuario);
+
+        void iniciarFolioServicio(DateTime fechaYHoraDeInicioDeServicio, string folio, string idIngeniero);
+
+        void actualizarFechayHoraFinDeServicio(E_Servicio servicio, string idIngeniero);
+
+        DateTime consultarFechaInicioDeFolio(string folio, string idIngeniero, string campoDondeSeConsulta);
+
+        DateTime consultarFechaFinDeFolio(string folio, string idIngeniero, string campoDondeSeConsulta);
     }
 }

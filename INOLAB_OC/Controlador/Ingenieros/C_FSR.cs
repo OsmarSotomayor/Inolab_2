@@ -1,5 +1,6 @@
 ﻿using INOLAB_OC.Entidades;
 using INOLAB_OC.Modelo;
+using INOLAB_OC.Modelo.Browser;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,27 +11,27 @@ namespace INOLAB_OC.Controlador
 {
     public class C_FSR
     {
-        public static string seleccionarInicioServicio(string folio)
+        private  IBrowserRepository _browserRepository;
+        private string _idUsuario;
+
+        public C_FSR(IBrowserRepository browserRepository, string idUsuario) {
+            _browserRepository = browserRepository;
+            _idUsuario = idUsuario;
+        }
+        public  string seleccionarInicioServicio(string folio)
         {
-            string inicioDeServicio = Conexion.getText("select top 1 Inicio_Servicio from FSR where Folio = " + folio + " and Inicio_Servicio is not null;");
+            string inicioDeServicio = _browserRepository.consultarInicioDeServicio(folio);
             return inicioDeServicio;
         }
 
-        public static void actualizarDatosDeServicio(E_Servicio folioServicioFSR, string idUsuario)
+        public  void actualizarDatosDeServicio(E_Servicio folioServicioFSR)
         {
-            Conexion.executeQuery(" UPDATE FSR SET Marca='" + folioServicioFSR.Marca + "', Modelo='" + folioServicioFSR.Modelo + "', NoSerie='" + folioServicioFSR.NoSerie +
-                    "', Equipo='" + folioServicioFSR.DescripcionEquipo + "', IdEquipo_C='" + folioServicioFSR.IdEquipo + "',Cliente='" + folioServicioFSR.Cliente + "',Telefono='" + folioServicioFSR.Telefono +
-                    "',N_Responsable='" + folioServicioFSR.N_Responsable + "',N_Reportado='" + folioServicioFSR.N_Reportado + "',Mail='" + folioServicioFSR.Email + "',Direccion='" + folioServicioFSR.Direccion +
-                    "',Localidad='" + folioServicioFSR.Localidad + "',Depto='" + folioServicioFSR.Departamento + "',IdT_Problema='" + folioServicioFSR.IdProblema + "',IdT_Contrato='" + folioServicioFSR.IdContrato +
-                    "', IdT_Servicio='" + folioServicioFSR.idServicio + "'" + " where Folio=" + folioServicioFSR.Folio + " and Id_Ingeniero ='" +
-                    idUsuario + "';");
+            _browserRepository.actualizarDatosDeServicio(folioServicioFSR, _idUsuario);
         }
 
-        public static void iniciarFolioServicio(DateTime fechaYHoraDeInicioDeServicio, string folio, string idIngeniero)
+        public void iniciarFolioServicio(DateTime fechaYHoraDeInicioDeServicio, string folio)
         {
-            Conexion.executeQuery(" UPDATE FSR SET idStatus = '2' ,Inicio_Servicio='" +
-             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', WebFechaIni='" + fechaYHoraDeInicioDeServicio.ToString("yyyy - MM - dd HH: mm:ss.fff")
-             + "' where Folio=" + folio + " and Id_Ingeniero =" + idIngeniero + ";");
+            _browserRepository.iniciarFolioServicio(fechaYHoraDeInicioDeServicio, folio, _idUsuario);
         }
 
         public static void actualizarFolioSap(string folio)
@@ -41,58 +42,58 @@ namespace INOLAB_OC.Controlador
 
         }
 
-        public static void actualizarFechayHoraFinDeServicio(E_Servicio servicio, string idIngeniero)
+        public  void actualizarFechayHoraFinDeServicio(E_Servicio servicio)
         {
-            Conexion.executeQuery(" UPDATE FSR SET WebFechaIni ='" + servicio.FechaInicio +
-           "' ,WebFechaFin='" + servicio.FechaFin + "' where Folio= " + servicio.Folio +
-           " and Id_Ingeniero ='" + idIngeniero + "';");
+            _browserRepository.actualizarFechayHoraFinDeServicio(servicio, _idUsuario);
         }
 
-        public static DateTime traerFechaYhoraDeInicioDeFolio(string folio, string idIngeniero)
+        public  DateTime traerFechaYhoraDeInicioDeFolio(string folio)
         {
             object fecha;
             DateTime fechaYHoraInicioServicio;
+            string campoDondeSeConsulta;
             try
             {
-                fecha = Conexion.getObject("select WebFechaIni from FSR where Folio=" + folio + " and Id_Ingeniero =" + idIngeniero + ";");
-                fechaYHoraInicioServicio = (DateTime)fecha;
+                campoDondeSeConsulta = "WebFechaIni";
+                fechaYHoraInicioServicio = _browserRepository.consultarFechaInicioDeFolio(folio, _idUsuario, campoDondeSeConsulta);
+ 
                 return fechaYHoraInicioServicio;
 
             }
             catch (Exception ex)
             {
-                fecha = Conexion.getObject("select Inicio_Servicio from FSR where Folio=" + folio + " and Id_Ingeniero =" + idIngeniero + ";");
-                fechaYHoraInicioServicio = (DateTime)fecha;
+                campoDondeSeConsulta = "Inicio_Servicio";
+                fechaYHoraInicioServicio = _browserRepository.consultarFechaInicioDeFolio(folio, _idUsuario, campoDondeSeConsulta);
+                
                 return fechaYHoraInicioServicio;
             }
 
         }
 
 
-        public static DateTime traerFechaYhoraDeFinDeFolio(string folio, string idIngeniero)
+        public  DateTime traerFechaYhoraDeFinDeFolio(string folio)
         {
-            object fecha;
             DateTime fechaYHoraFinServicio;
+            string campoDondeSeConsulta;
             try
             {
-                fecha = Conexion.getObject("select WebFechaFin from FSR where Folio= '" + folio + "' and Id_Ingeniero ='" + idIngeniero + "';");
-                fechaYHoraFinServicio = (DateTime)fecha;
+                campoDondeSeConsulta = "WebFechaFin";
+                fechaYHoraFinServicio = _browserRepository.consultarFechaFinDeFolio(folio, _idUsuario, campoDondeSeConsulta);
                 return fechaYHoraFinServicio;
 
             }
             catch (Exception ex)
             {
-                fecha = Conexion.getObject("select Fin_Servicio from FSR where Folio='" + folio + "' and Id_Ingeniero ='" +idIngeniero+ "';");
-                fechaYHoraFinServicio = (DateTime)fecha;
+                campoDondeSeConsulta = "Fin_Servicio";
+                fechaYHoraFinServicio = _browserRepository.consultarFechaFinDeFolio(folio, _idUsuario, campoDondeSeConsulta);
                 return fechaYHoraFinServicio;
             }
 
         } 
 
-        public static DataRow consultarInformacionFolioServicio(string idUsuario, string folio)
+        public  DataRow consultarInformacionFolioServicioPorFolioYUsuario( string usuario, string folio)
         {
-            string query = "select * from v_fsr where idingeniero = '" + idUsuario + "' and Folio = '" + folio + "'; ";
-            DataRow informacionServicio = Conexion.getDataRow(query);
+            DataRow informacionServicio = _browserRepository.consultarInformacionDeFolioPorFolioYUsuario(usuario, folio);
             return informacionServicio;
         }
     }
