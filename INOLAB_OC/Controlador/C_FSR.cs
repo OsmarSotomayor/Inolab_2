@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace INOLAB_OC.Controlador
 {
@@ -18,6 +19,13 @@ namespace INOLAB_OC.Controlador
             _browserRepository = browserRepository;
             _idUsuario = idUsuario;
         }
+
+        public DataRow consultarInformacionDeFolioParaReporteServicios(string folio)
+        {
+            DataRow informacionFolio = _browserRepository.consultarInformacionDeFolioPorFolio(folio);
+            return informacionFolio;
+        }
+
         public  string seleccionarInicioServicio(string folio)
         {
             string inicioDeServicio = _browserRepository.consultarInicioDeServicio(folio);
@@ -97,9 +105,30 @@ namespace INOLAB_OC.Controlador
             return informacionServicio;
         }
 
-        public string consultalValorDeCampo(string folio, string idUsuario, string campo)
+        public string consultarValorDeCampoPorFolioyUsuario(string numeroDeFolioServicio, string campoQueSeConsulta)
         {
-           return _browserRepository.consultarValorDeCampo(folio, idUsuario, campo);
+           return _browserRepository.consultarValorDeCampo(numeroDeFolioServicio, _idUsuario, campoQueSeConsulta);
+        }
+
+        public string consultarValorDeCampoPorFolio(string numeroDeFolioServicio, string campoQueSeConsulta)
+        {
+            return _browserRepository.consultarValorDeCampo(numeroDeFolioServicio, campoQueSeConsulta);
+        }
+
+        public void actualizarValorDeCampoPorFolio(string numeroDeFolioServicio, string campoQueActualizas, string valorDelCampo)
+        {
+            _browserRepository.actualizarValorDeCampo(numeroDeFolioServicio, campoQueActualizas, valorDelCampo);
+        }
+
+        public void actualizarValorDeCampoPorFolioYUsuario(string numeroDeFolioServicio, string campoQueActualizas, 
+            string valorDelCampo)
+        {
+            _browserRepository.actualizarValorDeCampo(numeroDeFolioServicio, campoQueActualizas, valorDelCampo, _idUsuario);
+        }
+
+        public int consultarEstatusDeFolioServicio(string folioServicio)
+        {
+            return _browserRepository.consultarEstatusDeFolioServicio(folioServicio, _idUsuario);
         }
     }
 }

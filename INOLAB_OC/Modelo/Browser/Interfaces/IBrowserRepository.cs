@@ -11,8 +11,6 @@ namespace INOLAB_OC.Modelo.Browser
 {
     public interface IBrowserRepository
     {
-        DataRow OptenerDatosDeUsuario(E_Usuario usuario);
-        void executeStoreProcedureLogWeb(E_Usuario usuario);
         DataSet consultarFolioServicioPorEstatus(E_Servicio servicio, string idUsuario);
 
         DataSet consultarTodosLosFoliosDeServicio(string idUsuario);
@@ -33,6 +31,14 @@ namespace INOLAB_OC.Modelo.Browser
 
         DateTime consultarFechaFinDeFolio(string folio, string idIngeniero, string campoDondeSeConsulta);
 
-        string consultarValorDeCampo(string folio, string idIngeniero, string campo);
+        string consultarValorDeCampo(string folio, string idUsuario, string campo);
+
+        string consultarValorDeCampo(string folio, string campo);
+
+        void actualizarValorDeCampo(string folio,  string campo, string valorDelCampo);
+
+        void actualizarValorDeCampo(string folio, string campo, string valorDelCampo, string idUsuario);
+
+        int consultarEstatusDeFolioServicio(string folio, string idUsuario);
     }
 }

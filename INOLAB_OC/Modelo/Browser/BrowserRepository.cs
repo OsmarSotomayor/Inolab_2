@@ -11,40 +11,7 @@ namespace INOLAB_OC.Modelo.Browser
 {
     public class BrowserRepository : IBrowserRepository
     {
-        
-        public  DataRow OptenerDatosDeUsuario(E_Usuario objetoUsuario)
-        {
-            DataRow datosDelUsuario = Conexion.getDataRow("select  Usuario, Password_,Nombre, Apellidos,idarea,idrol,IdUsuario from " +
-                "Usuarios where usuario='" + objetoUsuario.Nombre + "' and password_='" + objetoUsuario.Contraseña + "'");
-            
-            return datosDelUsuario;
-        }
-
-        public  void executeStoreProcedureLogWeb(E_Usuario usuario)
-        {
-            SqlConnection conexion = Conexion.crearConexionABrowser();
-            try
-            {
-                SqlCommand comando = new SqlCommand("LogWeb", conexion);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@usuario", SqlDbType.VarChar);
-                comando.Parameters.Add("@ip", SqlDbType.VarChar);
-
-                comando.Parameters["@usuario"].Value = usuario.NombreDeUsuario;
-                comando.Parameters["@ip"].Value = usuario.IP;
-
-                conexion.Open();
-                comando.ExecuteNonQuery();
-                Trace.WriteLine("Conexion Correcta executeStoreProcedureLogWeb");
-                conexion.Close();
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine("PASS: FAILED " + ex.Message);
-            }
-
-        }
-
+       
         public DataSet consultarFolioServicioPorEstatus(E_Servicio servicio, string idUsuario)
         {
             string query = "select * from V_FSR where Estatus = '"+servicio.Estatus+"' and " +
@@ -142,14 +109,43 @@ namespace INOLAB_OC.Modelo.Browser
             return fechaInicioDeFolio;
         }
 
-        public string consultarValorDeCampo(string folio, string idIngeniero, string campo)
+        public string consultarValorDeCampo(string folio, string idUsuario, string campo)
         {
             string _campo = campo;
-            string query = "SELECT "+ _campo + " From FSR WHERE Folio = '"+folio+ "' AND Id_Ingeniero = '" + idIngeniero + "';";
+            string query = "SELECT "+ _campo + " From FSR WHERE Folio = '"+folio+ "' AND Id_Ingeniero = '" + idUsuario + "';";
             return Conexion.getText(query);
 
         }
 
+        public string consultarValorDeCampo(string folio, string campo)
+        {
+            string query = "SELECT " + campo + " From FSR WHERE Folio = '" +folio +"';";
+            return Conexion.getText(query);
+        }
 
+        public void actualizarValorDeCampo(string folio,  string campo, string valorDelCampo)
+        {
+            string query = "UPDATE FSR SET "+ campo +" = '"+ valorDelCampo + "' where Folio = '"+ folio +"';";
+            Conexion.executeQuery(query);
+        }
+
+        
+        public void actualizarValorDeCampo(string folio, string campo, string valorDelCampo, string idUsuario)
+        {
+            string query = "UPDATE FSR SET " + campo + " = '" + valorDelCampo + "' where Folio = '" + folio + "' AND Id_Ingeniero = "+ idUsuario + ";";
+            Conexion.executeQuery(query);
+        }
+
+        public void consultarEstatusDeFolioServicio()
+        {
+
+        }
+
+        public int consultarEstatusDeFolioServicio(string folio, string idUsuario)
+        {
+            string consulta = "SELECT Top 1 IdStatus FROM FSR where Folio= " + folio + " and Id_Ingeniero =" + idUsuario + ";";
+            int estatusFolioDeServicio = Conexion.getScalar(consulta);
+            return estatusFolioDeServicio;
+        }
     }
 }

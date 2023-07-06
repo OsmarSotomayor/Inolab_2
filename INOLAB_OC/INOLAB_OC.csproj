@@ -166,14 +166,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BrowserDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Controlador\C_V_FSR.cs" />
     <Compile Include="Controlador\Ingenieros\C_CargaFin.cs" />
     <Compile Include="Controlador\C_FSR.cs" />
-    <Compile Include="Controlador\C_ServiciosAsignados.cs" />
-    <Compile Include="Controlador\C_Sesion.cs" />
+    <Compile Include="Controlador\C_Usuario.cs" />
     <Compile Include="Entidades\E_Servicio.cs" />
     <Compile Include="Entidades\E_Usuario.cs" />
+    <Compile Include="Entidades\E_V_FSR.cs" />
     <Compile Include="Modelo\Browser\BrowserRepository.cs" />
-    <Compile Include="Modelo\Browser\IBrowserRepository.cs" />
+    <Compile Include="Modelo\Browser\Interfaces\IBrowserRepository.cs" />
+    <Compile Include="Modelo\Browser\Interfaces\IUsuarioRepository.cs" />
+    <Compile Include="Modelo\Browser\Interfaces\IV_FSR_Repository.cs" />
+    <Compile Include="Modelo\Browser\UsuarioRepository.cs" />
+    <Compile Include="Modelo\Browser\V_FSR_Repository.cs" />
     <Compile Include="Modelo\Inolab\IInolabRepository.cs" />
     <Compile Include="Modelo\Inolab\InolabRepository.cs" />
     <Compile Include="Vista\Ingenieros\Calendario.aspx.cs">

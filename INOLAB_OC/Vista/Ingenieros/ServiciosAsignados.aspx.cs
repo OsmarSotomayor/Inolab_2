@@ -22,9 +22,10 @@ using System.Web.Services.Description;
 
 public partial class ServiciosAsignados : System.Web.UI.Page
 {
-    static BrowserRepository repositorio = new BrowserRepository();
-    C_ServiciosAsignados controladorServiciosAsignados = new C_ServiciosAsignados(repositorio);
-    E_Servicio servicio = new E_Servicio();
+    static V_FSR_Repository repositorio = new V_FSR_Repository();
+    C_V_FSR controladorServiciosAsignados = new C_V_FSR(repositorio);
+    E_V_FSR servicio = new E_V_FSR();
+    
     protected void Page_Load(object sender, EventArgs e)
     { 
         if (Session["idUsuario"] == null) { 
@@ -41,7 +42,6 @@ public partial class ServiciosAsignados : System.Web.UI.Page
                 Btn_Calendario.Visible = false;
             }
         }
-
         btninformacion.Visible = false;
     }
 
@@ -278,7 +278,6 @@ public partial class ServiciosAsignados : System.Web.UI.Page
                 reporteServicio.Rows.Add(valoresParaReporteServicio[i]);
             }
 
-
         }
 
         return reporteServicio;
@@ -381,7 +380,7 @@ public partial class ServiciosAsignados : System.Web.UI.Page
     }
    
 
-    public void consultarFoliosDeServicio(E_Servicio entidadServicio, string idUsuario)
+    public void consultarFoliosDeServicio(E_V_FSR entidadServicio, string idUsuario)
     {
         Gridview_datos_de_servicio.DataSource = controladorServiciosAsignados.consultarFolioServicioPorEstatus(entidadServicio, idUsuario);
         Gridview_datos_de_servicio.DataBind();
