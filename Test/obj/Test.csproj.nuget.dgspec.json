@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Carlos Flores\\Desktop\\1\\Test\\Test.csproj": {}
+    "C:\\Users\\Carlos Flores\\Desktop\\GIT 2023\\Test\\Test.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Carlos Flores\\Desktop\\1\\Test\\Test.csproj": {
+    "C:\\Users\\Carlos Flores\\Desktop\\GIT 2023\\Test\\Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Carlos Flores\\Desktop\\1\\Test\\Test.csproj",
+        "projectUniqueName": "C:\\Users\\Carlos Flores\\Desktop\\GIT 2023\\Test\\Test.csproj",
         "projectName": "Test",
-        "projectPath": "C:\\Users\\Carlos Flores\\Desktop\\1\\Test\\Test.csproj",
+        "projectPath": "C:\\Users\\Carlos Flores\\Desktop\\GIT 2023\\Test\\Test.csproj",
         "packagesPath": "C:\\Users\\Carlos Flores\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Carlos Flores\\Desktop\\1\\Test\\obj\\",
+        "outputPath": "C:\\Users\\Carlos Flores\\Desktop\\GIT 2023\\Test\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
