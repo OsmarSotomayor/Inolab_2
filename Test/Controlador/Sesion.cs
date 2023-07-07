@@ -35,6 +35,81 @@ namespace Test.Controlador
 
     public class TestBrowserRepository : IBrowserRepository
     {
+        public void actualizarDatosDeServicio(E_Servicio folioServicioFSR, string idUsuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void actualizarFechayHoraFinDeServicio(E_Servicio servicio, string idIngeniero)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void actualizarValorDeCampo(string folio, string campo, string valorDelCampo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void actualizarValorDeCampo(string folio, string campo, string valorDelCampo, string idUsuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int consultarEstatusDeFolioServicio(string folio, string idUsuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime consultarFechaFinDeFolio(string folio, string idIngeniero, string campoDondeSeConsulta)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime consultarFechaInicioDeFolio(string folio, string idIngeniero, string campoDondeSeConsulta)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataSet consultarFolioServicioPorEstatus(E_Servicio servicio, string idUsuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataRow consultarInformacionDeFolioPorFolio(string folio)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataRow consultarInformacionDeFolioPorFolioYUsuario(string usuario, string folio)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string consultarInicioDeServicio(string folio)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataSet consultarTodosLosFoliosDeServicio(string idUsuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string consultarValorDeCampo(string folio, string idUsuario, string campo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string consultarValorDeCampo(string folio, string campo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void iniciarFolioServicio(DateTime fechaYHoraDeInicioDeServicio, string folio, string idIngeniero)
+        {
+            throw new NotImplementedException();
+        }
+
         public DataRow OptenerDatosDeUsuario(E_Usuario usuario)
         {
             return null;

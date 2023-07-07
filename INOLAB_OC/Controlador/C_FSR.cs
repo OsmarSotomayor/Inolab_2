@@ -20,12 +20,6 @@ namespace INOLAB_OC.Controlador
             _idUsuario = idUsuario;
         }
 
-        public DataRow consultarInformacionDeFolioParaReporteServicios(string folio)
-        {
-            DataRow informacionFolio = _browserRepository.consultarInformacionDeFolioPorFolio(folio);
-            return informacionFolio;
-        }
-
         public  string seleccionarInicioServicio(string folio)
         {
             string inicioDeServicio = _browserRepository.consultarInicioDeServicio(folio);
@@ -130,5 +124,7 @@ namespace INOLAB_OC.Controlador
         {
             return _browserRepository.consultarEstatusDeFolioServicio(folioServicio, _idUsuario);
         }
+
+       
     }
 }

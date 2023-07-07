@@ -29,5 +29,18 @@ namespace INOLAB_OC.Controlador
         {
             _userRepository.executeStoreProcedureLogWeb(usuario);
         }
+
+        public bool validarSiUsuarioEsGefeDeArea(string idUsuario)
+        {
+            if (idUsuario == "54" || idUsuario == "60" ||
+                    idUsuario == "30")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

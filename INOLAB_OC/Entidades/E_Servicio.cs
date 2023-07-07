@@ -55,5 +55,7 @@ namespace INOLAB_OC.Entidades
         public string FechaInicio { get; set;}
 
         public string FechaFin { get; set; }
+
+        public string FechaDeAgendaDeServicio { get; set;}
     }
 }

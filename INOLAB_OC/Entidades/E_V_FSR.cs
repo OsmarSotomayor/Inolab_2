@@ -13,5 +13,6 @@ namespace INOLAB_OC.Entidades
         public string Departamento { get; set; }
         public int Telefono { get; set; }
         public string Estatus { get; set; }
+        public string FechaEnQueSeAgendoServicio { get; set; }
     }
 }
