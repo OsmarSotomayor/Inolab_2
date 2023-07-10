@@ -16,9 +16,13 @@ namespace INOLAB_OC.Modelo.Browser
             throw new NotImplementedException();
         }
 
-        public void agregarAccion(E_FSRAccion entidad)
+        public int agregarAccion(E_FSRAccion entidad)
         {
-            throw new NotImplementedException();
+            int filasAfectadasPorUpdate = Conexion.getScalar("Insert into FSRAccion(FechaAccion,HorasAccion,AccionR,idFolioFSR,idUsuario, FechaSistema)" +
+                " values(CAST('" + entidad.FechaAccion + " " + DateTime.Now.ToString("HH:mm:ss.fff") + "' AS DATETIME)," + entidad.HorasAccion+ ",'" + entidad.AccionR + "'," +
+                entidad.idFolioFSR + "," + entidad.idUsuario + ",CAST('" + entidad.FechaSistema + "' AS DATETIME));");
+
+            return filasAfectadasPorUpdate;
         }
 
         public DataSet consultarTodosLosDatosDeFSRAccion(string idFolioFSR)

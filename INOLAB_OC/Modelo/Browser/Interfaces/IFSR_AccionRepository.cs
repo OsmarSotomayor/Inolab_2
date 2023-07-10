@@ -14,7 +14,7 @@ namespace INOLAB_OC.Modelo.Browser.Interfaces
 
         void actualizarAccion(E_FSRAccion entidad);
 
-        void agregarAccion(E_FSRAccion entidad);
+        int agregarAccion(E_FSRAccion entidad);
         E_FSRAccion optenerPorId(int id);
 
         DataSet consultarTodosLosDatosDeFSRAccion(string id);

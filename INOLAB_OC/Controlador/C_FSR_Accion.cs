@@ -33,5 +33,12 @@ namespace INOLAB_OC.Controlador
             return repositorio.consultarTodosLosDatosDeFSRAccion(idFolioFSR);
         }
 
+        public int agregarAccionFSR(E_FSRAccion entidad)
+        {
+            return repositorio.agregarAccion(entidad);
+        }
+
+        
+
     }
 }

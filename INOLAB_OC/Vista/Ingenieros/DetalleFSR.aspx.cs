@@ -11,6 +11,7 @@ using System.Diagnostics;
 using INOLAB_OC.Modelo.Browser;
 using INOLAB_OC.Controlador;
 using INOLAB_OC.Entidades;
+using INOLAB_OC.Controlador.Ingenieros;
 
 public partial class DetalleFSR : Page
 {
@@ -29,6 +30,9 @@ public partial class DetalleFSR : Page
 
     static V_FSR_Repository repositorioV_FSR = new V_FSR_Repository();
     C_V_FSR controlador_V_FSR = new C_V_FSR(repositorioV_FSR);
+
+    static Refaccion_Repository repositorioRefaccion = new Refaccion_Repository();
+    C_Refaccion controladorRefaccion = new C_Refaccion(repositorioRefaccion);
 
     string idUsuario;
     string idFolioServicio;
@@ -91,10 +95,10 @@ public partial class DetalleFSR : Page
     {
         try
         {
-            DataSet refacciones = Conexion.getDataSet("select numRefaccion,cantidadRefaccion from Refaccion where idFSR=" + idFolioServicio + ";");
-            int cuenta = refacciones.Tables[0].Rows.Count;
+            DataSet refacciones =  controladorRefaccion.consultarNumeroYCantidadDeRefaccion(idFolioServicio);           
+            int numeroDeRefacciones = refacciones.Tables[0].Rows.Count;
 
-            if (cuenta > 0)
+            if (numeroDeRefacciones > 0)
             {
                 foreach (DataRow dataRow in refacciones.Tables[0].Rows)
                 {
@@ -163,22 +167,17 @@ public partial class DetalleFSR : Page
     }
 
     private bool insertarNuevaAccionRealizada(String fechaNuevaAccion, String horasDedicadasEnNuevaAccion, String nuevaAccionRealizada)
-    {
-        try
-        {
-            
-            int filasAfectadasPorUpdate = Conexion.getScalar("Insert into FSRAccion(FechaAccion,HorasAccion,AccionR,idFolioFSR,idUsuario, FechaSistema)" +
-                " values(CAST('" + fechaNuevaAccion + " " + DateTime.Now.ToString("HH:mm:ss.fff") + "' AS DATETIME)," + horasDedicadasEnNuevaAccion + ",'" + nuevaAccionRealizada + "'," + idFolioServicio + "," + Session["idUsuario"] + ",CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME));");
+    {  
+            E_FSRAccion entidadAccion = new E_FSRAccion();
+            entidadAccion.FechaAccion = fechaNuevaAccion;
+            entidadAccion.HorasAccion = horasDedicadasEnNuevaAccion;
+            entidadAccion.AccionR = nuevaAccionRealizada;
+            entidadAccion.idFolioFSR = idFolioServicio;
+            entidadAccion.idUsuario = Session["idUsuario"].ToString();
+            entidadAccion.FechaSistema = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
+            int filasAfectadasPorUpdate = controladorFSRAccion.agregarAccionFSR(entidadAccion);
             return (filasAfectadasPorUpdate == 1) ? true: false;
-            
-        }
-        catch(Exception ex)
-        {
-            Response.Write("<script>alert('Error al cargar la información');</script>");
-            Console.Write(ex.ToString());
-            return false;
-        }
     }
 
     protected void Cerrar_ventana_agregar_nueva_accion_Click(object sender, ImageClickEventArgs e)
@@ -458,22 +457,15 @@ public partial class DetalleFSR : Page
 
 
     protected bool insertarRefaccion(string numeroDePartes, string cantidadDeRefacciones, string descripcionDeRefacion)
-    {
-        try
-        {
+    {    
+            E_Refaccion refaccion = new E_Refaccion();
+            refaccion.numRefaccion = numeroDePartes;
+            refaccion.cantidadRefaccion = cantidadDeRefacciones;
+            refaccion.descRefaccion = descripcionDeRefacion;
+            refaccion.idFSR = idFolioServicio;
 
-            int numeroDeFilasAfectadas = Conexion.getNumberOfRowsAfected("Insert into Refaccion(numRefaccion,cantidadRefaccion,descRefaccion,idFSR)" +
-                " values('" + numeroDePartes + "'," + cantidadDeRefacciones + ",'" + descripcionDeRefacion + "'," + idFolioServicio + ");");
-            
+            int numeroDeFilasAfectadas = controladorRefaccion.agregarRefaccion(refaccion);
             return numeroDeFilasAfectadas == 1?  true : false;
-            
-        }
-        catch (Exception ex)
-        {
-            Response.Write("<script>alert('Error al cargar la información');</script>");
-            Console.Write(ex.ToString());
-            return false;
-        }
     }
 
 

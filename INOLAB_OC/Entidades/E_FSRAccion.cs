@@ -15,5 +15,7 @@ namespace INOLAB_OC.Entidades
         public string idUsuario { get; set; }
         public string FechaSistema { get; set; }
 
+        
+
     }
 }
