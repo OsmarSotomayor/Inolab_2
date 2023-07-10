@@ -33,7 +33,7 @@ namespace Test.Controlador
 
     }
 
-    public class TestBrowserRepository : IBrowserRepository
+    public class TestBrowserRepository : IFSR_Repository
     {
         public void actualizarDatosDeServicio(E_Servicio folioServicioFSR, string idUsuario)
         {

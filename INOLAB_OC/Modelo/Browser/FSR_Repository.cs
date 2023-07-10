@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace INOLAB_OC.Modelo.Browser
 {
-    public class BrowserRepository : IBrowserRepository
+    public class FSR_Repository : IFSR_Repository
     {
        
         public DataSet consultarFolioServicioPorEstatus(E_Servicio servicio, string idUsuario)

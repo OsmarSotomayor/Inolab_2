@@ -70,6 +70,10 @@ namespace INOLAB_OC.Controlador
             return reporteServicio;
         }
 
+        public string consultarValorDeCampo(string campo, string folio)
+        {
+            return v_FsrRepository.consultarValorDeCampo(campo, folio);
+        }
 
     }
 }

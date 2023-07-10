@@ -14,5 +14,10 @@ namespace INOLAB_OC.Modelo.Browser.Interfaces
         DataSet consultarFolioServicioPorEstatus(E_V_FSR servicio, string idUsuario);
 
         DataSet consultarTodosLosFoliosDeServicio(string idUsuario);
+
+        string consultarValorDeCampo(string campo, string valorDeCampo);
+        
+
+
     }
 }

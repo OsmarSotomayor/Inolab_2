@@ -9,7 +9,7 @@ using INOLAB_OC.Entidades;
 
 namespace INOLAB_OC.Modelo.Browser
 {
-    public interface IBrowserRepository
+    public interface IFSR_Repository
     {
         DataSet consultarFolioServicioPorEstatus(E_Servicio servicio, string idUsuario);
 

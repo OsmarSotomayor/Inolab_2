@@ -12,10 +12,10 @@ namespace INOLAB_OC.Controlador
 {
     public class C_FSR
     {
-        private  IBrowserRepository _browserRepository;
+        private  IFSR_Repository _browserRepository;
         private string _idUsuario;
 
-        public C_FSR(IBrowserRepository browserRepository, string idUsuario) {
+        public C_FSR(IFSR_Repository browserRepository, string idUsuario) {
             _browserRepository = browserRepository;
             _idUsuario = idUsuario;
         }

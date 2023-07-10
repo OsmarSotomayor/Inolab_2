@@ -20,7 +20,7 @@ public partial class FSR : Page
     const string PROCESO = "2";
     const string SIN_SERVICIO_INICIADO ="";
     E_Servicio folioServicioFSR = new E_Servicio();
-    static BrowserRepository repositorio = new BrowserRepository();
+    static FSR_Repository repositorio = new FSR_Repository();
     static string _idUsuario;
      
     C_FSR controladorFSR = new C_FSR(repositorio, _idUsuario);

@@ -34,5 +34,11 @@ namespace INOLAB_OC.Modelo.Browser
             DataSet todosLosFoliosDelIngeniero = Conexion.getDataSet(query);
             return todosLosFoliosDelIngeniero;
         }
+
+        public string consultarValorDeCampo(string campo, string Folio)
+        {
+            string query = "select "+ campo + " from v_fsr where Folio= "+ Folio+";";
+            return Conexion.getText(query);
+        }
     }
 }
