@@ -13,15 +13,22 @@ using System.Net.Mail;
 using System.IO;
 using INOLAB_OC.Modelo;
 using System.Web.Services.Description;
+using INOLAB_OC.Controlador;
+using INOLAB_OC.Modelo.Browser;
+using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
 
 public partial class VistaPrevia : Page
 {
+    static string idUsuario;
     protected void Page_Load(object sender, EventArgs e)
     {
+        idUsuario = Session["idUsuario"].ToString();
         cargarDatosInicialesDeUsuario();
     }
+    static FSR_Repository reposiorioFSR = new FSR_Repository();
+    C_FSR controladorFSR = new C_FSR(reposiorioFSR, idUsuario);
 
-   private void cargarDatosInicialesDeUsuario()
+    private void cargarDatosInicialesDeUsuario()
     {
         if (Session["idUsuario"] == null)
         {
@@ -166,10 +173,8 @@ public partial class VistaPrevia : Page
 
     protected void actualizarNombreDeClienteYFechaEnQueFirma(string nombre)
     { 
-        string query = " UPDATE FSR SET NombreCliente='" + nombre + "', FechaFirmaCliente=" +
-                "CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";";
-        Conexion.executeQuery(query);
-        
+        controladorFSR.actualizarValorDeCampoPorFolioYUsuario(Session["folio_p"].ToString(), "NombreCliente", nombre);
+        controladorFSR.actualizarValorDeCampoPorFolioYUsuario(Session["folio_p"].ToString(), "FechaFirmaCliente",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
     }
 
     protected bool insertarFirma(string nombreDeImagen, string imagen)
@@ -189,7 +194,7 @@ public partial class VistaPrevia : Page
             int idFirmaImagen = Conexion.insertarFirmaImagen(nombreDeImagen, tipoDeImagen, img2);
             if (idFirmaImagen != 0)
             {
-                Conexion.executeQuery("update FSR set IdFirmaImg=" + idFirmaImagen + " where Folio=" + Session["folio_p"] + ";");
+                controladorFSR.actualizarValorDeCampoPorFolio(Session["folio_p"].ToString(), "IdFirmaImg", Convert.ToString(idFirmaImagen));
                 return true;
             }
             else
@@ -238,7 +243,7 @@ public partial class VistaPrevia : Page
         int firmaCliente = -1;
         try
         {
-            firmaCliente = Conexion.getScalar("select IdFirmaImg from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            firmaCliente = Convert.ToInt32(controladorFSR.consultarValorDeCampoPorFolioyUsuario(Session["folio_p"].ToString(), "IdFirmaImg"));
             if (firmaCliente == -1)
             {
                 Response.Write("<script>alert('Falta firma de cliente');</script>");
@@ -256,7 +261,8 @@ public partial class VistaPrevia : Page
         int firmaIngeniero =-1;
         try
         {
-            firmaIngeniero = Conexion.getScalar("select IDFirmaIng from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            firmaIngeniero = Convert.ToInt32(controladorFSR.consultarValorDeCampoPorFolioyUsuario(Session["folio_p"].ToString(), "IDFirmaIng"));
+ 
             if (firmaIngeniero == -1 )
             {
                 Response.Write("<script>alert('Falta firma de Ingeniero');</script>");
@@ -476,18 +482,13 @@ public partial class VistaPrevia : Page
     {
         try
         {
-            string query = "select WebFechaIni from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";";
-            DateTime fechaSolucion = Conexion.getDateTime(query);
+            DateTime fechaSolucion = Convert.ToDateTime(controladorFSR.consultarValorDeCampoPorFolioyUsuario(Session["folio_p"].ToString(), "WebFechaIni"));
             return fechaSolucion;
         }
         catch (Exception et)
         {
-
-            string query = "select Inicio_Servicio from FSR where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";";
-            DateTime fecha_sol = Conexion.getDateTime(query);
-
-            Conexion.executeQuery(" UPDATE FSR SET WebFechaIni=" +
-                "CAST('" + fecha_sol.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
+            DateTime fecha_sol = Convert.ToDateTime(controladorFSR.consultarValorDeCampoPorFolioyUsuario("Inicio_Servicio", Session["folio_p"].ToString()));
+            controladorFSR.actualizarValorDeCampoPorFolioYUsuario(Session["folio_p"].ToString(), "WebFechaIni", fecha_sol.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             return fecha_sol;
         }
 
@@ -502,9 +503,8 @@ public partial class VistaPrevia : Page
         }
         else
         {
-            Conexion.executeQuery(" UPDATE FSR SET  WebFechaFin='" + fechaFinServicio.ToString("yyyy-MM-dd HH:mm:ss.fff")
-            + "' where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
-
+            controladorFSR.actualizarValorDeCampoPorFolioYUsuario(Session["folio_p"].ToString(), "WebFechaFin", 
+                fechaFinServicio.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             Response.Redirect("CargaFin.aspx");
         }
     }
