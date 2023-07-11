@@ -125,6 +125,9 @@ namespace INOLAB_OC.Controlador
             return _browserRepository.consultarEstatusDeFolioServicio(folioServicio, _idUsuario);
         }
 
-       
+        public string consultarValorDeCampoTop(string folio, string campo)
+        {
+            return _browserRepository.consultarValorDeCampoPorTop(folio, campo);
+        }
     }
 }

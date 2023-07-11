@@ -75,5 +75,9 @@ namespace INOLAB_OC.Controlador
             return v_FsrRepository.consultarValorDeCampo(campo, folio);
         }
 
+        public string consultarValorDeCampoTop(string campo, string folio)
+        {
+            return v_FsrRepository.consultarValorDeCampoTop(campo, folio);
+        }
     }
 }

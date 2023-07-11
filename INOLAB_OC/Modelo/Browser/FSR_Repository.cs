@@ -147,5 +147,11 @@ namespace INOLAB_OC.Modelo.Browser
             int estatusFolioDeServicio = Conexion.getScalar(consulta);
             return estatusFolioDeServicio;
         }
+
+        public string consultarValorDeCampoPorTop(string folio, string campo)
+        {
+            string consulta = "Select top (1) "+ campo + " FROM FSR where Folio= " + folio+";";
+            return Conexion.getText(consulta);
+        }
     }
 }

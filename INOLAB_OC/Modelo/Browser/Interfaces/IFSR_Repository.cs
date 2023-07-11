@@ -40,5 +40,7 @@ namespace INOLAB_OC.Modelo.Browser
         void actualizarValorDeCampo(string folio, string campo, string valorDelCampo, string idUsuario);
 
         int consultarEstatusDeFolioServicio(string folio, string idUsuario);
+
+        string consultarValorDeCampoPorTop(string folio, string campo);
     }
 }

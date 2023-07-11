@@ -15,13 +15,21 @@ using System.Diagnostics;
 using System.EnterpriseServices;
 using INOLAB_OC.Controlador;
 using INOLAB_OC.Entidades;
+using INOLAB_OC.Modelo.Browser;
 
 namespace INOLAB_OC
 {
     public partial class CargaFin : Page
     {
+        static FSR_Repository repositorioFSR = new FSR_Repository();
+        C_FSR controladorFSR;
+
+        static V_FSR_Repository repositorioV_FSR = new V_FSR_Repository();
+        C_V_FSR controladorV_FSR;
         protected void Page_Load(object sender, EventArgs e)
         {
+            controladorFSR = new C_FSR(repositorioFSR, Session["folio_p"].ToString());
+            controladorV_FSR = new C_V_FSR(repositorioV_FSR);
             if (Session["idUsuario"] == null)
             {
                 Response.Redirect("./Sesion.aspx");
@@ -119,13 +127,6 @@ namespace INOLAB_OC
                 // Not using form credentials
                 return false;
             }
-        }
-
-        protected void updateFSR(string nombre)
-        {//Actualiza el nombre del cliente y la fecha en la que el cliente realiza la firma 
-              Conexion.executeQuery(" UPDATE FSR SET NombreCliente='" + nombre + "', FechaFirmaCliente=" +
-                    "CAST('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AS DATETIME) where Folio=" + Session["folio_p"] + " and Id_Ingeniero =" + Session["idUsuario"] + ";");
-            Trace.Write(nombre);
         }
 
         private void actualizarEstatusDeCierreDeActividadEnSap()
@@ -278,9 +279,10 @@ namespace INOLAB_OC
                 reader.Dispose();
             }
       
-            string query = "Select top (1) Observaciones FROM FSR where Folio=" + Session["folio_p"].ToString();
-            string observacionesDelFolio = Conexion.getText(query);
-          
+            string observacionesDelFolio = controladorFSR.consultarValorDeCampoTop(Session["folio_p"].ToString(),
+                "Observaciones");
+
+
             string llamada = "Interna";
             try
             {
@@ -292,13 +294,14 @@ namespace INOLAB_OC
                 Console.Write(es.ToString());
             }
         
-            string cliente = Conexion.getText("Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString());      
-            string equipo = Conexion.getText("Select top (1) Equipo FROM FSR where Folio=" + Session["folio_p"].ToString());
-            string tipoDeServicio = Conexion.getText("Select top (1) TipoServicio FROM V_FSR where Folio=" + Session["folio_p"].ToString());       
+            string cliente = controladorFSR.consultarValorDeCampoTop(Session["folio_p"].ToString(), "Cliente");
+            string equipo =  controladorFSR.consultarValorDeCampoTop(Session["folio_p"].ToString(), "Equipo");
             
-            string ingeniero = Conexion.getText("Select top (1) Ingeniero FROM V_FSR where Folio=" + Session["folio_p"].ToString());          
-            string actividad = Conexion.getText("Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString());      
-            string OrdenVenta = Conexion.getText("Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString());
+            string tipoDeServicio =  controladorV_FSR.consultarValorDeCampoTop("TipoServicio", Session["folio_p"].ToString());
+            string ingeniero = controladorV_FSR.consultarValorDeCampoTop("Ingeniero", Session["folio_p"].ToString());
+
+            string actividad =  controladorV_FSR.consultarValorDeCampoTop("Actividad", Session["folio_p"].ToString());
+            string OrdenVenta =  controladorV_FSR.consultarValorDeCampoTop("OC", Session["folio_p"].ToString());
 
 
             cuerpoDelCorreo = cuerpoDelCorreo.Replace("{folio}", folio);
