@@ -16,12 +16,18 @@ using System.Web.Services.Description;
 using INOLAB_OC.Controlador;
 using INOLAB_OC.Modelo.Browser;
 using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
+using INOLAB_OC.Controlador.Ingenieros;
+using INOLAB_OC.Modelo.Inolab;
 
 public partial class VistaPrevia : Page
 {
     static string idUsuario;
+    static SCL5Repository repositorioSCL5 = new SCL5Repository();
+    C_SCL5 controladorSCL5;
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        controladorSCL5 = new C_SCL5(repositorioSCL5);
         idUsuario = Session["idUsuario"].ToString();
         cargarDatosInicialesDeUsuario();
     }
@@ -41,8 +47,7 @@ public partial class VistaPrevia : Page
     }
 
     protected void Page_Init(object sender, EventArgs e)
-    {
-        
+    {       
         if (!Page.IsPostBack)
         {
             ReportViewer1.ServerReport.ReportServerCredentials = new MyReportServerCredentials();
@@ -275,64 +280,7 @@ public partial class VistaPrevia : Page
         }
         return firmaIngeniero;
     }
-    private void ActStatus()
-    {
-        try
-        {
-            //Actualizacion a estado de cierre de actividad de SAP
-            string actualizarEstatus = "Update OCLG set OCLG.status = -3, OCLG.Closed = 'Y', OCLG.CloseDate =CAST('" +
-                DateTime.Now.ToString("yyyy-MM-dd") + "' AS DATETIME) from OCLG INNER JOIN SCL5 ON OCLG.ClgCode=SCL5.ClgID where SCL5.U_FSR ='" + Session["folio_p"].ToString() + "'";
-            ConexionInolab.executeQuery(actualizarEstatus);
-
-            string queryUpdateStatusSCL5 = "Update SCL5 set U_ESTATUS = 'Finalizado' where U_FSR ='" + Session["folio_p"].ToString() + "'";
-            ConexionInolab.executeQuery(queryUpdateStatusSCL5);
-           
-            //Buscar el callid
-            string querySrvcCallId = "Select SrvcCallId FROM SCL5 where U_FSR ='" + Session["folio_p"].ToString() + "'";
-            string resultado =ConexionInolab.getText(querySrvcCallId);
-
-            //Me da el Callid 
-            string querySCL5 = "Select count (DISTINCT U_ESTATUS) FROM SCL5 where SrvcCallId = " + resultado.ToString();
-            string resultado2 = ConexionInolab.getText(querySCL5);
-
-            //resultado2 el numero de valores que hay en estatus (Para que se cierre la llamada debe de ser "-1")
-
-
-            //Hacer un ciclo while para identificar nulos? (usar visorder para pasar por todos)
-            string queryCountSCL5 = "Select count(*) FROM SCL5 where SrvcCallId = " + resultado.ToString();
-            string resultadoc = ConexionInolab.getText(queryCountSCL5);
-            
-
-            bool nulo = false;
-
-            for (int i = 1; i <= Convert.ToInt32(resultadoc); i++)
-            {
-                //Comprueba si hy m folios con distintos estatus en la tabla de la llamada en SAP
-                string queryt = "Select U_ESTATUS FROM SCL5 where SrvcCallId = " + resultado.ToString() + 
-                    "and VisOrder = " + i.ToString();
-                string resultadot = ConexionInolab.getText(queryt);
-
-                if (resultadot != "Finalizado")
-                {
-                    nulo = true;
-                }
-                
-            }
-
-            if (resultado2 == "1" && nulo == false)
-            {
-                //En caso de que todos los registros correspondientes a la llamda esten con estatus de finalizado, finaliza la llamada
-                ConexionInolab.executeQuery("Update OSCL set status = -1 where callID=" + resultado.ToString());
-                
-            }
-        }
-        catch (Exception er)
-        {
-            Response.Write("<script>alert('Fallo en subir a sap ');</script>");
-        }
-
-    }
-    
+   
     private void SendMail(string filepath, string mail)
     {//Envía el correo electrónico con la información del FSR y adjunto el archivo
         try

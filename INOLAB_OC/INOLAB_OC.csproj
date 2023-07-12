@@ -172,8 +172,10 @@
     <Compile Include="Controlador\C_FSR.cs" />
     <Compile Include="Controlador\C_Usuario.cs" />
     <Compile Include="Controlador\Ingenieros\C_Refaccion.cs" />
+    <Compile Include="Controlador\Ingenieros\C_SCL5.cs" />
     <Compile Include="Entidades\E_FSRAccion.cs" />
     <Compile Include="Entidades\E_Refaccion.cs" />
+    <Compile Include="Entidades\E_SCL5.cs" />
     <Compile Include="Entidades\E_Servicio.cs" />
     <Compile Include="Entidades\E_Usuario.cs" />
     <Compile Include="Entidades\E_V_FSR.cs" />
@@ -187,8 +189,8 @@
     <Compile Include="Modelo\Browser\Refaccion_Repository.cs" />
     <Compile Include="Modelo\Browser\UsuarioRepository.cs" />
     <Compile Include="Modelo\Browser\V_FSR_Repository.cs" />
-    <Compile Include="Modelo\Inolab\IInolabRepository.cs" />
-    <Compile Include="Modelo\Inolab\InolabRepository.cs" />
+    <Compile Include="Modelo\Inolab\Interfaces\ISCL5Repository.cs" />
+    <Compile Include="Modelo\Inolab\SCL5Repository.cs" />
     <Compile Include="Vista\Ingenieros\Calendario.aspx.cs">
       <DependentUpon>Calendario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

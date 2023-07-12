@@ -16,6 +16,8 @@ using System.EnterpriseServices;
 using INOLAB_OC.Controlador;
 using INOLAB_OC.Entidades;
 using INOLAB_OC.Modelo.Browser;
+using INOLAB_OC.Modelo.Inolab;
+using INOLAB_OC.Controlador.Ingenieros;
 
 namespace INOLAB_OC
 {
@@ -26,10 +28,15 @@ namespace INOLAB_OC
 
         static V_FSR_Repository repositorioV_FSR = new V_FSR_Repository();
         C_V_FSR controladorV_FSR;
+       
+        static SCL5Repository repositorioSCL5 = new SCL5Repository();
+        C_SCL5 controladorSCL5;
         protected void Page_Load(object sender, EventArgs e)
         {
             controladorFSR = new C_FSR(repositorioFSR, Session["folio_p"].ToString());
             controladorV_FSR = new C_V_FSR(repositorioV_FSR);
+            controladorSCL5 = new C_SCL5(repositorioSCL5);
+
             if (Session["idUsuario"] == null)
             {
                 Response.Redirect("./Sesion.aspx");
@@ -131,18 +138,16 @@ namespace INOLAB_OC
 
         private void actualizarEstatusDeCierreDeActividadEnSap()
         {
+            string folioFSR = Session["folio_p"].ToString();
             try
             {
                 
                 string actualizarEstatusOCLG = "Update OCLG set OCLG.status = -3, OCLG.Closed = 'Y', OCLG.CloseDate =CAST('" +
                     DateTime.Now.ToString("yyyy-MM-dd") + "' AS DATETIME) from OCLG INNER JOIN SCL5 ON OCLG.ClgCode=SCL5.ClgID where SCL5.U_FSR ='" + Session["folio_p"].ToString() + "'";           
                 ConexionInolab.executeQuery(actualizarEstatusOCLG);
-                            
-                string actualizarEstatusSCL5 = "Update SCL5 set U_ESTATUS = 'Finalizado' where U_FSR ='" + Session["folio_p"].ToString() + "'";
-                ConexionInolab.executeQuery(actualizarEstatusSCL5);               
-   
-                string consultaCallId = "Select SrvcCallId FROM SCL5 where U_FSR ='" + Session["folio_p"].ToString() + "'";               
-                string callId = ConexionInolab.getText(consultaCallId);
+
+                controladorSCL5.actualizarValorDeCampo("U_ESTATUS", "Finalizado", folioFSR);                
+                string callId = controladorSCL5.seleccionarValorDeCampo("SrvcCallId", folioFSR);
                                           
                 string numeroDeValoresEnEstatus = ConexionInolab.getText("Select count (DISTINCT U_ESTATUS) FROM SCL5 where SrvcCallId = " + callId.ToString());
                 //(Para que se cierre la llamada debe de ser "-1")
@@ -177,10 +182,6 @@ namespace INOLAB_OC
                 Response.Write("<script>alert('Fallo en subir a sap ');</script>");
             }
         }
-
-
-
-       
 
         private string cuerpoDelCorreoElectronico(string folioDeServicio, string cliente)
         {
@@ -272,36 +273,35 @@ namespace INOLAB_OC
         private string generarCuerpoDelCorreoVentas(string folio)
         {//Realiza el replace en HTML para la creación del correo
             string cuerpoDelCorreo = string.Empty;
-
+            string folioFSR = Session["folio_p"].ToString();
             using (StreamReader reader = new StreamReader(Server.MapPath("./HTML/index_not_ase.html")))
             {
                 cuerpoDelCorreo = reader.ReadToEnd();
                 reader.Dispose();
             }
       
-            string observacionesDelFolio = controladorFSR.consultarValorDeCampoTop(Session["folio_p"].ToString(),
+            string observacionesDelFolio = controladorFSR.consultarValorDeCampoTop(folioFSR,
                 "Observaciones");
 
 
             string llamada = "Interna";
             try
             {
-                string query2 = "Select top (1) SrvcCallId FROM SCL5 where U_FSR=" + Session["folio_p"].ToString();
-                llamada = ConexionInolab.getText(query2);
+                llamada = controladorSCL5.seleccionarValorDeCampoTop("SrvcCallId", folioFSR);
             }
             catch (Exception es)
             {
                 Console.Write(es.ToString());
             }
         
-            string cliente = controladorFSR.consultarValorDeCampoTop(Session["folio_p"].ToString(), "Cliente");
-            string equipo =  controladorFSR.consultarValorDeCampoTop(Session["folio_p"].ToString(), "Equipo");
+            string cliente = controladorFSR.consultarValorDeCampoTop(folioFSR, "Cliente");
+            string equipo =  controladorFSR.consultarValorDeCampoTop(folioFSR, "Equipo");
             
-            string tipoDeServicio =  controladorV_FSR.consultarValorDeCampoTop("TipoServicio", Session["folio_p"].ToString());
-            string ingeniero = controladorV_FSR.consultarValorDeCampoTop("Ingeniero", Session["folio_p"].ToString());
+            string tipoDeServicio =  controladorV_FSR.consultarValorDeCampoTop("TipoServicio", folioFSR);
+            string ingeniero = controladorV_FSR.consultarValorDeCampoTop("Ingeniero", folioFSR);
 
-            string actividad =  controladorV_FSR.consultarValorDeCampoTop("Actividad", Session["folio_p"].ToString());
-            string OrdenVenta =  controladorV_FSR.consultarValorDeCampoTop("OC", Session["folio_p"].ToString());
+            string actividad =  controladorV_FSR.consultarValorDeCampoTop("Actividad", folioFSR);
+            string OrdenVenta =  controladorV_FSR.consultarValorDeCampoTop("OC", folioFSR);
 
 
             cuerpoDelCorreo = cuerpoDelCorreo.Replace("{folio}", folio);
@@ -368,9 +368,7 @@ namespace INOLAB_OC
             string tipoDeLLamada = "Interna";
             try
             {
-                string queryTipoDeLLamada = "Select top (1) SrvcCallId FROM SCL5 where U_FSR=" + Session["folio_p"].ToString();
-                tipoDeLLamada = ConexionInolab.getText(queryTipoDeLLamada);
-             
+                tipoDeLLamada = controladorSCL5.seleccionarValorDeCampoTop("SrvcCallId", Session["folio_p"].ToString());
             }
             catch (Exception es)
             {
@@ -428,8 +426,8 @@ namespace INOLAB_OC
         {
             try
             {                   
-                string clgId = ConexionInolab.getText("Select ClgID FROM SCL5 where U_FSR = " + Session["folio_p"]);
                 string folio = Session["folio_p"].ToString();
+                string clgId =controladorSCL5.seleccionarValorDeCampo("ClgID", folio);
 
                 //Se hace el update de la concatenacion de Folio y Estatus
                 ConexionInolab.executeQuery(" UPDATE OCLG SET tel = '" + Session["folio_p"] + " Finalizado' where ClgCode= " + clgId + ";");

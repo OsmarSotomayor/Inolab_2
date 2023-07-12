@@ -135,7 +135,7 @@ namespace INOLAB_OC.Modelo
 
             }catch (SqlException ex)
             {
-                Trace.WriteLine("PASS FAILED getText");
+                Trace.WriteLine("PASS FAILED getText ", ex.Message.ToString());
                 conexion.Close();
                 return null;
             }

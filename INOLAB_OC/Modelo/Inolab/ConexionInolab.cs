@@ -93,13 +93,13 @@ namespace INOLAB_OC.Modelo
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conexion);
                 adapter.Fill(table);
                 conexion.Close();
-                Trace.WriteLine("PASS SUCES");
+                Trace.WriteLine("PASS SUCES getText");
                 return table.Tables[0].Rows[0][0].ToString();
 
             }
             catch (SqlException ex)
             {
-                Trace.WriteLine("PASS FAILED");
+                Trace.WriteLine("PASS FAILED getText "+ex.Message);
                 conexion.Close();
                 return null;
             }
