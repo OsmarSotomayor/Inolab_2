@@ -18,7 +18,6 @@ public partial class FSR : Page
     const string FINALIZADO = "3";
     const string ASIGNADO = "1";
     const string PROCESO = "2";
-    const string SIN_SERVICIO_INICIADO ="";
     E_Servicio folioServicioFSR = new E_Servicio();
     static FSR_Repository repositorio = new FSR_Repository();
     static string _idUsuario;
@@ -100,22 +99,9 @@ public partial class FSR : Page
             DropDownList8.Text = informacionServicio["Estatusid"].ToString();
             Estatus_de_folio_servicio.Text= informacionServicio["Estatusid"].ToString();
 
-            verificarSiContinuaOIniciaServicio();
-
+            Btn_Estatus_Servicio.Text = controladorFSR.verificarSiIniciaOContinuaServicio(Session["folio_p"].ToString());
     }
 
-    public void verificarSiContinuaOIniciaServicio()
-    {
-        string inicioServicio = controladorFSR.seleccionarInicioServicio(Session["folio_p"].ToString());
-        if (inicioServicio != SIN_SERVICIO_INICIADO)
-        {
-            Btn_Estatus_Servicio.Text = "Continuar Servicio";
-        }
-        else if (inicioServicio.Equals(SIN_SERVICIO_INICIADO) || inicioServicio == null)
-        {
-            Btn_Estatus_Servicio.Text = "Iniciar Servicio";
-        }
-    }
     public void definirVisibilidadYTextoDeBotonesPrincipales()
     {
         if (Estatus_de_folio_servicio.Text.Equals(FINALIZADO))

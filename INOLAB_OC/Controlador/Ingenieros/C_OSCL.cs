@@ -11,17 +11,22 @@ namespace INOLAB_OC.Controlador.Ingenieros
     public class C_OSCL
     {
         private readonly IOSCL_Repository repositorio;
+        private readonly int callId;
 
         public C_OSCL(IOSCL_Repository repositorio) {
             this.repositorio = repositorio;
         }
-
-        public void verificarSiSeCierraLaLLamada(string numeroDeValoresEnEstatus, bool nulo, int callId)
+        public C_OSCL(IOSCL_Repository repositorio, int callId)
         {
-            if (numeroDeValoresEnEstatus == "1" && nulo == false)
+            this.repositorio = repositorio;
+            this.callId = callId;
+        }
+
+        public void verificarSiSeCierraLaLLamada(string numeroDeValoresEnEstatus, bool HayFoliosConEstatusDiferenteDeFinalizado)
+        {
+            if (numeroDeValoresEnEstatus == "1" && HayFoliosConEstatusDiferenteDeFinalizado == false)
             {
                 repositorio.cambiarValorDeEstatusFolioAFinalizado(callId);
-
             }
         }
 

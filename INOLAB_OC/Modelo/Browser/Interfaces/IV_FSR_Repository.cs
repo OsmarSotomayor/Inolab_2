@@ -21,5 +21,7 @@ namespace INOLAB_OC.Modelo.Browser.Interfaces
 
         DataSet consultarFoliosFinalizados(string idUsuario);
 
+        DataSet consultarFoliosPorArea(string area);
+
     }
 }

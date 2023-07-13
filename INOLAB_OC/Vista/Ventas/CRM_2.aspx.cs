@@ -30,8 +30,6 @@ namespace INOLAB_OC
             lbluser.Text = Session["nameUsuario"].ToString();
             lbliduser.Text = Session["idUsuario"].ToString();
             ReportViewer1.ServerReport.Refresh();
-
-
         }
 
         //REPORTEADOR

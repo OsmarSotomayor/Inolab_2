@@ -42,6 +42,11 @@ namespace Test.Controlador.Ingeniero
                 throw new NotImplementedException();
             }
 
+            public DataSet consultarFoliosPorArea(string area)
+            {
+                throw new NotImplementedException();
+            }
+
             public DataRow consultarInformacionDeFolioPorFolio(string folio)
             {
                 throw new NotImplementedException();

@@ -19,11 +19,27 @@ namespace INOLAB_OC.Controlador
             _browserRepository = browserRepository;
             _idUsuario = idUsuario;
         }
-
-        public  string seleccionarInicioServicio(string folio)
+        public C_FSR(IFSR_Repository browserRepository)
         {
-            string inicioDeServicio = _browserRepository.consultarInicioDeServicio(folio);
-            return inicioDeServicio;
+            _browserRepository = browserRepository;
+ 
+        }
+
+        public string verificarSiIniciaOContinuaServicio(string folioFSR)
+        {
+            string estatusDeServicio = null;
+            string inicioServicio = _browserRepository.consultarInicioDeServicio(folioFSR);
+
+            if (inicioServicio != "")
+            {
+                estatusDeServicio = "Continuar Servicio";
+            }
+            else if (inicioServicio.Equals("") || inicioServicio == null)
+            {
+                estatusDeServicio = "Iniciar Servicio";
+            }
+
+            return estatusDeServicio;
         }
 
         public  void actualizarDatosDeServicio(E_Servicio folioServicioFSR)
@@ -128,6 +144,16 @@ namespace INOLAB_OC.Controlador
         public string consultarValorDeCampoTop(string folio, string campo)
         {
             return _browserRepository.consultarValorDeCampoPorTop(folio, campo);
+        }
+
+        public void actualizarHorasDeServicio(string folioFSR, string idUsuario)
+        {
+            _browserRepository.actualizarHorasDeServicio(folioFSR,  idUsuario);
+        }
+
+        public string consultarMailDeFolioServicio(string folioFSR)
+        {
+            return _browserRepository.consultarMailDeFolioServicio(folioFSR);
         }
     }
 }

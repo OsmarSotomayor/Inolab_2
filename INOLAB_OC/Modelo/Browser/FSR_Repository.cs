@@ -153,5 +153,15 @@ namespace INOLAB_OC.Modelo.Browser
             string consulta = "Select top (1) "+ campo + " FROM FSR where Folio= " + folio+";";
             return Conexion.getText(consulta);           
         }
+
+        public void actualizarHorasDeServicio(string folioFSR, string idUsuario)
+        {
+            Conexion.updateHorasDeServicio(folioFSR, idUsuario);
+        }
+
+        public string consultarMailDeFolioServicio(string folioFSR)
+        {     
+            return Conexion.getText("select Mail from FSR where Folio = " + folioFSR + " and IdFirmaImg is not null;");
+        }
     }
 }

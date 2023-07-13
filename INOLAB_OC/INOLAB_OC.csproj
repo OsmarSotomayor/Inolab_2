@@ -167,6 +167,7 @@
       <DependentUpon>BrowserDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Controlador\Ingenieros\C_FSR_Accion.cs" />
+    <Compile Include="Controlador\Ingenieros\C_OCLG.cs" />
     <Compile Include="Controlador\Ingenieros\C_OSCL.cs" />
     <Compile Include="Controlador\Ingenieros\C_V_FSR.cs" />
     <Compile Include="Controlador\Ingenieros\C_CargaFin.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Modelo\Browser\V_FSR_Repository.cs" />
     <Compile Include="Modelo\Inolab\Interfaces\IOSCL_Repository.cs" />
     <Compile Include="Modelo\Inolab\Interfaces\ISCL5Repository.cs" />
+    <Compile Include="Modelo\Inolab\OCLG_Repository.cs" />
     <Compile Include="Modelo\Inolab\OSCL_Repository.cs" />
     <Compile Include="Modelo\Inolab\SCL5Repository.cs" />
     <Compile Include="Vista\Ingenieros\Calendario.aspx.cs">
