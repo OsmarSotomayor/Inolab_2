@@ -149,16 +149,16 @@ namespace INOLAB_OC
                 controladorSCL5.actualizarValorDeCampo("U_ESTATUS", "Finalizado", folioFSR);                
                 string callId = controladorSCL5.seleccionarValorDeCampo("SrvcCallId", folioFSR);
                                           
-                string numeroDeValoresEnEstatus = ConexionInolab.getText("Select count (DISTINCT U_ESTATUS) FROM SCL5 where SrvcCallId = " + callId.ToString());
+                string numeroDeValoresEnEstatus =  controladorSCL5.consultarNumeroDeFoliosPorCallId(callId.ToString());
                 //(Para que se cierre la llamada debe de ser "-1")
                 
                 //Hacer un ciclo while para identificar nulos? (usar visorder para pasar por todos)                               
-                string numeroDeValoresEnSLC5 = ConexionInolab.getText("Select count(*) FROM SCL5 where SrvcCallId = " + callId.ToString());
+                int numeroDeValoresEnSLC5 = controladorSCL5.contarFilasDeTablaPorCallId(callId.ToString());
                 
                 bool nulo = false;
 
                 //Proceso de chequeo de todos los estatus asignados a los folios dentro de la llamada para poder cerrarla o dejarla abierta
-                for (int i = 1; i <= Convert.ToInt32(numeroDeValoresEnSLC5); i++)
+                for (int i = 1; i <= numeroDeValoresEnSLC5; i++)
                 {
                     string query = "Select U_ESTATUS FROM SCL5 where SrvcCallId = " + callId.ToString() +
                         "and VisOrder = " + i.ToString();                   
@@ -357,7 +357,7 @@ namespace INOLAB_OC
         private string cuerpoDelCorreoElectronicoParaFacturacion(string folio)
         {
             string cuerpoDelCorreo = string.Empty;
-
+            string folioFSR = Session["folio_p"].ToString();
             using (StreamReader reader = new StreamReader(Server.MapPath("./HTML/index_not_fact.html")))
             {
                 cuerpoDelCorreo = reader.ReadToEnd();
@@ -376,9 +376,9 @@ namespace INOLAB_OC
             }
             
             //Obtencion de datos para el correo
-            string cliente = Conexion.getText("Select top (1) Cliente FROM FSR where Folio=" + Session["folio_p"].ToString());
-            string actividad = Conexion.getText("Select top (1) Actividad FROM V_FSR where Folio=" + Session["folio_p"].ToString());
-            string OrdenVenta = Conexion.getText("Select top (1) OC FROM V_FSR where Folio=" + Session["folio_p"].ToString());
+            string cliente = controladorFSR.consultarValorDeCampoTop("Cliente", folioFSR);
+            string actividad =  controladorFSR.consultarValorDeCampoTop("Actividad", folioFSR);
+            string OrdenVenta = controladorV_FSR.consultarValorDeCampoTop("OC", folioFSR);
 
             cuerpoDelCorreo = cuerpoDelCorreo.Replace("{folio}", folio);
             cuerpoDelCorreo = cuerpoDelCorreo.Replace("{slogan}", "data:image/png;base64," + convertirImagenAStringBase64(Server.MapPath("./Imagenes/slogan.png")));
@@ -440,7 +440,7 @@ namespace INOLAB_OC
 
         private void verificarElTipoDeContrato(string path, string correoElectronicoCliente)
         {
-            string idContrato = Conexion.getText("Select top (1) IdT_Contrato FROM FSR where Folio=" + Session["folio_p"].ToString());
+            string idContrato = controladorFSR.consultarValorDeCampoTop(Session["folio_p"].ToString(), "IdT_Contrato");
             string servicioPuntual = "7";
 
             if (idContrato.Equals(servicioPuntual))
@@ -454,7 +454,7 @@ namespace INOLAB_OC
         {
             if (Session["not_ase"].ToString() == "Si")
             {
-                string correoElectronicoAsesor = Conexion.getText("Select top (1) Correoasesor1 FROM V_FSR where Folio=" + Session["folio_p"].ToString());
+                string correoElectronicoAsesor = controladorV_FSR.consultarValorDeCampoTop("Correoasesor1", Session["folio_p"].ToString());
                 envioDeCorreoElectronicoConInformacionFSR(correoElectronicoAsesor);
             }
         }

@@ -27,6 +27,22 @@ namespace INOLAB_OC.Modelo.Inolab
             return ConexionInolab.getText(query);
         }
 
+        public int contarFilasDeTablaPorCallId(string callId)
+        {
+            string query = "Select count(*) FROM SCL5 where SrvcCallId = "+callId+";";
+            return ConexionInolab.getScalar(query);
+        }
 
+        public string consultarNumeroDeFoliosPorCallId(string callId)
+        {
+            return ConexionInolab.getText("Select count (DISTINCT U_ESTATUS) FROM SCL5 where SrvcCallId = " + callId.ToString());
+        }
+
+        public string consultarEstatusDeFoliosPorCallIdYVisOrder(string callId, int visOrder)
+        {
+            string query = "Select U_ESTATUS FROM SCL5 where SrvcCallId = " + callId +
+                    "and VisOrder = " + visOrder;
+            return  ConexionInolab.getText(query);
+        }
     }
 }

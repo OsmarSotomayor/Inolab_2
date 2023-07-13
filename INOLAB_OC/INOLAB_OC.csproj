@@ -166,11 +166,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BrowserDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Controlador\C_FSR_Accion.cs" />
-    <Compile Include="Controlador\C_V_FSR.cs" />
+    <Compile Include="Controlador\Ingenieros\C_FSR_Accion.cs" />
+    <Compile Include="Controlador\Ingenieros\C_V_FSR.cs" />
     <Compile Include="Controlador\Ingenieros\C_CargaFin.cs" />
-    <Compile Include="Controlador\C_FSR.cs" />
-    <Compile Include="Controlador\C_Usuario.cs" />
+    <Compile Include="Controlador\Ingenieros\C_FSR.cs" />
+    <Compile Include="Controlador\Ingenieros\C_Usuario.cs" />
     <Compile Include="Controlador\Ingenieros\C_Refaccion.cs" />
     <Compile Include="Controlador\Ingenieros\C_SCL5.cs" />
     <Compile Include="Entidades\E_FSRAccion.cs" />
@@ -336,7 +336,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controlador\Ventas\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

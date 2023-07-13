@@ -15,5 +15,11 @@ namespace INOLAB_OC.Modelo.Inolab
         string seleccionarValorDeCampoTop(string campo, string folio);
 
         string seleccionarValorDeCampo(string campo, string folio);
+
+        int contarFilasDeTablaPorCallId(string callId);
+
+        string consultarNumeroDeFoliosPorCallId(string callId);
+
+        string consultarEstatusDeFoliosPorCallIdYVisOrder(string callId, int visOrder);
     }
 }

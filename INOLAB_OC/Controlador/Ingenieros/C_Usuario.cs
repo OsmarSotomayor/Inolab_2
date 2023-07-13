@@ -43,6 +43,10 @@ namespace INOLAB_OC.Controlador
             }
         }
 
+        public string consultarValorDeCampo(string campo, string idUsuario)
+        {
+           return _userRepository.consultarValorDeCampo(campo, idUsuario);
+        }
         
     }
 }

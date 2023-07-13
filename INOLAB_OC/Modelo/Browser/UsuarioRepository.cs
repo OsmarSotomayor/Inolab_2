@@ -44,6 +44,11 @@ namespace INOLAB_OC.Modelo.Browser
 
         }
 
+        public string consultarValorDeCampo(string campo, string idUsuario)
+        {
+            string query = "Select "+campo+ " from usuarios where idUsuario = " + idUsuario;
+            return Conexion.getText(query);
 
+        }
     }
 }

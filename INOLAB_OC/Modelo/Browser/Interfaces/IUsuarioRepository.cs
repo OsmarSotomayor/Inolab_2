@@ -13,7 +13,6 @@ namespace INOLAB_OC.Modelo.Browser.Interfaces
         DataRow OptenerDatosDeUsuario(E_Usuario usuario);
         void executeStoreProcedureLogWeb(E_Usuario usuario);
 
-        string consultarValorDeCampo(string campo, string valorDeCampo)
-        
+        string consultarValorDeCampo(string campo, string idUsuario);
     }
 }

@@ -8,6 +8,7 @@ using INOLAB_OC.Entidades;
 using INOLAB_OC.Modelo.Browser;
 using INOLAB_OC.Controlador;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using INOLAB_OC.Modelo.Browser.Interfaces;
 
 namespace Test.Controlador
 {
@@ -20,7 +21,7 @@ namespace Test.Controlador
             //Arrange 
             TestBrowserRepository repositoryio = new TestBrowserRepository();
             E_Usuario usuario = new E_Usuario();
-            C_Sesion controladorSesson = new C_Sesion(repositoryio);
+            C_Usuario controladorSesson = new C_Usuario(repositoryio);
 
 
             // Acction
@@ -33,86 +34,21 @@ namespace Test.Controlador
 
     }
 
-    public class TestBrowserRepository : IFSR_Repository
+    public class TestBrowserRepository : IUsuarioRepository
     {
-        public void actualizarDatosDeServicio(E_Servicio folioServicioFSR, string idUsuario)
+        public string consultarValorDeCampo(string campo, string idUsuario)
         {
             throw new NotImplementedException();
         }
 
-        public void actualizarFechayHoraFinDeServicio(E_Servicio servicio, string idIngeniero)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void actualizarValorDeCampo(string folio, string campo, string valorDelCampo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void actualizarValorDeCampo(string folio, string campo, string valorDelCampo, string idUsuario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int consultarEstatusDeFolioServicio(string folio, string idUsuario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DateTime consultarFechaFinDeFolio(string folio, string idIngeniero, string campoDondeSeConsulta)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DateTime consultarFechaInicioDeFolio(string folio, string idIngeniero, string campoDondeSeConsulta)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataSet consultarFolioServicioPorEstatus(E_Servicio servicio, string idUsuario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataRow consultarInformacionDeFolioPorFolio(string folio)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataRow consultarInformacionDeFolioPorFolioYUsuario(string usuario, string folio)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string consultarInicioDeServicio(string folio)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataSet consultarTodosLosFoliosDeServicio(string idUsuario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string consultarValorDeCampo(string folio, string idUsuario, string campo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string consultarValorDeCampo(string folio, string campo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void iniciarFolioServicio(DateTime fechaYHoraDeInicioDeServicio, string folio, string idIngeniero)
+        public void executeStoreProcedureLogWeb(E_Usuario usuario)
         {
             throw new NotImplementedException();
         }
 
         public DataRow OptenerDatosDeUsuario(E_Usuario usuario)
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

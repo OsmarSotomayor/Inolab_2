@@ -104,16 +104,9 @@ C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\obj\Debug\net6.0\ref\Test.dl
 C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\INOLAB_OC.dll
 C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\Microsoft.ReportViewer.WebForms.dll
 C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\SpreadsheetLight.dll
-C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\ExcelDataReader.dll
-C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\ExcelDataReader.DataSet.dll
 C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\Microsoft.ReportViewer.Common.dll
 C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
-C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\ICSharpCode.SharpZipLib.dll
 C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\Microsoft.ReportViewer.ProcessingObjectModel.dll
 C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\INOLAB_OC.pdb
 C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\INOLAB_OC.dll.config
 C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\SpreadsheetLight.xml
-C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\ExcelDataReader.pdb
-C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\ExcelDataReader.xml
-C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\ExcelDataReader.DataSet.pdb
-C:\Users\Omar Sotomayor\source\repos\INOLAB_OC\Test\bin\Debug\net6.0\ExcelDataReader.DataSet.xml

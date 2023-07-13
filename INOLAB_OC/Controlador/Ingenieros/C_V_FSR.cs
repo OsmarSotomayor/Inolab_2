@@ -1,4 +1,5 @@
-﻿using INOLAB_OC.Entidades;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using INOLAB_OC.Entidades;
 using INOLAB_OC.Modelo.Browser;
 using INOLAB_OC.Modelo.Browser.Interfaces;
 using System;
@@ -78,6 +79,11 @@ namespace INOLAB_OC.Controlador
         public string consultarValorDeCampoTop(string campo, string folio)
         {
             return v_FsrRepository.consultarValorDeCampoTop(campo, folio);
+        }
+
+        public DataSet consultarFoliosConEstatusFinalizado(string idUsuario)
+        {
+            return v_FsrRepository.consultarFoliosFinalizados(idUsuario);
         }
     }
 }

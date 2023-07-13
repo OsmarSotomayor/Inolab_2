@@ -37,12 +37,27 @@ namespace Test.Controlador.Ingeniero
                 throw new NotImplementedException();
             }
 
+            public DataSet consultarFoliosFinalizados(string idUsuario)
+            {
+                throw new NotImplementedException();
+            }
+
             public DataRow consultarInformacionDeFolioPorFolio(string folio)
             {
                 throw new NotImplementedException();
             }
 
             public DataSet consultarTodosLosFoliosDeServicio(string idUsuario)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string consultarValorDeCampo(string campo, string valorDeCampo)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string consultarValorDeCampoTop(string campo, string folio)
             {
                 throw new NotImplementedException();
             }

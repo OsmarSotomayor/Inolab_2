@@ -460,22 +460,6 @@
           }
         }
       },
-      "ExcelDataReader/3.6.0.0": {
-        "runtime": {
-          "ExcelDataReader.dll": {
-            "assemblyVersion": "3.6.0.0",
-            "fileVersion": "3.6.0.0"
-          }
-        }
-      },
-      "ExcelDataReader.DataSet/3.6.0.0": {
-        "runtime": {
-          "ExcelDataReader.DataSet.dll": {
-            "assemblyVersion": "3.6.0.0",
-            "fileVersion": "3.6.0.0"
-          }
-        }
-      },
       "Microsoft.ReportViewer.Common/11.0.0.0": {
         "runtime": {
           "Microsoft.ReportViewer.Common.dll": {
@@ -489,14 +473,6 @@
           "DocumentFormat.OpenXml.dll": {
             "assemblyVersion": "2.5.5631.0",
             "fileVersion": "2.5.5631.0"
-          }
-        }
-      },
-      "ICSharpCode.SharpZipLib/0.86.0.518": {
-        "runtime": {
-          "ICSharpCode.SharpZipLib.dll": {
-            "assemblyVersion": "0.86.0.518",
-            "fileVersion": "0.86.0.518"
           }
         }
       },
@@ -725,27 +701,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "ExcelDataReader/3.6.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ExcelDataReader.DataSet/3.6.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Microsoft.ReportViewer.Common/11.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
     "DocumentFormat.OpenXml/2.5.5631.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ICSharpCode.SharpZipLib/0.86.0.518": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

@@ -19,5 +19,7 @@ namespace INOLAB_OC.Modelo.Browser.Interfaces
 
         string consultarValorDeCampoTop(string campo, string folio);
 
+        DataSet consultarFoliosFinalizados(string idUsuario);
+
     }
 }

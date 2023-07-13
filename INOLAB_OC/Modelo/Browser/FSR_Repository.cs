@@ -151,7 +151,7 @@ namespace INOLAB_OC.Modelo.Browser
         public string consultarValorDeCampoPorTop(string folio, string campo)
         {
             string consulta = "Select top (1) "+ campo + " FROM FSR where Folio= " + folio+";";
-            return Conexion.getText(consulta);
+            return Conexion.getText(consulta);           
         }
     }
 }

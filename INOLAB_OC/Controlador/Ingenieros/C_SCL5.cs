@@ -1,4 +1,5 @@
-﻿using INOLAB_OC.Modelo.Inolab;
+﻿using INOLAB_OC.Modelo;
+using INOLAB_OC.Modelo.Inolab;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,36 @@ namespace INOLAB_OC.Controlador.Ingenieros
         public string seleccionarValorDeCampoTop(string campo, string folio)
         {
             return repositorio.seleccionarValorDeCampoTop(campo , folio);
+        }
+
+        public int contarFilasDeTablaPorCallId(string callId)
+        {
+            return repositorio.contarFilasDeTablaPorCallId(callId);
+        }
+
+        public string consultarNumeroDeFoliosPorCallId(string callId)
+        {
+            return repositorio.consultarNumeroDeFoliosPorCallId(callId);
+        }
+
+        public bool verificarSiHayFoliosConEstatusDiferenteDeFinalizado(int numeroDeFolios, string callId)
+        {
+            bool hayFoliosConEstatusDiferenteDeFinalizado = false;
+            for (int i = 1; i <= numeroDeFolios; i++)
+            {
+                string estatusDeFolio =  repositorio.consultarEstatusDeFoliosPorCallIdYVisOrder(callId, i);
+
+                if (estatusDeFolio != "Finalizado")
+                {
+                    hayFoliosConEstatusDiferenteDeFinalizado = true;
+                }
+            }
+            return hayFoliosConEstatusDiferenteDeFinalizado;
+        }
+
+        public void verificarSiSeCierraLaLLamada(string numeroDeValoresEnEstatus, bool hayFoliosConEstatusDiferenteDeFinalizado)
+        {
+
         }
     }
 }
