@@ -120,9 +120,27 @@ namespace INOLAB_OC.Controlador
            return _browserRepository.consultarValorDeCampo(numeroDeFolioServicio, _idUsuario, campoQueSeConsulta);
         }
 
+
+
         public string consultarValorDeCampoPorFolio(string numeroDeFolioServicio, string campoQueSeConsulta)
         {
             return _browserRepository.consultarValorDeCampo(numeroDeFolioServicio, campoQueSeConsulta);
+        }
+
+        public bool verificarSiSeEnviaEmailAlAsesor(string idFolioServicio, string campoDondeVerificaras)
+        {      
+                bool envioDeNotificaciones; 
+
+                string notificacionAlAsesor = _browserRepository.consultarValorDeCampo(idFolioServicio, campoDondeVerificaras);
+                if (notificacionAlAsesor.Equals("Si"))
+                {
+                    envioDeNotificaciones = true;
+                }
+                else
+                {
+                    envioDeNotificaciones = false;
+                }
+                return envioDeNotificaciones;       
         }
 
         public void actualizarValorDeCampoPorFolio(string numeroDeFolioServicio, string campoQueActualizas, string valorDelCampo)
@@ -130,10 +148,40 @@ namespace INOLAB_OC.Controlador
             _browserRepository.actualizarValorDeCampo(numeroDeFolioServicio, campoQueActualizas, valorDelCampo);
         }
 
+        public string verificarSiEnviaNotificacionDeObservacionesAlUsuario(bool Envio_de_notificacion_de_observacion, string idFolioServicio)
+        {
+            string envioDeNotificacion ="";
+            if (Envio_de_notificacion_de_observacion == true)
+            {
+                _browserRepository.actualizarValorDeCampo(idFolioServicio, "NotAsesor", "Si");
+                envioDeNotificacion = "Si";
+            }
+            else if (Envio_de_notificacion_de_observacion == false)
+            {
+                _browserRepository.actualizarValorDeCampo(idFolioServicio, "NotAsesor", "No");
+                envioDeNotificacion = "No";
+            }
+            return envioDeNotificacion;
+        }
+
         public void actualizarValorDeCampoPorFolioYUsuario(string numeroDeFolioServicio, string campoQueActualizas, 
             string valorDelCampo)
         {
             _browserRepository.actualizarValorDeCampo(numeroDeFolioServicio, campoQueActualizas, valorDelCampo, _idUsuario);
+        }
+
+        public void verificarSiServicioFuncionaCorrectamente(string numeroDeFolioServicio, bool CHECKED_ESTA_FUNCIONANDO)
+        {
+            string texto = "Si";
+            if (CHECKED_ESTA_FUNCIONANDO == true)
+            {
+                texto = "Si";
+            }
+            else
+            {
+                texto = "No";
+            }
+            _browserRepository.actualizarValorDeCampo(numeroDeFolioServicio, "Funcionando", texto, _idUsuario);
         }
 
         public int consultarEstatusDeFolioServicio(string folioServicio)

@@ -14,6 +14,8 @@ namespace Test.Controlador.Ingeniero
     [TestClass]
     public class Test_C_FSR
     {
+       static FSR_Repository_Test repositorio = new FSR_Repository_Test();
+        C_FSR controladorFSR = new C_FSR(repositorio);
 
         [TestMethod]
         public void verificarSiIniciaOContinuaServicio_ReturnString()
@@ -29,6 +31,30 @@ namespace Test.Controlador.Ingeniero
             //Assert
             Assert.AreEqual(esperado, resultado);
 
+        }
+
+        [TestMethod]
+        public void verificarSiSeEnviaEmailAlAsesor_returnBool()
+        {
+            //Arrange
+            FSR_Repository_Test repositorio = new FSR_Repository_Test();
+            C_FSR controladorFSR = new C_FSR(repositorio);
+
+            var resultado = controladorFSR.verificarSiSeEnviaEmailAlAsesor("123", "NotAsesor");
+            bool esperado = true;
+
+            Assert.AreEqual(esperado, resultado);
+        }
+
+        [TestMethod]
+        public void verificarSiEnviaNotificacionDeObservacionesAlUsuario_return_string()
+        {
+            //Action
+            var resultado = controladorFSR.verificarSiEnviaNotificacionDeObservacionesAlUsuario(false, "1233");
+            string esperado = "No";
+
+            //Asser
+            Assert.AreEqual(esperado,resultado);
         }
     }
 
@@ -51,7 +77,7 @@ namespace Test.Controlador.Ingeniero
 
         public void actualizarValorDeCampo(string folio, string campo, string valorDelCampo)
         {
-            throw new NotImplementedException();
+            //actualiza BBD
         }
 
         public void actualizarValorDeCampo(string folio, string campo, string valorDelCampo, string idUsuario)
@@ -111,7 +137,7 @@ namespace Test.Controlador.Ingeniero
 
         public string consultarValorDeCampo(string folio, string campo)
         {
-            throw new NotImplementedException();
+            return "Si";
         }
 
         public string consultarValorDeCampoPorTop(string folio, string campo)

@@ -144,6 +144,7 @@ public partial class DetalleFSR : Page
                 //Comparacion de fechas (no puede hacerlo si la fecha es anterior a la fecha de servicio) funcionalidad pendiente
                 
                     string fechaNuevaAccion, horasDedicadasEnNuevaAccion, nuevaAccionRealizada;
+                    
                     fechaNuevaAccion = Fecha_nueva_accion_realizada.Text;
                     horasDedicadasEnNuevaAccion = txthorasD.Text;
                     nuevaAccionRealizada = txtacciones.Text;
@@ -208,8 +209,7 @@ public partial class DetalleFSR : Page
             {
                 txtobservaciones.Text = observacionesDeFolioServicio;
             }
-
-            verificarSiSeEnviaEmailAlAsesor();
+            Envio_de_notificacion_de_observacion.Checked = controladorFSR.verificarSiSeEnviaEmailAlAsesor(idFolioServicio, "NotAsesor");
         }
         catch (Exception ex)
         {
@@ -224,28 +224,6 @@ public partial class DetalleFSR : Page
             footerid.Style.Add("display", "none");
         }
     }
-
-    private void verificarSiSeEnviaEmailAlAsesor()
-    {
-        try
-        {
-            string notificacionAlAsesor = controladorFSR.consultarValorDeCampoPorFolio(idFolioServicio, "NotAsesor");
-            if (notificacionAlAsesor.Equals("Si"))
-            {
-                Envio_de_notificacion_de_observacion.Checked = true;
-            }
-            else
-            {
-                Envio_de_notificacion_de_observacion.Checked = false;
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.Write(ex.ToString());
-
-        }
-    }
-
     protected void Btn_Fallas_Encontradas_Click(object sender, EventArgs e)
     {
         try
@@ -302,12 +280,12 @@ public partial class DetalleFSR : Page
 
     protected void Actualizar_observaciones_Click(object sender, EventArgs e)
     {
-        if(txtobservaciones.Text.Length > 0)
+        if(txtobservaciones.Text.Length > 0) 
         {
             try
             {
                 controladorFSR.actualizarValorDeCampoPorFolioYUsuario(idFolioServicio, "Observaciones", txtobservaciones.Text);
-                notificarObservacionesAlAsesor();
+                Session["not_ase"] = controladorFSR.verificarSiEnviaNotificacionDeObservacionesAlUsuario(Envio_de_notificacion_de_observacion.Checked, idFolioServicio);
             }
             catch (Exception ex)
             {
@@ -319,21 +297,7 @@ public partial class DetalleFSR : Page
             }
         }
     }
-
-    private void notificarObservacionesAlAsesor()
-    {
-        if (Envio_de_notificacion_de_observacion.Checked == true)
-        {           
-            controladorFSR.actualizarValorDeCampoPorFolio(idFolioServicio, "NotAsesor", "Si");
-            Session["not_ase"] = "Si";
-        }
-        else if (Envio_de_notificacion_de_observacion.Checked == false)
-        {
-            controladorFSR.actualizarValorDeCampoPorFolio(idFolioServicio, "NotAsesor", "No");
-            Session["not_ase"] = "No";
-        }
-    }
-
+   
     protected void Actualizar_fallas_encontradas_Click(object sender, EventArgs e)
     {
         if (txtfallaencontrada.Text.Length > 0)
@@ -354,56 +318,14 @@ public partial class DetalleFSR : Page
     }
 
     protected void Btn_Vista_Previa_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            verificarSiServicioFuncionaCorrectamente();
-        }
-        catch (Exception ex)
-        {
-            Console.Write(ex.ToString());
-        }
-        finally
-        {
-            Response.Redirect("VistaPrevia.aspx");
-        }
+    {   
+        controladorFSR.verificarSiServicioFuncionaCorrectamente(idFolioServicio, CHECKED_ESTA_FUNCIONANDO.Checked);
+        Response.Redirect("VistaPrevia.aspx");       
     }
-
-    private void verificarSiServicioFuncionaCorrectamente()
-    {
-        string texto = "Si";
-        if (CHECKED_ESTA_FUNCIONANDO.Checked)
-        {
-            texto = "Si";
-        }
-        else
-        {
-            texto = "No";
-        }  
-        controladorFSR.actualizarValorDeCampoPorFolioYUsuario(idFolioServicio, "Funcionando", texto);
-    }
-
-   
 
     protected void Verificacion_de_estatus_esta_o_no_funcionando_CheckedChanged(object sender, EventArgs e)
     {
-        try
-        {
-            string texto = "Si";
-            if (CHECKED_ESTA_FUNCIONANDO.Checked)
-            {
-                texto = "Si";
-            }
-            else
-            {
-                texto = "No";
-            }
-            controladorFSR.actualizarValorDeCampoPorFolioYUsuario(idFolioServicio, "Funcionando", texto);
-        }
-        catch (Exception ex)
-        {
-            Console.Write(ex.ToString());
-        }
+        controladorFSR.verificarSiServicioFuncionaCorrectamente(idFolioServicio, CHECKED_ESTA_FUNCIONANDO.Checked);
     }
 
    
@@ -413,6 +335,7 @@ public partial class DetalleFSR : Page
         numeroDePartes = txtbox_numero_de_partes.Text;
         descripcionDeRefacion = txtbox_descripcion_refaccion.Text;
         cantidadDeRefacciones = txtbox_cantidad_refaccion.Text;
+
         if (numeroDePartes.Length > 0)
         {
             if (descripcionDeRefacion.Length > 0)
@@ -435,7 +358,7 @@ public partial class DetalleFSR : Page
             Response.Write("<script>alert('Favor de llenar todos los campos');</script>");
     }
 
-    private void agregarDatosDeRefacciones(string no, string num)
+    private void agregarDatosDeRefacciones(string numeroDePartes, string numeroDeRefacciones)
     {
         try
         {
@@ -443,8 +366,8 @@ public partial class DetalleFSR : Page
             TableCell[] cell1 = new TableCell[2];
             cell1[0] = new TableCell();
             cell1[1] = new TableCell();
-            cell1[0].Text = no;
-            cell1[1].Text = num + " pieza(s)";
+            cell1[0].Text = numeroDePartes;
+            cell1[1].Text = numeroDeRefacciones + " pieza(s)";
             row.Cells.AddRange(cell1);
             row.Style.Add("HorizontalAlign", "Center");
             Table1.Rows.Add(row);
@@ -582,16 +505,7 @@ public partial class DetalleFSR : Page
 
     protected void Verificar_si_se_envio_notificacion_a_usuario_CheckedChanged(object sender, EventArgs e)
     {
-        if (Envio_de_notificacion_de_observacion.Checked == true)
-        {  
-            controladorFSR.actualizarValorDeCampoPorFolio(idFolioServicio, "NotAsesor", "Si");
-            Session["not_ase"] = "Si";
-        }
-        else if(Envio_de_notificacion_de_observacion.Checked == false)
-        {
-            controladorFSR.actualizarValorDeCampoPorFolio(idFolioServicio, "NotAsesor", "No");
-            Session["not_ase"] = "No";
-        }
+        Session["not_ase"]= controladorFSR.verificarSiEnviaNotificacionDeObservacionesAlUsuario(Envio_de_notificacion_de_observacion.Checked, idFolioServicio);
     }
 
     protected void Ir_a_servicios_asignados_Click(object sender, EventArgs e)
