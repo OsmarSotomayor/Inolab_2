@@ -218,17 +218,19 @@ public partial class VistaPrevia : Page
 
     protected void Finalizar_reporte_Click(object sender, EventArgs e)
     {
-        int firmaUsuario = 0;
+        int firmaCliente = 0;
         int firmaIngeniero = 0;
 
-        firmaUsuario = verificarSiSeAgregoFirmaDeCliente();
+        firmaCliente = verificarSiSeAgregoFirmaDeCliente();
         firmaIngeniero = verificarSiSeAgregoFirmaDeIngeniero();
 
-        if (firmaUsuario <= 0 || firmaIngeniero <= 0)
+        if (firmaCliente <= 0 || firmaIngeniero <= 0)
         {
             
             Response.Write("<script>alert('Falta firma de cliente');</script>");
+            Response.Write("<script>alert('Por favor, Agrega Firma);</script>");
             Response.Redirect("VistaPrevia.aspx");
+            
         }
         else
         {
@@ -252,6 +254,7 @@ public partial class VistaPrevia : Page
             if (firmaCliente == -1)
             {
                 Response.Write("<script>alert('Falta firma de cliente');</script>");
+
             }
         }
         catch (Exception es)
@@ -414,19 +417,17 @@ public partial class VistaPrevia : Page
         int hora = Convert.ToInt32(horafinal.SelectedItem.ToString());
         int minuto = Convert.ToInt32(minfinal.SelectedItem.ToString());
 
-        string fechaCompletaYhoraDeCierrDeFolio = fechaDeFolio + " " + hora.ToString() + ":" + minuto.ToString();
-        DateTime fechaCierreFolio;
-        return  fechaCierreFolio = DateTime.Parse(fechaCompletaYhoraDeCierrDeFolio);
+        string fechaCompletaYhoraDeCierrDeFolio = fechaDeFolio + " " + hora.ToString() + ":" + minuto.ToString();  
+        return  DateTime.Parse(fechaCompletaYhoraDeCierrDeFolio);
     }
 
     public DateTime getFechaYhoraInicioDeServicio()
     {
-        DateTime fechaInicioDeServicio = verificarQueFechaInicioFolioSeaMenorAfechaWeb();
-        DateTime fechaYhoraInicioServicio;
-        return fechaYhoraInicioServicio = DateTime.Parse(fechaInicioDeServicio.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+        DateTime fechaInicioDeServicio = consultarFechaInicioFolioServicio();
+        return  DateTime.Parse(fechaInicioDeServicio.ToString("yyyy-MM-dd HH:mm:ss.fff"));
     }
 
-    private DateTime verificarQueFechaInicioFolioSeaMenorAfechaWeb()
+    private DateTime consultarFechaInicioFolioServicio()
     {
         try
         {
@@ -439,7 +440,6 @@ public partial class VistaPrevia : Page
             controladorFSR.actualizarValorDeCampoPorFolioYUsuario(Session["folio_p"].ToString(), "WebFechaIni", fecha_sol.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             return fecha_sol;
         }
-
     }
    
     public void verificarQueFechaInicioDeFolioSeaMenorAfechaFinDeServicio(DateTime fechaInicioServicio, DateTime fechaFinServicio)
