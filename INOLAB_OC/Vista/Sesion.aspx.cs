@@ -5,20 +5,24 @@ using System.Diagnostics;
 using INOLAB_OC.Controlador;
 using INOLAB_OC.Modelo;
 using INOLAB_OC.Entidades;
-
+using INOLAB_OC.Modelo.Browser.Interfaces;
+using INOLAB_OC.Modelo.Browser;
 namespace INOLAB_OC
-{   //COMENTARIO DE RAMA OMAR_DEVELOP
+{  
     public partial class Sesion : System.Web.UI.Page
     {
         const string areaVentas = "2";
         const string areaServiciosIngenieria = "6";
         const string ceoArtemio = "7";
         const string usuarioElizabethHuazo = "8";
+
+        static UsuarioRepository  repository = new UsuarioRepository();
+        C_Usuario controladorUsuario = new C_Usuario(repository);
+
         protected void Page_Load(object sender, EventArgs e)
         {
           string IP = Request.ServerVariables["REMOTE_ADDR"];
           lblip.Text = IP.ToString();
-
         }
 
         protected void Inicio_De_Sesion_Click(object sender, EventArgs e)
@@ -30,13 +34,15 @@ namespace INOLAB_OC
         {
             try
             {
-                //Fechas para el calendario
                 Session["fecha1"] = "";
                 Session["fecha2"] = "";
 
                 registrarInicioDeSesionDeUsuario();
+                E_Usuario objetoUsuario = new E_Usuario();
+                objetoUsuario.Nombre = txtUsuario.Text;
+                objetoUsuario.Contraseña = txtPass.Text;
 
-                DataRow  dataUser = C_Sesion.optenerDatosDeUsuario(txtUsuario.Text, txtPass.Text);
+                DataRow  dataUser = controladorUsuario.optenerDatosDeUsuario(objetoUsuario);
                 
                 if ((txtUsuario.Text == dataUser["Usuario"].ToString()) || (txtPass.Text == dataUser["Password_"].ToString()))
                 {
@@ -65,8 +71,7 @@ namespace INOLAB_OC
                     if (Session["idUsuario"].ToString().Equals(usuarioElizabethHuazo))
                     {
                         Response.Redirect("../Vista/Ingenieros/CalSel.aspx");
-                    }
-                    if (idArea == areaVentas)
+                    }else if (idArea == areaVentas)
                     {
                         if(Session["idUsuario"].ToString() == ceoArtemio)
                         {
@@ -91,8 +96,8 @@ namespace INOLAB_OC
             E_Usuario usuario = new E_Usuario();
             usuario.NombreDeUsuario = txtUsuario.Text;
             usuario.IP = lblip.Text;
-
-            C_Sesion.loggearUsuario(usuario);
+            controladorUsuario.loggearUsuario(usuario);
+            
         }
 
     }
